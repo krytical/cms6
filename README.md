@@ -4,30 +4,36 @@
 
 SETUP INSTRUCTIONS
 
-download and setup XAMPP
+- download and setup XAMPP
 
-in the XAMPP console terminal:
+- in the XAMPP console terminal:
 
-cd to htdocs
+cd to C:/xampp/htdocs/Symfony/
 
 php -r "readfile('https://symfony.com/installer');" > symfony
 
 php symfony
 
-download composer (https://getcomposer.org/download/)
+- download composer (https://getcomposer.org/download/)
 
-reboot your system!
+- reboot your system!
 
-git clone this repo into C:/xampp/htdocs/Symfony/
+- in the terminal:
 
-in the terminal:
+cd to C:/xampp/htdocs/Symfony/
+
+git clone this repo
 
 cd to cms6 (project folder)
 
 composer install
 
-When prompted for input just hit return a bunch of times
+If prompted for input just hit return a bunch of times
 
-You're done!
+-----You're done!--------
 
-start appache server in XAMPP and go to http://localhost/symfony/cms6/web/
+RUNNING SERVER
+
+start appache server and MYSQL in XAMPP 
+
+ go to http://localhost/symfony/cms6/web/
