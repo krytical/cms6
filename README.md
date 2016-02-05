@@ -2,7 +2,11 @@
 
 VERSIONS
 
-XAMPP/PHP: 5.6.15
+XAMPP/PHP (Download PHP 7.0.2 version!)
+Windows: https://www.apachefriends.org/xampp-files/7.0.2/xampp-win32-7.0.2-1-VC14-installer.exe
+Mac 32bit: https://www.apachefriends.org/xampp-files/7.0.2/xampp-linux-7.0.2-1-installer.run
+Mac 64bit: https://www.apachefriends.org/xampp-files/7.0.2/xampp-linux-x64-7.0.2-1-installer.run
+
 Symfony: 2.8
 
 SETUP INSTRUCTIONS
