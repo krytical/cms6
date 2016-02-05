@@ -6,9 +6,7 @@ XAMPP/PHP (Download PHP 7.0.2 version!):
 
 Windows: https://www.apachefriends.org/xampp-files/7.0.2/xampp-win32-7.0.2-1-VC14-installer.exe
 
-Mac 32bit: https://www.apachefriends.org/xampp-files/7.0.2/xampp-linux-7.0.2-1-installer.run
-
-Mac 64bit: https://www.apachefriends.org/xampp-files/7.0.2/xampp-linux-x64-7.0.2-1-installer.run
+Mac: https://www.apachefriends.org/xampp-files/7.0.2/xampp-osx-7.0.2-1-installer.dmg
 
 Symfony: 2.8
 
