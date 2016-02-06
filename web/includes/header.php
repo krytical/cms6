@@ -40,3 +40,10 @@
 		  </nav>
 		</div>
 	  </header>
+	  	  <div class="mdl-layout__drawer">
+		<span class="mdl-layout-title">CMS</span>
+		<nav class="mdl-navigation">
+		  <a class="mdl-navigation__link" href="">Your Conferences</a>
+		  <a class="mdl-navigation__link" href="">Your Events</a>
+		</nav>
+	  </div>

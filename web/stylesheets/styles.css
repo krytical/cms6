@@ -11,10 +11,35 @@ html, body {
   padding-top: 48px;
 }
 
+/*
+Home
+*/
 .cms .mdl-layout__content section:not(:last-of-type) {
   position: relative;
   margin-bottom: 48px;
 }
+
+
+/*
+Login
+*/
+.login-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mdl-layout__content-login {
+	padding: 24px;
+	flex: none;
+}
+
+/*
+Register
+*/
+
+/*
+Cards
+*/
 
 .welcome-card-wide.mdl-card {
   width: 900px;
@@ -25,34 +50,4 @@ html, body {
 }
 .welcome-card-wide > .mdl-card__menu {
   color: #fff;
-}
-
-.login-card-wide.mdl-card {
-  width: 900px;
-}
-
-.login-card-wide > .mdl-card__title {
-  color: #000;
-  height: 176px;
-}
-
-.form-signin, .form-signup {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-  padding-bottom: 45px;
-}
-
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.form-signin .form-control:focus {
-  z-index: 2;
 }

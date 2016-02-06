@@ -5,13 +5,6 @@
 	require_once($includes.'includes/header.php');
 ?> 
 
-	  <div class="mdl-layout__drawer">
-		<span class="mdl-layout-title">CMS</span>
-		<nav class="mdl-navigation">
-		  <a class="mdl-navigation__link" href="">Your Conferences</a>
-		  <a class="mdl-navigation__link" href="">Your Events</a>
-		</nav>
-	  </div>
 	  <main class="mdl-layout__content">
 		<div class="page-content">
 			<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
