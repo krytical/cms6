@@ -35,7 +35,7 @@
 		  <!-- Navigation. We hide it in small screens. -->
 		  <nav class="mdl-navigation">
 			<a class="mdl-navigation__link" href="index.php">Home</a>
-			<a class="mdl-navigation__link" href="">Register</a>
+			<a class="mdl-navigation__link" href="register.php">Register</a>
 			<a class="mdl-navigation__link" href="login.php">Login</a>
 		  </nav>
 		</div>

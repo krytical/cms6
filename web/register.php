@@ -5,12 +5,12 @@
 	require_once($includes.'includes/header.php');
     require($includes."html/login/config.php");  
 ?> 
-	
-	<main class="mdl-layout__content-login">
-	<div class="login-content">
+
+	<main class="mdl-layout__content-register">
+	<div class="register-content">
 		<div class="mdl-card mdl-shadow--2dp">
 			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-				<h2 class="mdl-card__title-text">Login</h2>
+				<h2 class="mdl-card__title-text">Register</h2>
 			</div>
 	  	<div class="mdl-card__supporting-text">
 				<form action="#">
@@ -19,17 +19,21 @@
 						<label class="mdl-textfield__label" for="username">Username</label>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="firstname" />
+						<label class="mdl-textfield__label" for="firstname">First Name</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="lastname" />
+						<label class="mdl-textfield__label" for="lastname">Last Name</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input class="mdl-textfield__input" type="password" id="userpass" />
 						<label class="mdl-textfield__label" for="userpass">Password</label>
 					</div>
-					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-						<input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" value="remember-me">
-						<span class="mdl-checkbox__label">Remember Me</span>
-					</label>
 				</form>
 			</div>
 			<div class="mdl-card__actions mdl-card--border">
-				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</button>
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Register</button>
 			</div>
 		</div>
 	</div>

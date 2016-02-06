@@ -4,6 +4,9 @@ html, body {
   padding: 0;
 }
 
+/*
+Home
+*/
 .page-content {
   margin: auto;
   max-width: 900px;
@@ -11,14 +14,10 @@ html, body {
   padding-top: 48px;
 }
 
-/*
-Home
-*/
 .cms .mdl-layout__content section:not(:last-of-type) {
   position: relative;
   margin-bottom: 48px;
 }
-
 
 /*
 Login
@@ -36,11 +35,20 @@ Login
 /*
 Register
 */
+.register-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdl-layout__content-register {
+	padding: 24px;
+	flex: none;
+}
 
 /*
 Cards
 */
-
 .welcome-card-wide.mdl-card {
   width: 900px;
 }

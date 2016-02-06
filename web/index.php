@@ -7,7 +7,7 @@
 
 	  <main class="mdl-layout__content">
 		<div class="page-content">
-			<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+			<section class="section--center mdl-grid mdl-grid--no-spacing">
 			<div class="welcome-card-wide mdl-card mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">Conference 1</h2>
@@ -22,7 +22,7 @@
 			  </div>
 			</div>
 			</section>
-			<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+			<section class="section--center mdl-grid mdl-grid--no-spacing">
 			<div class="welcome-card-wide mdl-card mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">Conference 2</h2>
@@ -37,7 +37,7 @@
 			  </div>
 			</div>
 			</section>
-			<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+			<section class="section--center mdl-grid mdl-grid--no-spacing">
 			<div class="welcome-card-wide mdl-card mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">Conference 3</h2>
