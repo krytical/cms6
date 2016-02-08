@@ -26,20 +26,20 @@ php symfony
 
 - in the terminal:
 ```
-cd to C:/xampp/htdocs/Symfony/
+cd xampp/htdocs/Symfony/
 git clone this repo
-cd <cms6 project folder>
+cd cms6
 composer install (If prompted for input just hit return a bunch of times)
 ```
 -----You're done!--------
 
-RUNNING SERVER
+**RUNNING SERVER (XAMPP)**
 
 - start appache server and MYSQL in XAMPP 
 
 - go to http://localhost/symfony/cms6/web/
 
-SETTING UP YOUR DATABASE (XAMPP)
+**SETTING UP YOUR DATABASE**
 
 - uncomment the following line in your php.ini file:
 `extension=php_pdo_mysql.dll`
@@ -63,3 +63,43 @@ parameters:
 `php app/console doctrine:database:create`
 
 - go to localhost/phpmyadmin then cms6->operations. Set collation to utf8_general_ci. Click Go
+
+**RUNNING MIGRATIONS** (https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html)
+
+- make sure app/AppKernel.php has the following:
+```
+public function registerBundles()
+{
+    $bundles = array(
+        //...
+        new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+    );
+}
+```
+- run the following in the command line:
+`composer require doctrine/doctrine-migrations-bundle "^1.0"`
+
+If it errors out, you may have to update the php version in composer.json
+```
+"config": {
+        "bin-dir": "bin",
+        "platform": {
+            "php": "7.0.2"
+        }
+    }
+```
+- you should now be able to apply migrations:
+`php app/console doctrine:migrations:migrate`
+
+- check http://localhost/phpmyadmin/ to make sure the tables were properly created
+
+**MIGRATION COMMANDS**
+```
+doctrine:migrations
+  :diff     Generate a migration by comparing your current database to your mapping information.
+  :execute  Execute a single migration version up or down manually.
+  :generate Generate a blank migration class.
+  :migrate  Execute a migration to a specified version or the latest available version.
+  :status   View the status of a set of migrations.
+  :version  Manually add and delete migration versions from the version table.
+```
