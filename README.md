@@ -103,3 +103,18 @@ doctrine:migrations
   :status   View the status of a set of migrations.
   :version  Manually add and delete migration versions from the version table.
 ```
+
+**CHANGING TABLES / CREATING MIGRATIONS**
+- Create a table with the following command:
+`php app/console doctrine:generate:entitiy`
+
+After editing DB tables, make sure to do the following:
+
+- Generate the getter/setter methods using the following command (or write them manually):
+`php app/console doctrine:generate:entities AppBundle`
+
+- Generate and apply the new migration scripts (WARNING: YOU COULD LOSE DATA THAT'S STORED IN THE DB):
+```
+php app/console doctrine:migrations:diff
+php app/console doctrine:migrations:migrate
+```
