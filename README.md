@@ -37,11 +37,14 @@ composer install (If prompted for input just hit return a bunch of times)
 
 - start appache server and MYSQL in XAMPP 
 
-- go to http://localhost/symfony/cms6/web/
+- in the terminal: 
+`php app/console server:run`
+
+- go to http://localhost:8000/
 
 **SETTING UP YOUR DATABASE**
 
-- uncomment the following line in your php.ini file:
+- uncomment the following line in your php.ini file: 
 `extension=php_pdo_mysql.dll`
 
 - make sure your app/config/parameters.yml file looks like this:
@@ -59,7 +62,7 @@ parameters:
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
 ```
-- run the following in the command line:
+- run the following in the command line: 
 `php app/console doctrine:database:create`
 
 - go to localhost/phpmyadmin then cms6->operations. Set collation to utf8_general_ci. Click Go
@@ -76,7 +79,7 @@ public function registerBundles()
     );
 }
 ```
-- run the following in the command line:
+- run the following in the command line: 
 `composer require doctrine/doctrine-migrations-bundle "^1.0"`
 
 If it errors out, you may have to update the php version in composer.json
@@ -88,7 +91,7 @@ If it errors out, you may have to update the php version in composer.json
         }
     }
 ```
-- you should now be able to apply migrations:
+- you should now be able to apply migrations: 
 `php app/console doctrine:migrations:migrate`
 
 - check http://localhost/phpmyadmin/ to make sure the tables were properly created
@@ -105,12 +108,13 @@ doctrine:migrations
 ```
 
 **CHANGING TABLES / CREATING MIGRATIONS**
-- Create a table with the following command:
+
+- Create a table with the following command: 
 `php app/console doctrine:generate:entitiy`
 
 After editing DB tables, make sure to do the following:
 
-- Generate the getter/setter methods using the following command (or write them manually):
+- Generate the getter/setter methods using the following command (or write them manually): 
 `php app/console doctrine:generate:entities AppBundle`
 
 - Generate and apply the new migration scripts (WARNING: YOU COULD LOSE DATA THAT'S STORED IN THE DB):
