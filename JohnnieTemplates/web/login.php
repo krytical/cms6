@@ -1,9 +1,6 @@
 <?php
-	$root = $_SERVER['DOCUMENT_ROOT'];
-	$includes = $root.'/Symfony/cms6/web/';
-	
-	require_once($includes.'includes/header.php');
-    require($includes."html/login/config.php");  
+	require_once('includes/header.php');
+    require("html/login/config.php");
 ?> 
 	
 	<main class="mdl-layout__content-login">
