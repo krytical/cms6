@@ -22,7 +22,7 @@
 	{% endblock css %}	
 	
 	{% block stylesheets %}
-            <link href="{{ asset('stylesheets/styles.css') }}" rel="stylesheet" />
+        <link href="{{ asset('stylesheets/styles.css') }}" rel="stylesheet" />
     {% endblock %}
 	
   </head>
@@ -38,8 +38,17 @@
 		  <!-- Navigation. We hide it in small screens. -->
 		  <nav class="mdl-navigation">
 			<a class="mdl-navigation__link" href="">Home</a>
-			<a class="mdl-navigation__link" href="">Register</a>
-			<a class="mdl-navigation__link" href="">Login</a>
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li class="mdl-list__item">
+					{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
+				</li>
+                <a class="mdl-navigation__link"
+					<a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
+				</a>
+            {% else %}
+				<a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
+                <a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
+            {% endif %}
 		  </nav>
 		</div>
 	  </header>
