@@ -1,7 +1,8 @@
 <?php
     // These variables are for connecting to MySQL database 
-    $username = "databaseuser"; 
-    $password = "databasepass"; 
-    $host = "localhost"; 
-    $dbname = "cmsdatabase";  
+    $host = "localhost";
+	$username = "root";
+	$password = "";
+	$db_name = "cms6";
+	$tbl_name = "account";	
 ?>
