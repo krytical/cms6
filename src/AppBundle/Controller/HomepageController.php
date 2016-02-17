@@ -29,7 +29,7 @@ class HomepageController extends Controller
         );
     }
 
-    # EVAN NOTES FOR LATER
+    # EVAN NOTES FOR LATER (http://symfony.com/doc/2.8/book/controller.html)
     # remember to specify route by GET, HEAD, PUT....
 
     # if PUT route:
