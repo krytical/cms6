@@ -122,3 +122,20 @@ After editing DB tables, make sure to do the following:
 php app/console doctrine:migrations:diff
 php app/console doctrine:migrations:migrate
 ```
+
+**FOSuserbundle Setup**
+
+You can find more detailed instructions here: https://symfony.com/doc/master/bundles/FOSUserBundle/index.html
+
+To download FOSUserBundle use composer:
+```
+composer require friendsofsymfony/user-bundle "~2.0@dev"
+```
+
+loginBranch has already setup the AppKernel.php, routing, config and security.yml parts
+
+Visit http://localhost/Symfony/cms6/web/app_dev.php/login to see the login page (will look very ugly right now).
+
+You may need to update your database to use the already created test account:
+Username: usertest
+Password: passtest

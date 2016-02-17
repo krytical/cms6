@@ -1,7 +1,7 @@
 <?php
-	$root = $_SERVER['DOCUMENT_ROOT'];
+	#$root = $_SERVER['DOCUMENT_ROOT'];
     #$includes = $root.'/Symfony/cms6/web/';
-	
+
     #require_once($includes.'includes/header.php');
     require_once('includes/header.php');
 ?> 

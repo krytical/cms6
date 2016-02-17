@@ -85,6 +85,10 @@ class Event
      */
     private $imgName;
 
+    public function __construct()
+    {
+        // your own logic
+    }
 
     /**
      * Get id
