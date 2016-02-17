@@ -279,4 +279,27 @@ class Event
     {
         return $this->imgName;
     }
+
+    /**
+     * Set conference
+     *
+     * @param \AppBundle\Entity\Conference $conference
+     * @return Event
+     */
+    public function setConference(\AppBundle\Entity\Conference $conference = null)
+    {
+        $this->conference = $conference;
+
+        return $this;
+    }
+
+    /**
+     * Get conference
+     *
+     * @return \AppBundle\Entity\Conference 
+     */
+    public function getConference()
+    {
+        return $this->conference;
+    }
 }
