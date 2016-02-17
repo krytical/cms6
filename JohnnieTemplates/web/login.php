@@ -1,10 +1,13 @@
 <?php
 	session_start();
-	$root = $_SERVER['DOCUMENT_ROOT'];
-	$includes = $root.'/Symfony/cms6/web/';
-	
-	require_once($includes.'includes/header.php');
-    require($includes."html/login/config.php");  
+	#$root = $_SERVER['DOCUMENT_ROOT'];
+	#$includes = $root.'/Symfony/cms6/web/';
+
+	require_once('includes/header.php');
+	require("html/login/config.php");
+
+	#require_once($includes.'includes/header.php');
+    #require($includes."html/login/config.php");
 	
 	if (isset($_SESSION['username'])){
 		header("location:../index.php");

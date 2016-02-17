@@ -1,6 +1,20 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+# For showing what DEFAULT controller method is called when a specific path is accessed.
+
+# the structure for making a new path is as follows:
+#   _controller: <bundle>:<class_name>:<method_name>
+
+_welcome:
+    path:      /
+    defaults:  { _controller: AppBundle:Homepage:homepage }
+
+login:
+    path:      /login
+    defaults:  { _controller: AppBundle:Login:number }
+

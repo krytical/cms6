@@ -1,10 +1,19 @@
 <!DOCTYPE html>
+
+<!-- This file is a template for ALL other html.twig files. If there's anything that
+     has to be included in all html files, include it here -->
+
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <!-- overwrite this if you want to change the title of the page -->
+        <title>{% block title %}Conference Management System{% endblock %}</title>
+
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <!-- the page icon -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/smile.ico') }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
