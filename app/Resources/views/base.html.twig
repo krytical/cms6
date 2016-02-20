@@ -16,6 +16,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('images/smile.ico') }}" />
     </head>
     <body>
+    {% block navigation %}
+    <nav>
+        <ul class="navigation">
+            <li><a href="{{ path('_welcome') }}">Home</a></li>
+            <li><a href="{{ path('login') }}">Login</a></li>
+        </ul>
+    </nav>
+    {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

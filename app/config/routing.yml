@@ -13,6 +13,9 @@ fos_user:
 _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
+    requirements:
+        _method:  GET|POST
+
 
 login:
     path:      /login

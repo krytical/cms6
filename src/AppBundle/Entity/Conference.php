@@ -3,6 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\MinLength;
+use Symfony\Component\Validator\Constraints\MaxLength;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Conference
@@ -185,4 +192,18 @@ class Conference
     {
         return $this->imgName;
     }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('id', new NotBlank());
+
+        $metadata->addPropertyConstraint('name', new NotBlank());
+
+        $metadata->addPropertyConstraint('location', new NotBlank());
+        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+
+        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+    }
+
+
 }
