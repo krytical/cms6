@@ -1,7 +1,6 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
-
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block fos_user_content %}
 <main class="mdl-layout__content-register">
 	<div class="register-content">
 		<div class="mdl-card mdl-shadow--2dp">
@@ -10,7 +9,7 @@
 			</div>
 			{{form_start(form, {'method': 'POST', 'attr':{'class': 'register'}})}}
 			  <div class="mdl-card__supporting-text">
-				<<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				  {{ form_label(form.username) }}
 				  {{ form_widget(form.username) }}
 				</div>
@@ -58,5 +57,9 @@
 	<script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
 {% endblock %}
 
+
 {% block javascript %}{% endblock javascript %}
 </body>
+</html>
+				
+{% endblock fos_user_content %}
