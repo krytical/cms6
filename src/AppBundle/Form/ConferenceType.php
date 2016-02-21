@@ -10,7 +10,6 @@ class ConferenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id');
         $builder->add('name');
         $builder->add('location');
         $builder->add('startDate');

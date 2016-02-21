@@ -45,14 +45,14 @@ class Conference
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start_date", type="date")
+     * @ORM\Column(name="start_date", type="datetime")
      */
     private $startDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="end_date", type="date")
+     * @ORM\Column(name="end_date", type="datetime")
      */
     private $endDate;
 
@@ -132,7 +132,7 @@ class Conference
      */
     public function setStartDate($startDate)
     {
-        $this->startDate = $startDate;
+        $this->startDate = new \DateTime("now");
 
         return $this;
     }
@@ -155,7 +155,7 @@ class Conference
      */
     public function setEndDate($endDate)
     {
-        $this->endDate = $endDate;
+        $this->endDate = new \DateTime("now");
 
         return $this;
     }
@@ -195,7 +195,6 @@ class Conference
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('id', new NotBlank());
 
         $metadata->addPropertyConstraint('name', new NotBlank());
 

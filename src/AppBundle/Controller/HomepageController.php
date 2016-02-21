@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Conference;
 use AppBundle\Form\ConferenceType;
 
@@ -13,7 +14,7 @@ class HomepageController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function homepageAction()
+    public function homepageAction(Request $request)
     {
         # This is just a stub to show how controllers work.
         # Change this to properly display the homepage
@@ -24,22 +25,21 @@ class HomepageController extends Controller
         }
         $numbersList = implode(', ', $numbers);
 
-
+        // 1) build the form
         $conference = new Conference();
         $form = $this->createForm(new ConferenceType(), $conference);
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        // if its a valid confernece need to add it to the database and put it on homepage
+            $em = $this->getDoctrine()->getManager();
+           	$em->persist($conference);
+           	$em->flush();
 
-        $request = $this->getRequest();
-
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
-
-            if ($form->isValid()) {
-                // if its a valid confernece need to add it to the database and put it on homw page
-                 return $this->redirect($this->generateUrl('_welcome'));
-            }
+            return $this->redirect($this->generateUrl('_welcome'));
 
         }
-
         // renders the homepage
         return $this->render(
             'homepage/index.html.twig',
