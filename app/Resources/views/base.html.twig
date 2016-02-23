@@ -94,6 +94,16 @@
         {% endif %}
     {% endblock %}
 
+{# TODO: figure out how to properly display form validation errors
+{% block errors %}
+    <ul>
+        {% for error in errors %}
+            <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+#}
+
     {% block body %}{% endblock %}
 
     {% block bootstrap_js %}{% endblock %}

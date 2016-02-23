@@ -1,3 +1,6 @@
+# This file is for updating the fields that each FOS page displays.
+# If you want to add or edit any fields make sure to do it here.
+
 group:
     edit:
         submit: 'Update group'

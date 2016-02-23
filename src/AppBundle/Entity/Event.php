@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -33,6 +34,14 @@ class Event
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the name of the event.",
+     *     groups={"Event"})
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="The event name is too long.",
+     *     groups={"Event"})
      */
     private $name;
 
@@ -40,6 +49,14 @@ class Event
      * @var string
      *
      * @ORM\Column(name="location", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the location of the event.",
+     *     groups={"Event"})
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="The location name is too long.",
+     *     groups={"Event"})
      */
     private $location;
 
@@ -47,6 +64,14 @@ class Event
      * @var string
      *
      * @ORM\Column(name="speaker", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the speaker of the event.",
+     *     groups={"Event"})
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="The speaker name is too long.",
+     *     groups={"Event"})
      */
     private $speaker;
 
@@ -54,6 +79,13 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="start_datetime", type="datetime")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the start date of the event.",
+     *     groups={"Event"})
+     * @Assert\Date(
+     *     message="Please enter a valid date.",
+     *     groups={"Event"})
      */
     private $startDatetime;
 
@@ -61,6 +93,13 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="end_datetime", type="datetime")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the end date of the event.",
+     *     groups={"Event"})
+     * @Assert\Date(
+     *     message="Please enter a valid date.",
+     *     groups={"Event"})
      */
     private $endDatetime;
 
@@ -68,6 +107,10 @@ class Event
      * @var int
      *
      * @ORM\Column(name="capacity", type="integer", nullable=true)
+     *
+     *  @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Please enter a value of at least zero.")
      */
     private $capacity;
 
@@ -75,6 +118,10 @@ class Event
      * @var int
      *
      * @ORM\Column(name="spots_remaining", type="integer", nullable=true)
+     *
+     *  @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Please enter a value of at least zero.")
      */
     private $spotsRemaining;
 

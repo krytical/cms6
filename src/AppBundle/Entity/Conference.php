@@ -5,9 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\MinLength;
-use Symfony\Component\Validator\Constraints\MaxLength;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -32,6 +29,14 @@ class Conference
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the name of the Conference.",
+     *     groups={"Conference"})
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="The conference name is too long.",
+     *     groups={"Conference"})
      */
     private $name;
 
@@ -39,6 +44,14 @@ class Conference
      * @var string
      *
      * @ORM\Column(name="location", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the location of the Conference.",
+     *     groups={"Conference"})
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="The location name is too long.",
+     *     groups={"Conference"})
      */
     private $location;
 
@@ -46,6 +59,13 @@ class Conference
      * @var \DateTime
      *
      * @ORM\Column(name="start_date", type="datetime")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the start date of the Conference.",
+     *     groups={"Conference"})
+     * @Assert\DateTime(
+     *     message="Please enter a valid date.",
+     *     groups={"Conference"})
      */
     private $startDate;
 
@@ -53,6 +73,13 @@ class Conference
      * @var \DateTime
      *
      * @ORM\Column(name="end_date", type="datetime")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter the end date of the Conference.",
+     *     groups={"Conference"})
+     * @Assert\DateTime(
+     *     message="Please enter a valid date.",
+     *     groups={"Conference"})
      */
     private $endDate;
 
