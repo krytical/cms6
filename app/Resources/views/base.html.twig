@@ -64,6 +64,7 @@
     {% endblock %}
 
     {% block drawer %}
+        {# TODO: only have the drawer if we're logged in #}
         {# if is_granted("IS_AUTHENTICATED_REMEMBERED") #}
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">CMS</span>
@@ -71,7 +72,7 @@
                     <a class="mdl-navigation__link" href="">Your Conferences</a>
                     <a class="mdl-navigation__link" href="">Your Events</a>
 
-                    <!-- Check user privileges first -->
+                    {# TODO: check user privileges before displaying these #}
                     <a class="mdl-navigation__link" href="">Manage Conferences And Events</a>
                     <a class="mdl-navigation__link" href="">Manage Hotels</a>
                     <a class="mdl-navigation__link" href="">Manage Registrations</a>
