@@ -47,6 +47,20 @@ Register
 }
 
 /*
+Create Conference
+*/
+.create_conference-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdl-layout__content-create_conference {
+  padding: 24px;
+  flex: none;
+}
+
+/*
 Cards
 */
 .welcome-card-wide.mdl-card {
