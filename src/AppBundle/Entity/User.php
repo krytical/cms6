@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          column=@ORM\Column(name="username", type="string", length=25, unique=true)
  *      ),
  *     @ORM\AttributeOverride(name="email",
- *          column=@ORM\Column(name="email", type="string", length=50, nullable=true)
+ *          column=@ORM\Column(name="email", type="string", length=50, unique=true, nullable=true)
  *      ),
  *     @ORM\AttributeOverride(name="password",
  *          column=@ORM\Column(name="password", type="string", length=25)

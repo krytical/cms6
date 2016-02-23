@@ -132,6 +132,7 @@ class Conference
      */
     public function setStartDate($startDate)
     {
+        # TODO: make this = $startDate
         $this->startDate = new \DateTime("now");
 
         return $this;
@@ -155,6 +156,7 @@ class Conference
      */
     public function setEndDate($endDate)
     {
+        # TODO: make this = $endDate
         $this->endDate = new \DateTime("now");
 
         return $this;

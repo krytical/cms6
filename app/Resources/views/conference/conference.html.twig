@@ -1,0 +1,29 @@
+{# app/Resources/views/conference/conference.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Conference Creation{% endblock%}
+
+{% block body %}
+	
+	<header>
+        <h1>Conference Creation</h1>
+    </header>
+
+    <p>How to do events?</p>
+
+    {# TODO: Twig Function "form_enctype" is deprecated. Use "form_start" instead #}
+    <form action="{{ path('_welcome') }}" method="post" {{ form_enctype(form) }} class="blogger">
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.location) }}
+        {{ form_row(form.startDate) }}
+        {{ form_row(form.endDate) }}
+        {{ form_row(form.imgName) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}

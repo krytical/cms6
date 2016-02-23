@@ -14,10 +14,9 @@ class HomepageController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function homepageAction(Request $request)
+    public function homepageAction()
     {
-        # This is just a stub to show how controllers work.
-        # Change this to properly display the homepage
+        # TODO: Display a list of conferences
 
         $numbers = array();
         for ($i = 0; $i < 5; $i++) {
@@ -25,34 +24,10 @@ class HomepageController extends Controller
         }
         $numbersList = implode(', ', $numbers);
 
-        // 1) build the form
-        $conference = new Conference();
-        $form = $this->createForm(new ConferenceType(), $conference);
-        // 2) handle the submit (will only happen on POST)
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-        // if its a valid confernece need to add it to the database and put it on homepage
-            $em = $this->getDoctrine()->getManager();
-           	$em->persist($conference);
-           	$em->flush();
-
-            return $this->redirect($this->generateUrl('_welcome'));
-
-        }
         // renders the homepage
         return $this->render(
-            'homepage/index.html.twig',
-            array('luckyNumber' => $numbersList,
-                'form' => $form->createView())
+            'homepage/homepage.html.twig',
+            array('luckyNumber' => $numbersList)
         );
     }
-
-
-    # EVAN NOTES FOR LATER (http://symfony.com/doc/2.8/book/controller.html)
-    # remember to specify route by GET, HEAD, PUT....
-
-    # if PUT route:
-    # use Symfony\Component\HttpFoundation\Request;
-    # public function xAction(Request $request)
 }
