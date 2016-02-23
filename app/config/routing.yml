@@ -13,11 +13,7 @@ fos_user:
 _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
-    requirements:
-        _method:  GET|POST
 
-
-login:
-    path:      /login
-    defaults:  { _controller: AppBundle:Login:number }
-
+conference:
+    path:      /conference
+    defaults:  { _controller: AppBundle:Conference:conference }

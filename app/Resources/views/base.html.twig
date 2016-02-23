@@ -3,28 +3,111 @@
 <!-- This file is a template for ALL other html.twig files. If there's anything that
      has to be included in all html files, include it here -->
 
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <!-- overwrite this if you want to change the title of the page -->
         <title>{% block title %}Conference Management System{% endblock %}</title>
 
-        {% block stylesheets %}{% endblock %}
-
         <!-- the page icon -->
         <link rel="icon" type="image/x-icon" href="{{ asset('images/smile.ico') }}" />
+
+        {% block bootstrap_css %}
+            <!-- Bootstrap -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        {% endblock %}
+
+        {% block css %}
+            <!-- MDL -->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+            <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.blue-indigo.min.css" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        {% endblock css %}
+
+        {% block stylesheets %}
+            <link href="{{ asset('stylesheets/styles.css') }}" rel="stylesheet" />
+        {% endblock %}
+
     </head>
-    <body>
-    {% block navigation %}
-    <nav>
-        <ul class="navigation">
-            <li><a href="{{ path('_welcome') }}">Home</a></li>
-            <li><a href="{{ path('login') }}">Login</a></li>
-        </ul>
-    </nav>
+
+
+    <body class = "cms mdl-color--grey-100 mdl-base">
+
+    {% block header %}
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">Conference Management System</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation. We hide it in small screens. -->
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link" href="">Home</a>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="mdl-list__item">
+                                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
+                            </li>
+                            <a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
+                        {% else %}
+                            <a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
+                            <a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </header>
+        </div>
     {% endblock %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+    {% block drawer %}
+        {# if is_granted("IS_AUTHENTICATED_REMEMBERED") #}
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">CMS</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Your Conferences</a>
+                    <a class="mdl-navigation__link" href="">Your Events</a>
+
+                    <!-- Check user privileges first -->
+                    <a class="mdl-navigation__link" href="">Manage Conferences And Events</a>
+                    <a class="mdl-navigation__link" href="">Manage Hotels</a>
+                    <a class="mdl-navigation__link" href="">Manage Registrations</a>
+                    <a class="mdl-navigation__link" href="">Manage User privileges</a>
+
+                </nav>
+            </div>
+        {# endif #}
+    {% endblock %}
+
+    {% block messages %}
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+
+{# TODO: figure out how to properly display form validation errors
+{% block errors %}
+    <ul>
+        {% for error in errors %}
+            <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+#}
+
+    {% block body %}{% endblock %}
+
+    {% block bootstrap_js %}{% endblock %}
+    {% block javascript %}{% endblock %}
+
     </body>
 </html>

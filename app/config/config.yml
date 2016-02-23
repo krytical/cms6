@@ -12,6 +12,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
+    registration:
+            form:
+                type: AppBundle\Form\RegistrationType
 
 services:
     fos_user.doctrine_registry:
@@ -44,6 +47,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    # globals:
+    #        fos_csrf_provider: "@form.csrf_provider"
 
 # Doctrine Configuration
 doctrine:
