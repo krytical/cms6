@@ -17,17 +17,16 @@ class HomepageController extends Controller
     public function homepageAction()
     {
         # TODO: Display a list of conferences
-
-        $numbers = array();
-        for ($i = 0; $i < 5; $i++) {
-            $numbers[] = rand(0, 100);
-        }
-        $numbersList = implode(', ', $numbers);
-
-        // renders the homepage
-        return $this->render(
-            'homepage/homepage.html.twig',
-            array('luckyNumber' => $numbersList)
-        );
+		
+		/* THIS DOES NOT WORK YET
+		$em = $this->getDoctrine()->getManager();
+		$conferences = $em->getRepository('AppBundle\Entity\Conference')->findAll();
+		$conferenceName = $conferences->getName();
+		
+		return $this->render('homepage/homepage.html.twig', 
+			array('conferenceName'=>$conferenceName));
+		*/
+		$test = 'test';
+		return $this->render('homepage/homepage.html.twig', array('conferenceName'=>$test));
     }
 }

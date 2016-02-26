@@ -35,7 +35,8 @@
     </head>
 
 
-    <body class = "cms mdl-color--grey-100 mdl-base">
+    <body>
+		<div class = "cms mdl-color--grey-100 mdl-base">
 
     {% block header %}
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -45,9 +46,8 @@
                     <span class="mdl-layout-title">Conference Management System</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
-                    <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation">
-                        <a class="mdl-navigation__link" href="">Home</a>
+                        <a class="mdl-navigation__link" href="/">Home</a>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li class="mdl-list__item">
                                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
@@ -109,6 +109,3 @@
 
     {% block bootstrap_js %}{% endblock %}
     {% block javascript %}{% endblock %}
-
-    </body>
-</html>
