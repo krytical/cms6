@@ -25,10 +25,10 @@ class EventRegistration
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Account")
-     * @ORM\JoinColumn(name="account_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $account;
+    private $user;
 
     /**
      * @var int
@@ -80,26 +80,26 @@ class EventRegistration
     }
 
     /**
-     * Set account
+     * Set user
      *
-     * @param \AppBundle\Entity\Account $account
+     * @param \AppBundle\Entity\User $user
      * @return EventRegistration
      */
-    public function setAccount(\AppBundle\Entity\Account $account = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->account = $account;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get account
+     * Get user
      *
-     * @return \AppBundle\Entity\Account
+     * @return \AppBundle\Entity\User
      */
-    public function getAccount()
+    public function getUser()
     {
-        return $this->account;
+        return $this->user;
     }
 
     /**
