@@ -160,51 +160,49 @@ class Conference
     }
 
     /**
-     * Set startDate
+     * Set startDatetime
      *
-     * @param \DateTime $startDate
+     * @param \DateTime $startDatetime
      * @return Conference
      */
-    public function setStartDate($startDate)
+    public function setStartDatetime($startDatetime)
     {
-        # TODO: make this = $startDate
-        $this->startDate = new \DateTime("now");
+        $this->startDatetime = $startDatetime;
 
         return $this;
     }
 
     /**
-     * Get startDate
+     * Get startDatetime
      *
      * @return \DateTime 
      */
-    public function getStartDate()
+    public function getStartDatetime()
     {
-        return $this->startDate;
+        return $this->startDatetime;
     }
 
     /**
-     * Set endDate
+     * Set endDatetime
      *
-     * @param \DateTime $endDate
+     * @param \DateTime $endDatetime
      * @return Conference
      */
-    public function setEndDate($endDate)
+    public function setEndDatetime($endDatetime)
     {
-        # TODO: make this = $endDate
-        $this->endDate = new \DateTime("now");
+        $this->endDate = $endDatetime;
 
         return $this;
     }
 
     /**
-     * Get endDate
+     * Get endDatetime
      *
      * @return \DateTime 
      */
-    public function getEndDate()
+    public function getEndDatetime()
     {
-        return $this->endDate;
+        return $this->endDatetime;
     }
 
     /**
@@ -236,9 +234,9 @@ class Conference
         $metadata->addPropertyConstraint('name', new NotBlank());
 
         $metadata->addPropertyConstraint('location', new NotBlank());
-        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
 
-        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
     }
 
 
@@ -264,51 +262,5 @@ class Conference
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set startDatetime
-     *
-     * @param \DateTime $startDatetime
-     * @return Conference
-     */
-    public function setStartDatetime($startDatetime)
-    {
-        $this->startDatetime = $startDatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get startDatetime
-     *
-     * @return \DateTime 
-     */
-    public function getStartDatetime()
-    {
-        return $this->startDatetime;
-    }
-
-    /**
-     * Set endDatetime
-     *
-     * @param \DateTime $endDatetime
-     * @return Conference
-     */
-    public function setEndDatetime($endDatetime)
-    {
-        $this->endDatetime = $endDatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get endDatetime
-     *
-     * @return \DateTime 
-     */
-    public function getEndDatetime()
-    {
-        return $this->endDatetime;
     }
 }

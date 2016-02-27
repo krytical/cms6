@@ -15,7 +15,6 @@ class SecurityController extends BaseController
 {
     public function loginAction(Request $request)
     {
-        # TODO: overwrite this method to also send the password to renderLogin (which just calls FOSUserBundle:Security:login.html.twig)
 
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();

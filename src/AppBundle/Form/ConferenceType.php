@@ -1,25 +1,29 @@
 <?php
 
-
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type;
 
 class ConferenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        # TODO: Passing type instances to FormBuilder::add(), Form::add() or the
-        # FormFactory is deprecated since version 2.8 and will not be supported
-        # in 3.0. Use the fully-qualified type class name instead
-
-        # TODO: add description and change startDate and endDate to startDatetime endDatetime
         $builder->add('name');
+        $builder->add('description', Type\TextareaType::class);
         $builder->add('location');
-        $builder->add('startDate');
-        $builder->add('endDate');
+        $builder->add('startDatetime');
+        $builder->add('endDatetime');
         $builder->add('imgName');
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Conference',
+        ));
     }
 
 }
