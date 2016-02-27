@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block title %}Login{% endblock%}
 
-{% block body %}
+{% block fos_user_content %}
 
-    {# TODO: fix formatting #}
+    {# TODO: THIS IS BROKEN #}
 
     <main class="mdl-layout__content-login">
         <div class="page-content mdl-grid">
@@ -54,9 +54,9 @@
     <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
 {% endblock %}
 
-</div>
-</body>
-</html>
+{#</div>#}
+{#</body>#}
+{#</html>#}
 
-{% endblock body %}
+{% endblock fos_user_content %}
 

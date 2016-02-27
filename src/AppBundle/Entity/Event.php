@@ -48,6 +48,14 @@ class Event
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="string")
+     *
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="location", type="string", length=100)
      *
      * @Assert\NotBlank(
@@ -110,7 +118,8 @@ class Event
      *
      *  @Assert\Range(
      *      min = 0,
-     *      minMessage = "Please enter a value of at least zero.")
+     *      minMessage = "Please enter a value of at least zero.",
+     *      groups={"Event"})
      */
     private $capacity;
 
@@ -121,7 +130,8 @@ class Event
      *
      *  @Assert\Range(
      *      min = 0,
-     *      minMessage = "Please enter a value of at least zero.")
+     *      minMessage = "Please enter a value of at least zero.",
+     *      groups={"Event"})
      */
     private $spotsRemaining;
 
@@ -352,5 +362,28 @@ class Event
     public function getConference()
     {
         return $this->conference;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Event
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

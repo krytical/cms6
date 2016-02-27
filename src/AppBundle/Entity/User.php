@@ -70,33 +70,43 @@ class User extends BaseUser
      */
     private $imgName;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="approved", type="boolean")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter approved true or false.",
+     *     groups={"User"})
+     */
+    private $approved;
+
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="username", type="string", length=25, unique=true)
+//     */
+//    protected $username;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="password", type="string", length=25)
+//     */
+//    protected $password;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="email", type="string", length=50, unique=true, nullable=true)
+//     */
+//    protected $email;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
-
-
-   // /**
-   //  * @var string
-   //  *
-   //  * @ORM\Column(name="username", type="string", length=25, unique=true)
-   //  */
-   // protected $username;
-
-   // /**
-   //  * @var string
-   //  *
-   //  * @ORM\Column(name="password", type="string", length=25)
-   //  */
-   // protected $password;
-
-   // /**
-   //  * @var string
-   //  *
-   //  * @ORM\Column(name="email", type="string", length=50, nullable=true)
-   //  */
-   // protected $email;
 
     /**
      * Set name
@@ -167,4 +177,27 @@ class User extends BaseUser
         return $this->imgName;
     }
 
+
+    /**
+     * Set approved
+     *
+     * @param boolean $approved
+     * @return User
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return boolean 
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
 }

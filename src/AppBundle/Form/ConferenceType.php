@@ -14,6 +14,7 @@ class ConferenceType extends AbstractType
         # FormFactory is deprecated since version 2.8 and will not be supported
         # in 3.0. Use the fully-qualified type class name instead
 
+        # TODO: add description and change startDate and endDate to startDatetime endDatetime
         $builder->add('name');
         $builder->add('location');
         $builder->add('startDate');

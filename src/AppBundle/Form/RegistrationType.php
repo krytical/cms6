@@ -9,6 +9,7 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        # TODO: add "approved" bool field (defaults to false)
         $builder->add('name');
         $builder->add('phone');
         $builder->add('imgName');
