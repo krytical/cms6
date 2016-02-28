@@ -43,6 +43,14 @@ class Conference
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="string")
+     *
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="location", type="string", length=100)
      *
      * @Assert\NotBlank(
@@ -58,7 +66,7 @@ class Conference
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start_date", type="datetime")
+     * @ORM\Column(name="start_datetime", type="datetime")
      *
      * @Assert\NotBlank(
      *     message="Please enter the start date of the Conference.",
@@ -67,12 +75,12 @@ class Conference
      *     message="Please enter a valid date.",
      *     groups={"Conference"})
      */
-    private $startDate;
+    private $startDatetime;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="end_date", type="datetime")
+     * @ORM\Column(name="end_datetime", type="datetime")
      *
      * @Assert\NotBlank(
      *     message="Please enter the end date of the Conference.",
@@ -81,7 +89,7 @@ class Conference
      *     message="Please enter a valid date.",
      *     groups={"Conference"})
      */
-    private $endDate;
+    private $endDatetime;
 
     /**
      * @var string
@@ -152,51 +160,49 @@ class Conference
     }
 
     /**
-     * Set startDate
+     * Set startDatetime
      *
-     * @param \DateTime $startDate
+     * @param \DateTime $startDatetime
      * @return Conference
      */
-    public function setStartDate($startDate)
+    public function setStartDatetime($startDatetime)
     {
-        # TODO: make this = $startDate
-        $this->startDate = new \DateTime("now");
+        $this->startDatetime = $startDatetime;
 
         return $this;
     }
 
     /**
-     * Get startDate
+     * Get startDatetime
      *
      * @return \DateTime 
      */
-    public function getStartDate()
+    public function getStartDatetime()
     {
-        return $this->startDate;
+        return $this->startDatetime;
     }
 
     /**
-     * Set endDate
+     * Set endDatetime
      *
-     * @param \DateTime $endDate
+     * @param \DateTime $endDatetime
      * @return Conference
      */
-    public function setEndDate($endDate)
+    public function setEndDatetime($endDatetime)
     {
-        # TODO: make this = $endDate
-        $this->endDate = new \DateTime("now");
+        $this->endDate = $endDatetime;
 
         return $this;
     }
 
     /**
-     * Get endDate
+     * Get endDatetime
      *
      * @return \DateTime 
      */
-    public function getEndDate()
+    public function getEndDatetime()
     {
-        return $this->endDate;
+        return $this->endDatetime;
     }
 
     /**
@@ -228,10 +234,33 @@ class Conference
         $metadata->addPropertyConstraint('name', new NotBlank());
 
         $metadata->addPropertyConstraint('location', new NotBlank());
-        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
 
-        $metadata->addPropertyConstraint('startDate', new Assert\Date());
+        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
     }
 
 
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Conference
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }

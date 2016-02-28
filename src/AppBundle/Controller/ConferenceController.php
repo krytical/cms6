@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Controller/HomepageController.php
+// src/AppBundle/Controller/ConferenceController.php
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,15 +12,18 @@ use AppBundle\Form\ConferenceType;
 class ConferenceController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/conference", name="conference")
      */
     public function conferenceAction(Request $request)
     {
 
-// 1) build the form
+        # TODO: THIS IS BROKEN
+
+        // 1) build the form
         $conference = new Conference();
-        $form = $this->createForm(new ConferenceType(), $conference);
-// 2) handle the submit (will only happen on POST)
+        $form = $this->createForm(ConferenceType::class, $conference);
+
+        // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -29,7 +32,12 @@ class ConferenceController extends Controller
             $em->persist($conference);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('_welcome'));
+            $this->addFlash(
+                'notice',
+                'Conference created successfully!'
+            );
+
+            return $this->redirectToRoute('_welcome');
 
         }
 
@@ -39,5 +47,33 @@ class ConferenceController extends Controller
             array(
                 'form' => $form->createView())
         );
+    }
+
+    /**
+     * @Route("/conference/{conf_id}", name="conference_show")
+     */
+    public function showAction($conf_id)
+    {
+        # TODO: stub for showing a conference (this can contain all the events if we want)
+
+        # render the show page for the conference
+        return $this->render(
+            'conference/conference_show.html.twig', array(
+            'conf_id' => $conf_id,
+        ));
+    }
+
+    /**
+     * @Route("/conference/{conf_id}/edit", name="conference_edit")
+     */
+    public function editAction(Request $request, $conf_id)
+    {
+        # TODO: stub for editing a conference (can add, remove events also)
+
+        # render the edit page for the conference
+        return $this->render(
+            'conference/conference_edit.html.twig', array(
+            'conf_id' => $conf_id,
+        ));
     }
 }

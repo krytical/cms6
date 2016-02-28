@@ -10,6 +10,8 @@ fos_user:
 # the structure for making a new path is as follows:
 #   _controller: <bundle>:<class_name>:<method_name>
 
+# TODO: add a crap load of routes as needed
+
 _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }

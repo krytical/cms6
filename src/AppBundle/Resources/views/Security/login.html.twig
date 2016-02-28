@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block title %}Login{% endblock%}
 
-{% block body %}
+{% block fos_user_content %}
 
-    {# TODO: fix formatting #}
+    {# TODO: THIS IS BROKEN (I think it's routing issues) #}
 
     <main class="mdl-layout__content-login">
         <div class="page-content mdl-grid">
@@ -15,6 +15,7 @@
                 <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
                     <h2 class="mdl-card__title-text">Login</h2>
                 </div>
+
                 <form action="{{ path("fos_user_security_check") }}" method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     {# <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" /> #}
@@ -35,12 +36,15 @@
                         </div>
                     </div>
 
+                    {# submit button #}
                     <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" name="action">
                             {{ 'security.login.submit'|trans }}
+                            <i class="material-icons">send</i>
                         </button>
                     </div>
                 </form>
+
             </div>
 		<div class="mdl-layout-spacer"></div>
         </div>
@@ -54,9 +58,9 @@
     <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
 {% endblock %}
 
-</div>
-</body>
-</html>
+{#</div>#}
+{#</body>#}
+{#</html>#}
 
-{% endblock body %}
+{% endblock fos_user_content %}
 

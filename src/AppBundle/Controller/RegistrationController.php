@@ -17,7 +17,6 @@ class RegistrationController extends BaseController
 {
     public function registerAction(Request $request)
     {
-        # TODO: overwrite this method to support our additional user fields
 
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');

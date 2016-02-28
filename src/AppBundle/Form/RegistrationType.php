@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type;
 
 class RegistrationType extends AbstractType
 {
@@ -12,6 +13,9 @@ class RegistrationType extends AbstractType
         $builder->add('name');
         $builder->add('phone');
         $builder->add('imgName');
+        $builder->add('approved', Type\HiddenType::class, array(
+            'data' => 'false'
+        ));
     }
 
     public function getParent()

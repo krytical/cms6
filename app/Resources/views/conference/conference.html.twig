@@ -16,34 +16,21 @@
 				</div>
 
 				<form action="{{ path('_welcome') }}" method="post" {{ form_start(form) }}
+
 					{{ form_errors(form) }}
+
 					<div class="mdl-card__supporting-text">
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							{{ form_row (form.name) }}
-						</div>
-						
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							{{ form_row(form.location) }}
-						</div>
-						
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							{{ form_row(form.startDate) }}
-						</div>
-						
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							{{ form_row(form.endDate) }}
-						</div>
-						
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							{{ form_row(form.imgName) }}
+							{{ form_row(form) }}
 						</div>
 					</div>
 
-					{{ form_rest(form) }}
+					{#{{ form_rest(form) }}#}
 					
 					<div class="mdl-card__actions mdl-card--border">
 						<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" id="conference_submit" name="conference_submit" value="Submit">
 							Create Conference
+                            <i class="material-icons">send</i>
 						</button>
 					</div>
 				</form>
