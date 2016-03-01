@@ -14,14 +14,15 @@ class ConferenceType extends AbstractType
         $builder->add('name');
         $builder->add('description', Type\TextareaType::class);
         $builder->add('location');
-        $builder->add('startDatetime');
-        $builder->add('endDatetime');
+        $builder->add('startDatetime', Type\DateTimeType::class);
+        $builder->add('endDatetime', Type\DateTimeType::class);
         $builder->add('imgName');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'validation_groups' => array('Conference'),
             'data_class' => 'AppBundle\Entity\Conference',
         ));
     }

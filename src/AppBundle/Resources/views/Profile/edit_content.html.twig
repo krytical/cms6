@@ -1,5 +1,8 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+{# TODO: add our fields #}
+{# TODO: Figure out how to make this work with the default form #}
+
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
     {{ form_widget(form) }}
     <div>

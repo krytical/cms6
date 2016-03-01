@@ -16,6 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Conference
 {
+
+    # TODO: http://symfony.com/doc/current/book/forms.html#embedding-a-single-object
+
     /**
      * @var int
      *
@@ -190,7 +193,7 @@ class Conference
      */
     public function setEndDatetime($endDatetime)
     {
-        $this->endDate = $endDatetime;
+        $this->endDatetime = $endDatetime;
 
         return $this;
     }
@@ -228,18 +231,20 @@ class Conference
         return $this->imgName;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-
-        $metadata->addPropertyConstraint('name', new NotBlank());
-
-        $metadata->addPropertyConstraint('location', new NotBlank());
-        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
-
-        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
-    }
-
-
+//    this was causing issues with conference creation due to assert\Date()
+//    instead of assert\Datetime(). Things see to work without it though
+//    (were doing validation elsewhere) so I commented it out.
+//
+//    public static function loadValidatorMetadata(ClassMetadata $metadata)
+//    {
+//
+//        $metadata->addPropertyConstraint('name', new NotBlank());
+//
+//        $metadata->addPropertyConstraint('location', new NotBlank());
+//        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
+//
+//        $metadata->addPropertyConstraint('startDatetime', new Assert\Date());
+//    }
 
     /**
      * Set description

@@ -9,23 +9,48 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Hotel;
 use AppBundle\Form\HotelType;
 
+use Symfony\Component\Form\Extension\Core\Type;
+
 class HotelController extends Controller
 {
     /**
      * @Route("/hotel", name="hotel")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function hotelAction()
+    public function hotelAction(Request $request)
     {
 
-        # TODO: stub for main hotel page
+        $hotel = new Hotel();
+        $form = $this->createForm(HotelType::class, $hotel);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($hotel);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Hotel created successfully!'
+            );
+
+            return $this->redirectToRoute('_welcome');
+        }
 
         // renders the main hotel page
         return $this->render(
-            'hotel/hotel.html.twig'
-        );
+            'hotel/hotel.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
+
     /**
      * @Route("/hotel/{hotel_id}", name="hotel_show")
+     *
+     * @param integer $hotel_id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($hotel_id)
     {
@@ -40,6 +65,10 @@ class HotelController extends Controller
 
     /**
      * @Route("/hotel/{hotel_id}/edit", name="hotel_edit")
+     *
+     * @param Request $request
+     * @param integer $hotel_id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $hotel_id)
     {
