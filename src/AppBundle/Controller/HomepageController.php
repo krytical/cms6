@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Conference;
 use AppBundle\Form\ConferenceType;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomepageController extends Controller
 {
@@ -18,15 +19,12 @@ class HomepageController extends Controller
     {
         # TODO: Display a list of conferences
 		
-		/* THIS DOES NOT WORK YET
 		$em = $this->getDoctrine()->getManager();
-		$conferences = $em->getRepository('AppBundle\Entity\Conference')->findAll();
-		$conferenceName = $conferences->getName();
+		$conferences = $em->getRepository('AppBundle:Conference')->findAll();
 		
 		return $this->render('homepage/homepage.html.twig', 
-			array('conferenceName'=>$conferenceName));
-		*/
-		$test = 'test';
-		return $this->render('homepage/homepage.html.twig', array('conferenceName'=>$test));
+			array('conferences'=>$conferences));
+		
+
     }
 }
