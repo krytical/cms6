@@ -19,3 +19,7 @@ _welcome:
 conference:
     path:      /conference
     defaults:  { _controller: AppBundle:Conference:conference }
+
+hotel:
+    path:      /hotel
+    defaults:  { _controller: AppBundle:Hotel:hotel }

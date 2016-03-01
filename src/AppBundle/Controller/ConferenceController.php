@@ -17,17 +17,11 @@ class ConferenceController extends Controller
     public function conferenceAction(Request $request)
     {
 
-        # TODO: THIS IS BROKEN
-
-        // 1) build the form
         $conference = new Conference();
         $form = $this->createForm(ConferenceType::class, $conference);
-
-        // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            // if its a valid conference need to add it to the database and put it on homepage
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($conference);
             $em->flush();
@@ -38,10 +32,9 @@ class ConferenceController extends Controller
             );
 
             return $this->redirectToRoute('_welcome');
-
         }
 
-        // renders the homepage
+        // renders the main conference page
         return $this->render(
             'conference/conference.html.twig',
             array(

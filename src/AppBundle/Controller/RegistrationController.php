@@ -34,9 +34,6 @@ class RegistrationController extends BaseController
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        
-        # TODO: look into validation groups (we're already using them in our entities)
-        # http://symfony.com/doc/2.8/book/forms.html#book-forms-validation-groups
 
         $form = $formFactory->createForm();
         $form->setData($user);
