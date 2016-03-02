@@ -32,6 +32,10 @@ General
 	max-width: 1000px;
 }
 
+.mdl-textfield{
+	width: 400px;
+}
+
 /*
 Cards
 */
@@ -51,8 +55,20 @@ Cards
 }
 
 .conference-card-wide > .mdl-card__title {
-  color: #000;
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   height: 176px;
+  position: relative;
+  overflow: hidden;
+}
+
+.conference-card-wide > .mdl-card__title .conference-image{
+  position:absolute;
+  display: block;
+  width: 100%;
+  top: 0; bottom:0; left: 0; right:0;
+  margin: auto;
+  z-index:-1;
 }
 
 .conference-card-wide > .mdl-card__menu {
