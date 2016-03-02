@@ -16,7 +16,7 @@ class HotelRegistrationController extends Controller
     public function hotelRegistrationAction()
     {
         # TODO: stub for main HR page in case we want to do something with all HRs
-        # (we may just want to have a single super admin page that has all this)
+        # (probably don't need this since we'll have this in the main hotel page)
 
         // renders the main hotel page
         return $this->render(
@@ -29,8 +29,8 @@ class HotelRegistrationController extends Controller
      */
     public function showUserHotelRegistrationsAction()
     {
-        # TODO: stub for showing all the HRs of a user (we probably want to
-        # just show all registration info all together on the regular profile instead)
+        # TODO: stub for showing all the HRs of a user
+        # (probably don't need this since we'll have this in the profile)
 
         # render the show page for the HRs of the user
         return $this->render(

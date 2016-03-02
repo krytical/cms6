@@ -16,7 +16,7 @@ class EventRegistrationController extends Controller
     public function eventRegistrationAction()
     {
         # TODO: stub for main ER page in case we want to do something with all ERs
-        # (we may just want to have a single super admin page that has all this)
+        # (probably don't need this since we're having a single page for the registration manager)
 
         // renders the main event page
         return $this->render(
@@ -29,8 +29,8 @@ class EventRegistrationController extends Controller
      */
     public function showUserEventRegistrationsAction()
     {
-        # TODO: stub for showing all the ERs of a user (we probably want to
-        # just show all registration info all together on the regular profile instead)
+        # TODO: stub for showing all the ERs of a user
+        # (probably don't need this since we're showing it on the profile instead)
 
         # render the show page for the ERs of the user
         return $this->render(

@@ -5,7 +5,6 @@
 
 {% block body %}
 
-    {# TODO: Display a list of conferences#}
 	 <main class="mdl-layout__content-home">
 		<div class="page-content mdl-grid">
 			
@@ -20,29 +19,28 @@
 					You can create a new conference here. Click below to get started.
 				  </div>
 				  <div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/conference">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference') }}">
 					  New Conference
 					</a>
 				  </div>
 				</div>
-			
+
 			<!-- SHOW CONFERENCES HERE -->
 			
 			{% for c in conferences %}
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">{{ c.name }}</h2>
-				<!-- Once we have image upload done for conferences use the following -->
-				{# <img class="conference-image" src="{{ c.imgName }}"/> #}
-				
-				<img class="conference-image" src="http://www.ubcconferences.com/images/slides-home/ubc-home-05.jpg"/>
+				<img class="conference-image" src="{{ asset('images/conference/' ~ c.imageName) }}"/>
 			  </div>
+
 			  <div class="mdl-card__supporting-text">
 				{{ c.description }}
 				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp">
 					<i class="material-icons">expand_more</i>
 				</button>
 			  </div>
+
 			  <div class="mdl-card__actions mdl-card--border">
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 				  Join Conference
@@ -51,6 +49,7 @@
 				  View Details
 				</a>
 			  </div>
+
 			  <div class="mdl-card__menu">
 				<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
 				  <i class="material-icons">share</i>
@@ -60,13 +59,5 @@
 			{% endfor %}
 		</div>
 	 </main>
-	 
-	{% block bootstrap_js %}
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
-	{% endblock %}
 	
 {% endblock %}

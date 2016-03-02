@@ -139,3 +139,7 @@ Visit http://localhost/Symfony/cms6/web/app_dev.php/login to see the login page 
 You may need to update your database to use the already created test account:
 Username: usertest
 Password: passtest
+
+**VichUploader Setup**
+
+Go to https://github.com/dustin10/VichUploaderBundle/blob/master/Resources/doc/installation.md
