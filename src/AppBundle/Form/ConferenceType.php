@@ -16,7 +16,7 @@ class ConferenceType extends AbstractType
         $builder->add('location');
         $builder->add('startDatetime', Type\DateTimeType::class);
         $builder->add('endDatetime', Type\DateTimeType::class);
-        $builder->add('imgName');
+        $builder->add('imageFile', Type\FileType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

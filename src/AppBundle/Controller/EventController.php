@@ -30,6 +30,7 @@ class EventController extends Controller
     public function showConferenceEventsAction($conf_id)
     {
         # TODO: stub for showing all the events in a conference
+        # (probably don't need this)
 
         # render the show page for the conference events
         return $this->render(
@@ -44,6 +45,7 @@ class EventController extends Controller
     public function showAction($conf_id, $event_id)
     {
         # TODO: stub for showing a single event
+        # (not totally necessary but would be nice)
 
         # render the show page for the event
         return $this->render(

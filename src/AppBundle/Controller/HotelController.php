@@ -55,6 +55,7 @@ class HotelController extends Controller
     public function showAction($hotel_id)
     {
         # TODO: stub for showing a hotel
+        # (probably don't need this)
 
         # render the show page for the hotel
         return $this->render(
@@ -81,5 +82,5 @@ class HotelController extends Controller
         ));
     }
 
-    # TODO: add some kind of controller that manages conference-hotel mappings
+    # TODO: add a controller that manages conference-hotel mappings
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="event")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EventRepository")
+ * @Vich\Uploadable
  */
 class Event
 {
@@ -136,11 +139,34 @@ class Event
     private $spotsRemaining;
 
     /**
-     * @var string
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
+     * @Vich\UploadableField(mapping="event_image", fileNameProperty="imageName")
+     *
+     * @var File
      */
-    private $imgName;
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     *
+     * @var string
+     */
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
+//     */
+//    private $imgName;
 
     public function __construct()
     {
@@ -318,27 +344,79 @@ class Event
         return $this->spotsRemaining;
     }
 
+//    /**
+//     * Set imgName
+//     *
+//     * @param string $imgName
+//     * @return Event
+//     */
+//    public function setImgName($imgName)
+//    {
+//        $this->imgName = $imgName;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get imgName
+//     *
+//     * @return string
+//     */
+//    public function getImgName()
+//    {
+//        return $this->imgName;
+//    }
+
     /**
-     * Set imgName
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
      *
-     * @param string $imgName
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
      * @return Event
      */
-    public function setImgName($imgName)
+    public function setImageFile(File $image = null)
     {
-        $this->imgName = $imgName;
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
 
         return $this;
     }
 
     /**
-     * Get imgName
-     *
-     * @return string 
+     * @return File
      */
-    public function getImgName()
+    public function getImageFile()
     {
-        return $this->imgName;
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return Event
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 
     /**

@@ -47,7 +47,9 @@ class ConferenceController extends Controller
      */
     public function showAction($conf_id)
     {
-        # TODO: stub for showing a conference (this can contain all the events if we want)
+        # TODO: stub for showing a conference
+        # (not totally necessary but would be nice)
+        # (this can contain all the events if we want)
 
         # render the show page for the conference
         return $this->render(
@@ -61,12 +63,32 @@ class ConferenceController extends Controller
      */
     public function editAction(Request $request, $conf_id)
     {
-        # TODO: stub for editing a conference (can add, remove events also)
+        # TODO: add the ability to add/remove events
+
+        $conference = $this->getDoctrine()
+            ->getRepository('AppBundle:Conference')
+            ->find($conf_id);
+
+        $form = $this->createForm(ConferenceType::class, $conference);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($conference);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Conference edited successfully!'
+            );
+
+            return $this->redirectToRoute('conference');
+        }
 
         # render the edit page for the conference
         return $this->render(
             'conference/conference_edit.html.twig', array(
-            'conf_id' => $conf_id,
+            'form' => $form->createView()
         ));
     }
 }

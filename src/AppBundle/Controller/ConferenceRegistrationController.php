@@ -16,7 +16,7 @@ class ConferenceRegistrationController extends Controller
     public function conferenceRegistrationAction()
     {
         # TODO: stub for main CR page in case we want to do something with all CRs
-        # (we may just want to have a single super admin page that has all this)
+        # (probably don't need this since we're going to have a single registration manager page)
 
         // renders the main event page
         return $this->render(
@@ -29,8 +29,8 @@ class ConferenceRegistrationController extends Controller
      */
     public function showUserConferenceRegistrationsAction()
     {
-        # TODO: stub for showing all the CRs of a user (we probably want to
-        # just show all registration info all together on the regular profile instead)
+        # TODO: stub for showing all the CRs of a user
+        # (probably don't need this since we're showing the user registrations on the profile)
 
         # render the show page for the CRs of the user
         return $this->render(

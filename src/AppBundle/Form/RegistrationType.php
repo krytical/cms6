@@ -13,7 +13,7 @@ class RegistrationType extends AbstractType
     {
         $builder->add('name');
         $builder->add('phone');
-        $builder->add('imgName');
+        $builder->add('imageFile', Type\FileType::class);
         $builder->add('approved', Type\HiddenType::class, array(
             'data' => 'false'
         ));
