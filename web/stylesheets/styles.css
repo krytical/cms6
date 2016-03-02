@@ -41,6 +41,12 @@ Cards
 */
 .mdl-card{
 	margin-bottom: 30px;
+	transition: 0.3s;
+}
+
+.mdl-card:hover{
+	-webkit-box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
 .create-conference-card > .mdl-card__supporting-text{
@@ -57,7 +63,7 @@ Cards
 .conference-card-wide > .mdl-card__title {
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-  height: 176px;
+  height: 300px;
   position: relative;
   overflow: hidden;
 }
@@ -84,6 +90,10 @@ Cards
 
 .conference-card-wide > .mdl-card__menu {
   color: #fff;
+}
+
+.conference-card-wide > .mdl-card__title > .mdl-card__title-text{
+  font-size: 2em;
 }
 
 .conference-card-wide > .mdl-card__supporting-text{
