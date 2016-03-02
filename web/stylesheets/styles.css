@@ -19,7 +19,7 @@ General
   display: flex;
   width: 100%;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 92px;
   flex-shrink: 0;
 }
 
@@ -40,7 +40,7 @@ General
 Cards
 */
 .mdl-card{
-	margin-bottom: 38px;
+	margin-bottom: 30px;
 }
 
 .create-conference-card > .mdl-card__supporting-text{
@@ -48,7 +48,7 @@ Cards
   font-size: 1em;
 }
 
-.conference-card-wide.mdl-card {
+.conference-card-wide.mdl-card{
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -69,6 +69,17 @@ Cards
   top: 0; bottom:0; left: 0; right:0;
   margin: auto;
   z-index:-1;
+}
+
+.conference-card-wide > .mdl-card__supporting-text{
+  width: 100%;
+}
+
+.conference-card-wide > .mdl-card__supporting-text .conference-expand{
+  position: absolute;
+  right: 10%;
+  bottom:30px;
+  z-index: 3;
 }
 
 .conference-card-wide > .mdl-card__menu {
