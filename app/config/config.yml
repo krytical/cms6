@@ -22,18 +22,21 @@ vich_uploader:
         conference_image:
             uri_prefix:         /images/conference
             upload_destination: %kernel.root_dir%/../web/images/conference
+            namer:              vich_uploader.namer_origname
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
         event_image:
             uri_prefix:         /images/event
             upload_destination: %kernel.root_dir%/../web/images/event
+            namer:              vich_uploader.namer_origname
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
         user_image:
             uri_prefix:         /images/user
             upload_destination: %kernel.root_dir%/../web/images/user
+            namer:              vich_uploader.namer_origname
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
