@@ -35,17 +35,22 @@
 			  </div>
 
 			  <div class="mdl-card__supporting-text">
-				{{ c.description }}
+				<div class = "description__text">
+					{{ c.description }}
+				</div>
+				<br>
+				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
+				
 				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp">
 					<i class="material-icons">expand_more</i>
 				</button>
 			  </div>
 
 			  <div class="mdl-card__actions mdl-card--border">
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  Join Conference
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">
 				  View Details
 				</a>
 			  </div>
