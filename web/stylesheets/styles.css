@@ -49,12 +49,15 @@ Cards
 	box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
+.create-conference-card{
+	min-height: 100px;
+}
+
 .create-conference-card > .mdl-card__supporting-text{
-  height: 90px;
   font-size: 1em;
 }
 
-.conference-card-wide.mdl-card{
+.conference-card-wide{
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -97,7 +100,7 @@ Cards
 }
 
 .mdl-card__supporting-text{
-  font-size: 1em;
+  font-size: 1.1em;
 }
 
 /*
@@ -148,4 +151,11 @@ Conference
 
 .conference-show-card > .conference-details-card{
   margin-top: 1.7vh;
+}
+
+.conference-events-card{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100px;
 }
