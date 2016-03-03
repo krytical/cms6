@@ -11,12 +11,14 @@ class ConferenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-        $builder->add('description', Type\TextareaType::class);
-        $builder->add('location');
-        $builder->add('startDatetime', Type\DateTimeType::class);
-        $builder->add('endDatetime', Type\DateTimeType::class);
-        $builder->add('imageFile', Type\FileType::class);
+        $builder->add('name')
+        ->add('description', Type\TextareaType::class)
+        ->add('location')
+        ->add('startDatetime', Type\DateTimeType::class)
+        ->add('endDatetime', Type\DateTimeType::class)
+        ->add('imageFile', Type\FileType::class, array(
+            'label' => 'Conference Photo'
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

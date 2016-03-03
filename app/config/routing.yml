@@ -20,6 +20,10 @@ conference:
     path:      /conference
     defaults:  { _controller: AppBundle:Conference:conference }
 
+conference_reg:
+    path:      /conference/{conf_id}/register
+    defaults:  { _controller: AppBundle:ConferenceRegistration:conferenceRegistration }
+
 conference_edit:
     path:      /conference/{conf_id}/edit
     defaults:  { _controller: AppBundle:Conference:edit }

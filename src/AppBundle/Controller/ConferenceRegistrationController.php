@@ -7,21 +7,50 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\ConferenceRegistration;
+use AppBundle\Form\ConferenceRegistrationType;
 
 class ConferenceRegistrationController extends Controller
 {
     /**
-     * @Route("/conference_registration", name="conference_registration")
+     * @Route("/conference/{conf_id}/register", name="conference_reg")
      */
-    public function conferenceRegistrationAction()
+    public function conferenceRegistrationAction(Request $request, $conf_id)
     {
-        # TODO: stub for main CR page in case we want to do something with all CRs
-        # (probably don't need this since we're going to have a single registration manager page)
 
-        // renders the main event page
+        // submit the registration
+        $conference_reg = new ConferenceRegistration();
+        $form = $this->createForm(ConferenceRegistrationType::class, $conference_reg);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            // add the foreign keys now
+            // (we don't setHotelRegistration since that is done by the hotel manager)
+            $conference_reg->setUser($this->getUser());
+
+            $repository = $this->getDoctrine()
+                ->getRepository('AppBundle:Conference');
+            $conference = $repository->find($conf_id);
+            $conference_reg->setConference($conference);
+
+            // persist the registration to the DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($conference_reg);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Successfully registered for conference!'
+            );
+
+            return $this->redirectToRoute('conference');
+        }
+
+        // renders the main conference registration page
         return $this->render(
-            'conferenceRegistration/conference_registration.html.twig'
-        );
+            'conferenceRegistration/conference_reg.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
