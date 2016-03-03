@@ -27,6 +27,9 @@ class ConferenceRegistration
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
+     * @Assert\Type(type="AppBundle\Entity\User")
+     * @Assert\Valid()
      */
     private $user;
 
@@ -35,6 +38,9 @@ class ConferenceRegistration
      *
      * @ORM\ManyToOne(targetEntity="Conference")
      * @ORM\JoinColumn(name="conference_id", referencedColumnName="id")
+     *
+     * @Assert\Type(type="AppBundle\Entity\Conference")
+     * @Assert\Valid()
      */
     private $conference;
 
@@ -42,6 +48,9 @@ class ConferenceRegistration
      * @var int
      * @ORM\OneToOne(targetEntity="HotelRegistration", mappedBy="conference_registration")\
      * @ORM\JoinColumn(name="hotel_registration_id", referencedColumnName="id")
+     *
+     * @Assert\Type(type="AppBundle\Entity\HotelRegistration")
+     * @Assert\Valid()
      */
     private $hotelRegistration;
 
@@ -55,6 +64,17 @@ class ConferenceRegistration
      *     groups={"ConferenceRegistration"})
      */
     private $arrivalDatetime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="departure_datetime", type="datetime", nullable=true)
+     *
+     * @Assert\Date(
+     *     message="Please enter a valid date.",
+     *     groups={"ConferenceRegistration"})
+     */
+    private $departureDatetime;
 
     /**
      * @var int
@@ -126,6 +146,29 @@ class ConferenceRegistration
     public function getArrivalDatetime()
     {
         return $this->arrivalDatetime;
+    }
+
+    /**
+     * Set departureDatetime
+     *
+     * @param \DateTime $departureDatetime
+     * @return ConferenceRegistration
+     */
+    public function setDepartureDatetime($departureDatetime)
+    {
+        $this->departureDatetime = $departureDatetime;
+
+        return $this;
+    }
+
+    /**
+     * Get departureDatetime
+     *
+     * @return \DateTime
+     */
+    public function getDepartureDatetime()
+    {
+        return $this->departureDatetime;
     }
 
     /**

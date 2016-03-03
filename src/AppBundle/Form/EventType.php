@@ -12,20 +12,23 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         # Note conference_id will be added in the controller
-        $builder->add('name');
-        $builder->add('location');
-        $builder->add('speaker');
-        $builder->add('startDatetime');
-        $builder->add('endDatetime');
-        $builder->add('capacity');
-        $builder->add('spotsRemaining');
-        $builder->add('imgName');
-        $builder->add('description', Type\TextareaType::class);
+        $builder->add('name')
+        ->add('location')
+        ->add('speaker')
+        ->add('startDatetime')
+        ->add('endDatetime')
+        ->add('capacity')
+        ->add('spotsRemaining')
+        ->add('description', Type\TextareaType::class)
+        ->add('imageFile', Type\FileType::class, array(
+            'label' => 'Event Photo'
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'validation_groups' => array('Event'),
             'data_class' => 'AppBundle\Entity\Event',
         ));
     }
