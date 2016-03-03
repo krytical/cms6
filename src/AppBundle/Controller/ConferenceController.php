@@ -52,9 +52,13 @@ class ConferenceController extends Controller
         # (this can contain all the events if we want)
 
         # render the show page for the conference
+		$conference = $this->getDoctrine()
+            ->getRepository('AppBundle:Conference')
+            ->find($conf_id);
+		
         return $this->render(
             'conference/conference_show.html.twig', array(
-            'conf_id' => $conf_id,
+            'conf_id' => $conference,
         ));
     }
 

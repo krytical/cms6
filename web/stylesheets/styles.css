@@ -29,7 +29,7 @@ General
 
 .mdl-grid{
 	display: flex !important;
-	max-width: 1000px;
+	max-width: 1100px;
 }
 
 .mdl-textfield{
@@ -63,7 +63,7 @@ Cards
 .conference-card-wide > .mdl-card__title {
   color: #fff;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-  height: 300px;
+  height: 350px;
   position: relative;
   overflow: hidden;
 }
@@ -96,7 +96,7 @@ Cards
   font-size: 2em;
 }
 
-.conference-card-wide > .mdl-card__supporting-text{
+.mdl-card__supporting-text{
   font-size: 1em;
 }
 
@@ -115,3 +115,37 @@ Register
 /*
 Conference
 */
+.conference-cover{
+	width: 100%;
+	height: 600px;
+	position: relative;
+	overflow: hidden;
+}
+
+.conference-cover .conference-cover-image{
+  position: absolute;
+  display: block;
+  width: 100%;
+  top: 0; bottom:0; left: 0; right:0;
+  margin: auto;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.mdl-layout__content-conference-show{
+  margin-top: -30vh;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.conference-show-card {
+  border-radius: 2px;
+  padding: 20px 45px;
+  margin-bottom: 30px;
+}
+
+.conference-show-card > .conference-details-card{
+  margin-top: 1.7vh;
+}
