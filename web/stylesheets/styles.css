@@ -53,6 +53,10 @@ Cards
 	min-height: 100px;
 }
 
+.empty-conference-card{
+	min-height: 100px;
+}
+
 .create-conference-card > .mdl-card__supporting-text{
   font-size: 1em;
 }
@@ -101,6 +105,14 @@ Cards
 
 .mdl-card__supporting-text{
   font-size: 1.1em;
+}
+
+.empty-conference-card > .mdl-card__title > .mdl-card__title-text{
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /*
