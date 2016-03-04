@@ -7,4 +7,12 @@
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
 
     {# TODO: either display registrations here or have a link to them #}
+
+    <ul>
+        {% for conference_reg in conference_registrations %}
+            <li> "Conference id: " {{ conference_reg.conference.id }}
+            </li>
+        {% endfor %}
+    </ul>
+
 </div>
