@@ -33,8 +33,12 @@ class ProfileController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
+        $registrations = $this->getConferenceRegistrations($user->getId());
+        #$conferences = $this->getRegisteredConferences($user->getId());
+
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'conference_registrations' => $registrations
         ));
     }
 
@@ -91,4 +95,27 @@ class ProfileController extends BaseController
             'form' => $form->createView()
         ));
     }
+
+    private function getConferenceRegistrations($userId){
+
+        $repo = $this->getDoctrine()->getRepository('AppBundle:ConferenceRegistration');
+
+        $registrations = $repo->findByUser($userId);
+
+        return $registrations;
+    }
+
+    private function getRegisteredConferences($userId){
+
+        $registrations = $this->getConferenceRegistrations($userId);
+
+        $conferences = array();
+
+        foreach($registrations as $registration){
+            $conferences.array_push($registration->getConference());
+        }
+
+        return $conferences;
+    }
+
 }

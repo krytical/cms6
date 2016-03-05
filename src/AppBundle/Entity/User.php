@@ -137,6 +137,18 @@ class User extends BaseUser
         // your own logic
     }
 
+
+    /**
+     * Get id
+     *
+     *
+     * @return User
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set name
      *
