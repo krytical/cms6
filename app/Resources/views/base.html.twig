@@ -49,9 +49,9 @@
                             <nav class="mdl-navigation">
                                 <a class="mdl-navigation__link" href="/">Home</a>
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <li class="mdl-list__item">
+                                    <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
                                         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
-                                    </li>
+                                    </a>
                                     <a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
                                 {% else %}
                                     <a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>

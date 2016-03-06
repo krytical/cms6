@@ -4,17 +4,19 @@
     {# TODO: formatting #}
 
 {% if user is defined %}
-<div class="profile-ribbon"></div>
+<div class="profile-ribbon">
+	<img class="user-image" src="{{ asset('images/user/' ~ user.imageName) }}"/>
+</div>
 
 <main class="mdl-layout__content-profile-show">
 	<div class="page-content mdl-grid">	
 		<div class="mdl-card profile-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">		
-			<h2>{{ user.username }}</h2>
+			<h2>Hello, {{ user.name }}</h2>
 			
 			<!-- Profile details here -->
 			<div class="mdl-card profile-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-					<h2 class="mdl-card__title-text">{{ user.name }}</h2>
+					<h2 class="mdl-card__title-text">Overview</h2>
 				</div>
 				<ul class="profile-detail-list mdl-list">
 				  <li class="mdl-list__item">
@@ -29,11 +31,31 @@
 					  Email: {{ user.email }}
 					</span>
 				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">call</i>
+					  Phone: {{ user.phone }}
+					</span>
+				  </li>
 				</ul>
 			</div>
 			
 			<!-- Joined Conferences and Events here -->
 			{# TODO: either display registrations here or have a link to them #}
+			{% if conference_registrations is empty %}
+				<div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+				  <div class="no-conference-icon">
+						<i class="material-icons mdl-list__item-icon">event_busy</i>
+				  </div>
+				  <div class="mdl-card__title mdl-color-text--grey">
+                    <h2 class="mdl-card__title-text">You didn't join any conferences and events yet</h2>
+				  </div>
+				</div>
+			{% endif %}
+			
+			{% for conference_reg in conference_registrations %}
+			
+			{% endfor %}
 			
 			
 		</div>
