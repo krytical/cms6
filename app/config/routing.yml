@@ -35,4 +35,3 @@ hotel:
 conference_show:
     path:      /conference/{conf_id}/
     defaults:  { _controller: AppBundle:Conference:show }
-

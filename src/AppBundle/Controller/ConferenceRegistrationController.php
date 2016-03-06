@@ -37,13 +37,16 @@ class ConferenceRegistrationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($conference_reg);
             $em->flush();
-
+			
+			# TODO: Add flash bang when you successfully joined conference
+			# https://getbootstrap.com/components/#alerts			
+			
             $this->addFlash(
                 'notice',
                 'Successfully registered for conference!'
             );
 
-            return $this->redirectToRoute('conference');
+            return $this->redirectToRoute('conference_show', ['conf_id' => $conf_id]);
         }
 
         // renders the main conference registration page

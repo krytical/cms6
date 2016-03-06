@@ -43,8 +43,13 @@
 					</span>
 				  </li>
 				</ul>
+				
+				{# TODO: Remove "Join Conference" button once you joined conference #}
+			  
+				{# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
+				
 				<div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_reg', {'conf_id': conf_id.id}) }}">
 						Join Conference
 					</a>
 				</div>
