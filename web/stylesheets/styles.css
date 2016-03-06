@@ -95,10 +95,6 @@ Cards
   z-index: 3;
 }
 
-.conference-card-wide > .mdl-card__menu {
-  color: #fff;
-}
-
 .conference-card-wide > .mdl-card__title > .mdl-card__title-text{
   font-size: 2em;
 }
@@ -152,7 +148,7 @@ Profile Page
   display: block;
   top: 0; bottom:0; left: 0; right:0;
   margin: auto;
-  margin-top: 15vh;
+  margin-top: 13.5vh;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -167,6 +163,15 @@ Profile Page
   flex-shrink: 0;
 }
 
+@media screen and (max-width: 1280px) {
+  .mdl-layout__content-profile-show{
+	  margin-top: -50vh;
+	  -webkit-flex-shrink: 0;
+	  -ms-flex-negative: 0;
+	  flex-shrink: 0;
+  }
+}
+
 .profile-show-card {
   border-radius: 2px;
   padding: 20px 45px;
@@ -175,6 +180,12 @@ Profile Page
 
 .profile-show-card > .profile-details-card{
   margin-top: 1.7vh;
+}
+
+.profile-show-card > .profile-details-card > .mdl-card__title > .menu-wrapper{
+	box-sizing: border-box;
+	position: absolute;
+	right:16px;
 }
 
 /*
@@ -203,6 +214,15 @@ Conference
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+@media screen and (max-width: 1280px){
+  .mdl-layout__content-conference-show{
+	  margin-top: -50vh;
+	  -webkit-flex-shrink: 0;
+	  -ms-flex-negative: 0;
+	  flex-shrink: 0;
+  }
 }
 
 .conference-show-card {
