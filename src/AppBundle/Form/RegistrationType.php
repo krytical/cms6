@@ -11,6 +11,7 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        # TODO: Split name into first and last
         $builder->add('name')
         ->add('phone')
         ->add('imageFile', Type\FileType::class, array(

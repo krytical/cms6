@@ -16,9 +16,14 @@ _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
+# main conference page (right now used for conference creation)
 conference:
     path:      /conference
     defaults:  { _controller: AppBundle:Conference:conference }
+
+conference_show:
+    path:      /conference/{conf_id}/
+    defaults:  { _controller: AppBundle:Conference:show }
 
 conference_reg:
     path:      /conference/{conf_id}/register
@@ -28,10 +33,12 @@ conference_edit:
     path:      /conference/{conf_id}/edit
     defaults:  { _controller: AppBundle:Conference:edit }
 
+conference_delete:
+    path:      /conference/{conf_id}/delete
+    defaults:  { _controller: AppBundle:Conference:delete }
+
+# main hotel page (right now used for hotel creation)
 hotel:
     path:      /hotel
     defaults:  { _controller: AppBundle:Hotel:hotel }
 
-conference_show:
-    path:      /conference/{conf_id}/
-    defaults:  { _controller: AppBundle:Conference:show }

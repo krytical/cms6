@@ -26,7 +26,7 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
-        # TODO: modify this to also display registrations (maybe call another controller to do that)
+        # TODO: modify this to also get all registrations
 
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -47,7 +47,6 @@ class ProfileController extends BaseController
      */
     public function editAction(Request $request)
     {
-        # TODO: maybe modify this to also be able to edit registrations (maybe call another controller to do that)
 
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {

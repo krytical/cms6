@@ -3,7 +3,8 @@
     {# TODO: add proper fields #}
     {# TODO: formatting #}
 
-{% if user is defined %}
+{# Added a check in the controller instead. User will always be defined now. #}
+{# if user is defined #}
 <div class="profile-ribbon">
 	<img class="user-image" src="{{ asset('images/user/' ~ user.imageName) }}"/>
 </div>
@@ -57,7 +58,6 @@
 			</div>
 			
 			<!-- Joined Conferences and Events here -->
-			{# TODO: either display registrations here or have a link to them #}
 			{% if conference_registrations is empty %}
 				<div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 				  <div class="no-conference-icon">
@@ -72,6 +72,7 @@
 			{% for conference_reg in conference_registrations %}
 			
 			{# TODO: Show joined conferences here #}
+			{# TODO: Add edit and delete buttons on each registration #}
 			  			
 			{% endfor %}
 			
@@ -80,4 +81,4 @@
 	</div>
 </main>
 
-{% endif %}
+{# endif #}
