@@ -20,9 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      ),
  *     @ORM\AttributeOverride(name="email",
  *          column=@ORM\Column(name="email", type="string", length=50, unique=true, nullable=true)
- *      ),
- *     @ORM\AttributeOverride(name="password",
- *          column=@ORM\Column(name="password", type="string", length=25)
  *      )
  * })
  */
