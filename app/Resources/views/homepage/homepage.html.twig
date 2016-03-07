@@ -4,7 +4,7 @@
 {% block title %}Home{% endblock%}
 
 {% block body %}
-
+            
 	 <main class="mdl-layout__content-home">
 		<div class="page-content mdl-grid">
 			
@@ -38,7 +38,7 @@
 				</div>
 			{% endif %}
 			
-			{% for c in conferences %}
+			{% for c in conferences|sort %}
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">{{ c.name }}</h2>
@@ -52,7 +52,7 @@
 				<br>
 				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
 				
-				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp">
+				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp">
 					<i class="material-icons">expand_more</i>
 				</button>
 			  </div>
@@ -68,10 +68,15 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">
 				  View Details
 				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': c.id}) }}">
+				  Edit Conference
+				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_delete', {'conf_id': c.id}) }}" onclick="return confirm('Are you sure you want to delete this conference and its events?')">
+				  Delete Conference
+				</a>
 			  </div>
 			</div>
 			{% endfor %}
 		</div>
 	 </main>
-	
 {% endblock %}

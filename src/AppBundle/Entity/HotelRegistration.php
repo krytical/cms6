@@ -26,7 +26,7 @@ class HotelRegistration
      * @var int
      *
      * @ORM\OneToOne(targetEntity="ConferenceRegistration", inversedBy="hotel_registration")
-     * @ORM\JoinColumn(name="conference_registration_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="conference_registration_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $conferenceRegistration;
 
@@ -34,7 +34,7 @@ class HotelRegistration
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="Hotel")
-     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $hotel;
 
