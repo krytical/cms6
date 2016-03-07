@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use AppBundle\Entity\ConferenceRegistration;
 use AppBundle\Form\ConferenceRegistrationType;
 
@@ -66,7 +67,7 @@ class ConferenceRegistrationController extends Controller
 
         # render the show page for the CRs of the user
         return $this->render(
-            'Profile/conference_registrations_show.html.twig'
+            'conferenceRegistration/conference_registrations_show.html.twig'
         );
     }
 
@@ -75,12 +76,66 @@ class ConferenceRegistrationController extends Controller
      */
     public function editAction(Request $request, $conf_reg_id)
     {
-        # TODO: stub for editing a CR
+        $confReg = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->find($conf_reg_id);
+
+        if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
+            throw $this->createNotFoundException('The conference registration you are trying to edit does not exist.');
+        }
+        elseif ($confReg->getUser() != $this->getUser()) {
+            throw new AccessDeniedException('You cannot edit the Registration of another user.');
+        }
+
+        $form = $this->createForm(ConferenceRegistrationType::class, $confReg);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($confReg);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Conference Registration edited successfully!'
+            );
+
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
 
         # render the edit page for the conference
         return $this->render(
-            'Profile/conference_registration_edit.html.twig', array(
-            'conf_reg_id' => $conf_reg_id,
+            'conferenceRegistration/conference_reg_edit.html.twig', array(
+            'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("/profile/conference_registration/{conf_reg_id}/delete", name="conf_reg_delete")
+     */
+    public function deleteAction($conf_reg_id)
+    {
+        $confReg = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->find($conf_reg_id);
+
+        if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
+            throw $this->createNotFoundException('The conference registration you are trying to delete does not exist.');
+        }
+        elseif ($confReg->getUser() != $this->getUser()) {
+            throw new AccessDeniedException('You cannot delete the Registration of another user.');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($confReg);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Conference registration deleted successfully!'
+        );
+
+        # calls the homepage controller to render the homepage
+        return $this->forward('AppBundle:Homepage:homepage');
     }
 }

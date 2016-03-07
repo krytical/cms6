@@ -121,6 +121,11 @@ class ConferenceController extends Controller
         $em->remove($conference);
         $em->flush();
 
+        $this->addFlash(
+            'notice',
+            'Conference deleted successfully!'
+        );
+
         # calls the homepage controller to render the homepage
         return $this->forward('AppBundle:Homepage:homepage');
     }
