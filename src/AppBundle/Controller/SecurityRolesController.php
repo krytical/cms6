@@ -29,10 +29,14 @@ class SecurityRolesController extends Controller
         # need list of security roles
         $roles = $this->container->getParameter('security.role_hierarchy.roles');
 
+        $userManager = $this->container->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+
 
         return $this->render(
             'Security/security_roles_show.html.twig', array(
-                'roles' => $roles
+                'roles' => $roles,
+                'users' => $users
             )
         );
     }
@@ -40,7 +44,7 @@ class SecurityRolesController extends Controller
     /**
      *  @Route("/security_roles/edit", name="security_roles_edit")
      */
-    public function editAction(Request $request, $event_reg_id)
+    public function editAction(Request $request)
     {
         # TODO: stub for editing an ER
 
