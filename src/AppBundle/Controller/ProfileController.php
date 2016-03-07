@@ -28,15 +28,14 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
-        # TODO: modify this to also get all registrations
-
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $registrations = $this->getConferenceRegistrations($user->getId());
-        #$conferences = $this->getRegisteredConferences($user->getId());
+        $registrations = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->findBy(array('user' => $user->getId()), array('conference' => 'DESC'));
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
@@ -69,28 +68,6 @@ class ProfileController extends BaseController
 
         # calls the homepage controller to render the homepage
         return $this->forward('AppBundle:Homepage:homepage');
-    }
-
-    private function getConferenceRegistrations($userId){
-
-        $repo = $this->getDoctrine()->getRepository('AppBundle:ConferenceRegistration');
-
-        $registrations = $repo->findByUser($userId);
-
-        return $registrations;
-    }
-
-    private function getRegisteredConferences($userId){
-
-        $registrations = $this->getConferenceRegistrations($userId);
-
-        $conferences = array();
-
-        foreach($registrations as $registration){
-            $conferences.array_push($registration->getConference());
-        }
-
-        return $conferences;
     }
 
 }

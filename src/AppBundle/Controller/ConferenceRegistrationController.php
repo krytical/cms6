@@ -3,6 +3,7 @@
 // src/AppBundle/Controller/ConferenceRegistrationController.php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Conference;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,13 +26,25 @@ class ConferenceRegistrationController extends Controller
 
         if ($form->isValid()) {
 
-            // add the foreign keys now
-            // (we don't setHotelRegistration since that is done by the hotel manager)
-            $conference_reg->setUser($this->getUser());
-
+            // get the conference
             $repository = $this->getDoctrine()
                 ->getRepository('AppBundle:Conference');
             $conference = $repository->find($conf_id);
+
+            // get the user
+            $user = $this->getUser();
+
+            if (!is_object($conference) || !$conference instanceof Conference) {
+                throw $this->createNotFoundException('The conference you are trying to register for does not exist.');
+            }
+            elseif (false){ # TODO: check if the user already registered for the conference
+                throw new AccessDeniedException(
+                    'You are already registered for this conference. If you would like to edit your registration, go to your profile.');
+            }
+
+            // add the foreign keys now
+            // (we don't setHotelRegistration since that is done by the hotel manager)
+            $conference_reg->setUser($user);
             $conference_reg->setConference($conference);
 
             // persist the registration to the DB
