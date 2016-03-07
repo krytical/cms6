@@ -7,6 +7,8 @@ security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_CONFERENCE_MANAGER: ROLE_CONFERENCE_MANAGER
+        ROLE_BOOKINGS_MANAGER: ROLE_BOOKINGS_MANAGER
 
     providers:
         fos_userbundle:
@@ -33,3 +35,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/conference/, role: [ROLE_ADMIN, ROLE_CONFERENCE_MANAGER] } # create new conference
+        - { path: ^/conference/{conf_id}/edit, role: [ROLE_ADMIN, ROLE_CONFERENCE_MANAGER] } # create new conference
+        - { path: ^/event/, role: [ROLE_ADMIN, ROLE_CONFERENCE_MANAGER] } # TODO: update to link for creating new event
+        - { path: ^/conference/{conf_id}/event/{event_id}/edit, role: [ROLE_ADMIN, ROLE_CONFERENCE_MANAGER] } # create new conference
