@@ -160,3 +160,9 @@ event_reg:
 event_reg:
     path:      /profile/event_registration/{event_reg_id}/edit
     defaults:  { _controller: AppBundle:EventRegistration:edit }
+
+# SECURITY ROLES
+
+security_roles_show:
+    path:      /security_roles/
+    defaults:  { _controller: AppBundle:SecurityRoles:show }

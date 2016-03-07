@@ -92,7 +92,7 @@ class User extends BaseUser
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
      *
      * @var string
      */
@@ -102,8 +102,8 @@ class User extends BaseUser
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
-     */
-    private $updatedAt;
+     *
+    private $updatedAt;*/
 
     /**
      * @var bool
