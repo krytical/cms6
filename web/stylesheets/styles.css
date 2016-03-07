@@ -178,6 +178,13 @@ Profile Page
 	right:16px;
 }
 
+.profile-show-card > .profile-details-card > .mdl-card__title > .menu-wrapper .mdl-menu li a
+{
+    text-decoration: none;
+	color: #000;
+}
+
+
 /*
 Conference
 */
