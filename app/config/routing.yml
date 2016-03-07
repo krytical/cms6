@@ -51,6 +51,10 @@ user_delete:
     path:      /profile/delete
     defaults:  { _controller: AppBundle:Profile:delete }
 
+user_edit:
+    path:      /profile/edit
+    defaults:  { _controller: AppBundle:Profile:edit }
+
 # HOTELS
 hotel:
     path:      /hotel
