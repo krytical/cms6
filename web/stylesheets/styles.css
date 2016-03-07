@@ -26,6 +26,11 @@ General
   overflow: visible;
 }
 
+.navbar-image{
+	width: 30px;
+	height: 30px;
+}
+
 
 /*
 Cards
