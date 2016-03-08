@@ -64,7 +64,7 @@ class ConferenceRegistrationController extends Controller
             $em->flush();
 			
             $this->addFlash(
-                'notice',
+                'success',
                 'Successfully registered for conference!'
             );
 
@@ -117,7 +117,7 @@ class ConferenceRegistrationController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Conference Registration edited successfully!'
             );
 
@@ -152,7 +152,7 @@ class ConferenceRegistrationController extends Controller
         $em->flush();
 
         $this->addFlash(
-            'notice',
+            'success',
             'Conference registration deleted successfully!'
         );
 

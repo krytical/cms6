@@ -62,7 +62,7 @@ class ProfileController extends BaseController
         $this->get('request')->getSession()->invalidate();
 
         $this->addFlash(
-            'notice',
+            'success',
             'User deleted successfully!'
         );
 

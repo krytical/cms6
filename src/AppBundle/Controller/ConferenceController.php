@@ -122,7 +122,7 @@ class ConferenceController extends Controller
         $em->flush();
 
         $this->addFlash(
-            'notice',
+            'success',
             'Conference deleted successfully!'
         );
 
