@@ -30,7 +30,7 @@ class ConferenceController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Conference created successfully!'
             );
 
@@ -90,7 +90,7 @@ class ConferenceController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Conference edited successfully!'
             );
 
