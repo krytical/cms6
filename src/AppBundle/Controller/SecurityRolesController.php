@@ -46,12 +46,20 @@ class SecurityRolesController extends Controller
      */
     public function editAction(Request $request)
     {
-        # TODO: stub for editing an ER
+        # TODO: create form
+        # update each user at a time
 
         # render the edit page for the event
         return $this->render(
             'Security/security_roles_edit.html.twig'
         );
+    }
+
+    private function updateUsers($users){
+        # $users = User array (delete or ignore this comment
+        foreach($users as $user){
+            # udpate user
+        }
     }
 
 }
