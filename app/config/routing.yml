@@ -166,3 +166,8 @@ event_reg:
 security_roles_show:
     path:      /security_roles/
     defaults:  { _controller: AppBundle:SecurityRoles:show }
+
+# TODO: temporary controller action to edit roles for single user.
+security_roles_edit_user:
+    path:      /security_roles/edit_user
+    defaults:  { _controller: AppBundle:SecurityRoles:editUserRole }

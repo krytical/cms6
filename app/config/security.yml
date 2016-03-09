@@ -10,6 +10,8 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
         ROLE_CONFERENCE_MANAGER: ROLE_CONFERENCE_MANAGER
         ROLE_BOOKINGS_MANAGER: ROLE_BOOKINGS_MANAGER
+        #TODO: find a way to provide user-friendly names for roles.
+        #might find this in a library or some role class.
 
     providers:
         fos_userbundle:
@@ -36,7 +38,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/conference, role: ROLE_CONFERENCE_MANAGER } #create new conference
+        #∫- { path: ^/conference$, role: ROLE_CONFERENCE_MANAGER } #create new conference
         - { path: ^/conference/.*/edit, role: ROLE_CONFERENCE_MANAGER } # edit conference
 
         #TODO: try replacing this by annotations in each controller

@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+use AppBundle\Form\UserRoleType;
 
 
 class SecurityRolesController extends Controller
@@ -47,12 +48,44 @@ class SecurityRolesController extends Controller
     public function editAction(Request $request)
     {
         # TODO: create form
-        # update each user at a time
+        # update one user at a time
 
-        # render the edit page for the event
         return $this->render(
             'Security/security_roles_edit.html.twig'
         );
+    }
+
+
+    /**
+     *  @Route("/security_roles/edit_user", name="security_roles_edit_user.html.twig")
+     * TODO: temporary controller action to edit a single user at a time
+     */
+    public function editUserRoleAction(Request $request)
+    {
+
+        # TODO: get user by user id from request?
+
+        # for now I'll just choose one random user
+        $roles = $this->container->getParameter('security.role_hierarchy.roles');
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+        $user = $users[0];
+
+        # TODO: create form
+        #will need something like this
+        $form = $this->createForm(UserRoleType::class, $user);
+        $form->handleRequest($request);
+
+
+        return $this->render(
+            'Security/security_roles_edit_user.html.twig', array(
+            'form' => $form->createView(),
+                'roles' => $roles,
+                'user' => $user
+            )
+        );
+
     }
 
     private function updateUsers($users){
