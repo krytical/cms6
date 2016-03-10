@@ -5,12 +5,13 @@ margin: 0;
 /*
 General
 */
-.cms-content{
+.mdl-layout{
   background-color: #f5f5f5;	
 }
 
-.cms-content > .mdl-layout__content-home{
-	padding-top: 30px;
+.cms-content > .mdl-layout_content{
+	padding-top: 25px;
+	width: 100%;
 }
 
 .mdl-grid{
