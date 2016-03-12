@@ -90,6 +90,19 @@ class EventController extends Controller
 
      public function showAction($conf_id, $event_id)
     {
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Event');
+
+        $event = $repository -> findOneBy(
+            array('conference_id' => $conf_id,'id' => $event_id)
+        );
+        
+
+        if (!is_object($event) || !$event 
+            instanceof Event) {
+            throw $this->createNotFoundException('This event does not exist.');
+        }
+
         # TODO: stub for showing a single event
         # (not totally necessary but would be nice)
 
@@ -120,13 +133,38 @@ class EventController extends Controller
      */
     public function editAction(Request $request, $conf_id, $event_id)
     {
-        # TODO: stub for editing an event
+         $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Event');
+
+        $event = $repository -> findOneBy(
+            array('conference_id' => $conf_id,'id' => $event_id)
+        );
+
+         if (!is_object($event) || !$event 
+            instanceof Event) {
+            throw $this->createNotFoundException('This event you are trying to edit does not exist.');
+        }
+        
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Event edited successfully!'
+            );
+
+            return $this->redirectToRoute('conference');
+        }
 
         # render the edit page for the event
         return $this->render(
             'conference/event_edit.html.twig', array(
-            'conf_id' => $conf_id,
-            'event_id' => $event_id,
+            'form' => $form->createView()
         ));
     }
 
@@ -136,12 +174,28 @@ class EventController extends Controller
     public function deleteAction(Request $request, $conf_id, $event_id)
     {
         # TODO: stub for deleting an event
+         $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Event');
 
-        # render the delete page for the event
-        return $this->render(
-            'conference/event_delete.html.twig', array(
-            'conf_id' => $conf_id,
-            'event_id' => $event_id,
-        ));
+        $event = $repository -> findOneBy(
+            array('conference_id' => $conf_id,'id' => $event_id)
+        );
+
+         if (!is_object($event) || !$event 
+            instanceof Event) {
+            throw $this->createNotFoundException('This event you are trying to delete does not exist.');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Event deleted successfully!'
+        );
+
+        # calls the homepage controller to render the homepage
+        return $this->forward('AppBundle:Homepage:homepage');
     }
 }
