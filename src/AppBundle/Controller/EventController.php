@@ -14,13 +14,43 @@ class EventController extends Controller
     /**
      * @Route("/event", name="event")
      */
-    public function eventAction()
+    public function eventAction(Request $request,$conf_id)
     {
         # TODO: stub for main event page (in case we want to do something with all events)
 
+        $conference = $this->getDoctrine()
+            ->getRepository('AppBundle:Conference')
+            ->find($conf_id);
+
+        if (!$conference) {
+        throw $this->createNotFoundException(
+            'No product found for id '.$currentUrl
+        );
+    }
+
+
+        $event = new Event();
+        $event->setId($conference);
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Event created successfully!'
+            );
+
+            return $this->redirectToRoute('_welcome');
+        }
+
         // renders the main event page
         return $this->render(
-            'event/event.html.twig'
+            'event/event.html.twig', array(
+                'form' => $form->createView())
         );
     }
 

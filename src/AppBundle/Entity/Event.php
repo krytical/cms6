@@ -31,7 +31,7 @@ class Event
      * @ORM\ManyToOne(targetEntity="Conference") 
      * @ORM\JoinColumn(name="conference_id", referencedColumnName="id")
      */
-    protected $conference;
+    private $conference;
 
     /**
      * @var string
@@ -94,7 +94,7 @@ class Event
      * @Assert\NotBlank(
      *     message="Please enter the start date of the event.",
      *     groups={"Event"})
-     * @Assert\Date(
+     * @Assert\DateTime(
      *     message="Please enter a valid date.",
      *     groups={"Event"})
      */
@@ -108,7 +108,7 @@ class Event
      * @Assert\NotBlank(
      *     message="Please enter the end date of the event.",
      *     groups={"Event"})
-     * @Assert\Date(
+     * @Assert\DateTime(
      *     message="Please enter a valid date.",
      *     groups={"Event"})
      */
@@ -181,6 +181,20 @@ class Event
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set confernece ID
+     *
+     * @param int $num
+     * @return Event
+     */
+
+    public function setId($con)
+    {
+        $this->conference = $con;
+
+        return $this;
     }
 
     /**

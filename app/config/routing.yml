@@ -16,6 +16,18 @@ _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
+event:
+    path:      /event/{conf_id}/
+    defaults:  { _controller: AppBundle:Event:event } 
+
+event_edit:
+    path:      /event/{conf_id}/{event_id}/edit
+    defaults:  { _controller: AppBundle:Event:edit }
+
+event_reg:
+    path:      /event/{conf_id}/{event_id}/register
+    defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }
+
 conference:
     path:      /conference
     defaults:  { _controller: AppBundle:Conference:conference }
@@ -35,3 +47,5 @@ hotel:
 conference_show:
     path:      /conference/{conf_id}/
     defaults:  { _controller: AppBundle:Conference:show }
+
+
