@@ -25,7 +25,7 @@ class ConferenceHotelMap
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="Conference")
-     * @ORM\JoinColumn(name="conference_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="conference_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $conference;
 
@@ -33,7 +33,7 @@ class ConferenceHotelMap
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="Hotel")
-     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $hotel;
 

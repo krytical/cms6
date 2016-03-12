@@ -16,36 +16,69 @@ _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
-event:
-    path:      /event/{conf_id}/
-    defaults:  { _controller: AppBundle:Event:event } 
-
-event_edit:
-    path:      /event/{conf_id}/{event_id}/edit
-    defaults:  { _controller: AppBundle:Event:edit }
-
-event_reg:
-    path:      /event/{conf_id}/{event_id}/register
-    defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }
-
+# CONFERENCES
 conference:
     path:      /conference
     defaults:  { _controller: AppBundle:Conference:conference }
-
-conference_reg:
-    path:      /conference/{conf_id}/register
-    defaults:  { _controller: AppBundle:ConferenceRegistration:conferenceRegistration }
-
-conference_edit:
-    path:      /conference/{conf_id}/edit
-    defaults:  { _controller: AppBundle:Conference:edit }
-
-hotel:
-    path:      /hotel
-    defaults:  { _controller: AppBundle:Hotel:hotel }
 
 conference_show:
     path:      /conference/{conf_id}/
     defaults:  { _controller: AppBundle:Conference:show }
 
+conference_edit:
+    path:      /conference/{conf_id}/edit
+    defaults:  { _controller: AppBundle:Conference:edit }
 
+conference_delete:
+    path:      /conference/{conf_id}/delete
+    defaults:  { _controller: AppBundle:Conference:delete }
+
+# CONFERENCE REGISTRATIONS
+conference_reg:
+    path:      /conference/{conf_id}/register
+    defaults:  { _controller: AppBundle:ConferenceRegistration:conferenceRegistration }
+
+conf_reg_edit:
+    path:      /profile/conference_registration/{conf_reg_id}/edit
+    defaults:  { _controller: AppBundle:ConferenceRegistration:edit }
+
+conf_reg_delete:
+    path:      /profile/conference_registration/{conf_reg_id}/delete
+    defaults:  { _controller: AppBundle:ConferenceRegistration:delete }
+
+# USERS
+user_delete:
+    path:      /profile/delete
+    defaults:  { _controller: AppBundle:Profile:delete }
+
+user_edit:
+    path:      /profile/edit
+    defaults:  { _controller: AppBundle:Profile:edit }
+
+# HOTELS
+hotel:
+    path:      /hotel
+    defaults:  { _controller: AppBundle:Hotel:hotel }
+
+# EVENTS
+event:
+    path:      /event/{conf_id}/
+    defaults:  { _controller: AppBundle:Event:event } 
+
+event_show:
+    path:      /conference/{conf_id}/event/{event_id}
+    defaults:  { _controller: AppBundle:Event:show }
+
+event_edit:
+    path:      /conference/{conf_id}/event/{event_id}/edit
+    defaults:  { _controller: AppBundle:Event:edit }
+
+event_delete:
+    path:      /conference/{conf_id}/event/{event_id}
+    defaults:  { _controller: AppBundle:Event:delete }
+
+
+# EVENT REGISTRATIONS
+event_reg:
+    path:      /event/{conf_id}/{event_id}/register
+    defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }

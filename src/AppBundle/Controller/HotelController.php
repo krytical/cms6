@@ -32,7 +32,7 @@ class HotelController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Hotel created successfully!'
             );
 

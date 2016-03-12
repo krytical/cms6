@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 
 /**
@@ -26,15 +28,14 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
-        # TODO: modify this to also display registrations (maybe call another controller to do that)
-
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $registrations = $this->getConferenceRegistrations($user->getId());
-        #$conferences = $this->getRegisteredConferences($user->getId());
+        $registrations = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->findBy(array('user' => $user->getId()), array('conference' => 'DESC'));
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
@@ -43,79 +44,30 @@ class ProfileController extends BaseController
     }
 
     /**
-     * Edit the user
+     * @Route("/profile/delete", name="user_delete")
      */
-    public function editAction(Request $request)
+    public function deleteAction()
     {
-        # TODO: maybe modify this to also be able to edit registrations (maybe call another controller to do that)
-
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
 
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
+        # Log the user out by invalidating their session
+        $this->get('security.token_storage')->setToken(null);
+        $this->get('request')->getSession()->invalidate();
 
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
+        $this->addFlash(
+            'success',
+            'User deleted successfully!'
+        );
 
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.profile.form.factory');
-
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
-
-            $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
-
-            $userManager->updateUser($user);
-
-            if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_profile_show');
-                $response = new RedirectResponse($url);
-            }
-
-            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-            return $response;
-        }
-
-        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
-
-    private function getConferenceRegistrations($userId){
-
-        $repo = $this->getDoctrine()->getRepository('AppBundle:ConferenceRegistration');
-
-        $registrations = $repo->findByUser($userId);
-
-        return $registrations;
-    }
-
-    private function getRegisteredConferences($userId){
-
-        $registrations = $this->getConferenceRegistrations($userId);
-
-        $conferences = array();
-
-        foreach($registrations as $registration){
-            $conferences.array_push($registration->getConference());
-        }
-
-        return $conferences;
+        # calls the homepage controller to render the homepage
+        return $this->forward('AppBundle:Homepage:homepage');
     }
 
 }

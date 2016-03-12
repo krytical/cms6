@@ -1,30 +1,17 @@
-body::before {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
-  margin: 0;
-  padding: 0;
-  will-change: transform;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  position: fixed;
+body {
+margin: 0;
 }
 
 /*
 General
 */
-.cms .page-content {
-  padding: 0;
-  display: flex;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 92px;
-  flex-shrink: 0;
+.mdl-layout{
+  background-color: #f5f5f5;	
 }
 
-.cms .mdl-layout__container{
-  background-color: #f5f5f5;	
+.cms-content > .mdl-layout_content{
+	padding-top: 25px;
+	width: 100%;
 }
 
 .mdl-grid{
@@ -35,6 +22,25 @@ General
 .mdl-textfield{
 	width: 400px;
 }
+
+.cms-header {
+  overflow: visible;
+}
+
+.navbar-image{
+	width: 30px;
+	height: 30px;
+}
+
+.drawer-image{
+	width: 50px;
+	height: 50px;
+}
+
+.alert{
+	margin-bottom: 0px;
+}
+
 
 /*
 Cards
@@ -148,7 +154,7 @@ Profile Page
   display: block;
   top: 0; bottom:0; left: 0; right:0;
   margin: auto;
-  margin-top: 13.5vh;
+  margin-top: 7vh;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -165,7 +171,7 @@ Profile Page
 
 @media screen and (max-width: 1280px) {
   .mdl-layout__content-profile-show{
-	  margin-top: -50vh;
+	  margin-top: -55vh;
 	  -webkit-flex-shrink: 0;
 	  -ms-flex-negative: 0;
 	  flex-shrink: 0;
@@ -187,6 +193,13 @@ Profile Page
 	position: absolute;
 	right:16px;
 }
+
+.profile-show-card > .profile-details-card > .mdl-card__title > .menu-wrapper .mdl-menu li a
+{
+    text-decoration: none;
+	color: #000;
+}
+
 
 /*
 Conference
@@ -218,7 +231,7 @@ Conference
 
 @media screen and (max-width: 1280px){
   .mdl-layout__content-conference-show{
-	  margin-top: -50vh;
+	  margin-top: -55vh;
 	  -webkit-flex-shrink: 0;
 	  -ms-flex-negative: 0;
 	  flex-shrink: 0;

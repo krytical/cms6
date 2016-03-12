@@ -19,12 +19,13 @@
         {% block bootstrap_css %}
             <!-- Bootstrap -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
         {% endblock %}
 
         {% block css %}
             <!-- MDL -->
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-            <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.blue-indigo.min.css" />
+            <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.blue-indigo.min.css" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         {% endblock css %}
 
@@ -36,62 +37,62 @@
 
 
     <body>
-		<div class = "cms mdl-color--grey-100 mdl-base">
-
-            {% block header %}
-                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                    <header class="mdl-layout__header">
-                        <div class="mdl-layout__header-row">
-                            <!-- Title -->
-                            <span class="mdl-layout-title">Conference Management System</span>
-                            <!-- Add spacer, to align navigation to the right -->
-                            <div class="mdl-layout-spacer"></div>
-                            <nav class="mdl-navigation">
-                                <a class="mdl-navigation__link" href="/">Home</a>
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
-                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
-                                    </a>
-                                    <a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
-                                {% else %}
-                                    <a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
-                                    <a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
-                                {% endif %}
-                            </nav>
-                        </div>
-                    </header>
-                </div>
-            {% endblock %}
-
-            {% block drawer %}
-                {# TODO: THIS IS BROKEN (I suspect it's there just not displayed properly, prob an HTML issue) #}
-                {# TODO: only have the drawer if we're logged in #}
-                {# if is_granted("IS_AUTHENTICATED_REMEMBERED") #}
-                    <div class="mdl-layout__drawer">
-                        <span class="mdl-layout-title">CMS</span>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="cms-header mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                        <span class="mdl-layout-title">Conference Management System</span>
+                        <!-- Add spacer, to align navigation to the right -->
+                        <div class="mdl-layout-spacer"></div>
                         <nav class="mdl-navigation">
-                            <a class="mdl-navigation__link" href="">Your Conferences</a>
-                            <a class="mdl-navigation__link" href="">Your Events</a>
-
-                            {# TODO: check user privileges before displaying these #}
-                            <a class="mdl-navigation__link" href="">Manage Conferences And Events</a>
-                            <a class="mdl-navigation__link" href="">Manage Hotels</a>
-                            <a class="mdl-navigation__link" href="">Manage Registrations</a>
-                            <a class="mdl-navigation__link" href="">Manage User privileges</a>
-
+                            <a class="mdl-navigation__link" href="/">Home</a>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
+								<img class="navbar-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
+								{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
+								</a>
+								<a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
+                                {% else %}
+								<a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
+								<a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
+                            {% endif %}
                         </nav>
-                    </div>
-                {# endif #}
-            {% endblock %}
+                </div>
+            </header>
+                
+            <div class="cms-drawer mdl-layout__drawer">
+				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <span class="mdl-layout-title">
+				<img class="drawer-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
+				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}#user-conferences">Your Conferences</a>
 
+                    {# TODO: check user privileges before displaying these #}
+                    <a class="mdl-navigation__link" href="">Manage Conferences</a>
+                    <a class="mdl-navigation__link" href="">Manage Hotels</a>
+                    <a class="mdl-navigation__link" href="">Manage Registrations</a>
+                    <a class="mdl-navigation__link" href="">Manage User privileges</a>
+
+                </nav>
+				{% else %}
+				<span class="mdl-layout-title">CMS</span>
+                    <nav class="mdl-navigation">
+						<a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
+                        <a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
+
+                    </nav>
+				{% endif %}
+            </div>
 
             {# TODO: figure out how to flash messages work #}
             {% block messages %}
                 {% if app.request.hasPreviousSession %}
                     {% for type, messages in app.session.flashbag.all() %}
                         {% for message in messages %}
-                            <div class="flash-{{ type }}">
-                                {{ message }}
+                            <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <center>{{ message }}</center>
                             </div>
                         {% endfor %}
                     {% endfor %}
@@ -107,19 +108,25 @@
                 </ul>
             {% endblock %}
             #}
-
+			
+			<div class="cms-content mdl-layout__content">
             {% block body %}{% endblock %}
 
             {% block bootstrap_js %}
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-                <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+                <script defer src="https://code.getmdl.io/1.1.2/material.min.js"></script>
+				
+				<script>
+					$("#deleteModal").appendTo("body");
+					$("#deleteUserModal").appendTo("body");
+				</script>
             {% endblock %}
 
             {% block javascript %}{% endblock %}
 
-        </div>
     </body>
 </html>

@@ -26,7 +26,7 @@ class ConferenceRegistration
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Assert\Type(type="AppBundle\Entity\User")
      * @Assert\Valid()
@@ -37,17 +37,20 @@ class ConferenceRegistration
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="Conference")
-     * @ORM\JoinColumn(name="conference_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="conference_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Assert\Type(type="AppBundle\Entity\Conference")
      * @Assert\Valid()
      */
     private $conference;
 
+    # TODO: The association AppBundle\Entity\ConferenceRegistration#hotelRegistration
+    # refers to the owning side field AppBundle\Entity\HotelRegistration#conference_registration which does not exist.
+
     /**
      * @var int
      * @ORM\OneToOne(targetEntity="HotelRegistration", mappedBy="conference_registration")\
-     * @ORM\JoinColumn(name="hotel_registration_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="hotel_registration_id", referencedColumnName="id", onDelete="SET NULL")
      *
      * @Assert\Type(type="AppBundle\Entity\HotelRegistration")
      * @Assert\Valid()

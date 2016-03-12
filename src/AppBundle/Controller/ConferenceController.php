@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Conference;
 use AppBundle\Form\ConferenceType;
@@ -16,6 +17,8 @@ class ConferenceController extends Controller
      */
     public function conferenceAction(Request $request)
     {
+        # TODO: We may want to change this route to /conference/create
+        # and have /conference render the homepage
 
         $conference = new Conference();
         $form = $this->createForm(ConferenceType::class, $conference);
@@ -27,7 +30,7 @@ class ConferenceController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Conference created successfully!'
             );
 
@@ -47,15 +50,17 @@ class ConferenceController extends Controller
      */
     public function showAction($conf_id)
     {
-        # TODO: stub for showing a conference
-        # (not totally necessary but would be nice)
-        # (this can contain all the events if we want)
+        # TODO: get all events for the conference and pass them to the view
 
         # render the show page for the conference
 		$conference = $this->getDoctrine()
             ->getRepository('AppBundle:Conference')
             ->find($conf_id);
-		
+
+        if (!is_object($conference) || !$conference instanceof Conference) {
+            throw $this->createNotFoundException('This conference does not exist.');
+        }
+
         return $this->render(
             'conference/conference_show.html.twig', array(
             'conf_id' => $conference,
@@ -67,11 +72,14 @@ class ConferenceController extends Controller
      */
     public function editAction(Request $request, $conf_id)
     {
-        # TODO: add the ability to add/remove events
 
         $conference = $this->getDoctrine()
             ->getRepository('AppBundle:Conference')
             ->find($conf_id);
+
+        if (!is_object($conference) || !$conference instanceof Conference) {
+            throw $this->createNotFoundException('The conference you are trying to edit does not exist.');
+        }
 
         $form = $this->createForm(ConferenceType::class, $conference);
         $form->handleRequest($request);
@@ -82,7 +90,7 @@ class ConferenceController extends Controller
             $em->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Conference edited successfully!'
             );
 
@@ -94,5 +102,31 @@ class ConferenceController extends Controller
             'conference/conference_edit.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("/conference/{conf_id}/delete", name="conference_delete")
+     */
+    public function deleteAction($conf_id)
+    {
+        $conference = $this->getDoctrine()
+        ->getRepository('AppBundle:Conference')
+        ->find($conf_id);
+
+        if (!is_object($conference) || !$conference instanceof Conference) {
+            throw $this->createNotFoundException('The conference you are trying to delete does not exist.');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($conference);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Conference deleted successfully!'
+        );
+
+        # calls the homepage controller to render the homepage
+        return $this->forward('AppBundle:Homepage:homepage');
     }
 }
