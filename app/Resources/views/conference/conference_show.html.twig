@@ -61,7 +61,7 @@
 					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': conf_id.id}) }}">
 						Edit Conference
 					</a>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event', {'conf_id': conf_id.id}) }}">
 						Add Event
 					</a>
 					<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
@@ -79,6 +79,7 @@
 			</div>
 			
 			<!-- Events here -->
+			{% if conf_events is empty %}
 			<div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 				  <div class="no-conference-icon">
 						<i class="material-icons mdl-list__item-icon">event_busy</i>
@@ -87,30 +88,36 @@
                     <h2 class="mdl-card__title-text">This conference has no events</h2>
 				</div>
 			</div>
-				
-			<div class="mdl-card conference-events-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-			    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-					<h2 class="mdl-card__title-text">Event 1</h2>
+			{% endif %}
+			
+			{% for conference_events in conf_events %}
+			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+			  <div class="mdl-card__title">
+				<h2 class="mdl-card__title-text">{{ conference_events.name }}</h2>
+				<img class="conference-image" src="{{ asset('images/event/' ~ conference_events.imageName) }}"/>
+			  </div>
+
+			  <div class="mdl-card__supporting-text">
+				<div class = "description__text">
+					{{ conference_events.description }}
 				</div>
-				<div class="mdl-card__supporting-text">
-					<div class = "description__text">
-						Details about event 1 here.
-					</div>
-					<br>
-					Probably time stuff here
-				</div>
-				<div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-						Join Event
-					</a>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-						Edit Event
-					</a>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-						Delete Event
-					</a>
-				</div>
-			</div>			
+				<br>
+				{{ conference_events.startDatetime | date("m/d/Y")}} - {{ conference_events.endDatetime | date("m/d/Y")}} · {{ conference_events.location }}
+			  </div>
+
+			  <div class="mdl-card__actions mdl-card--border">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+				  Join Event
+				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+				  Edit Event
+				</a>
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#">
+				  Delete Event
+				</button>
+			  </div>
+			</div>
+			{% endfor %}
 		</div>		
 	</div>
 </main>

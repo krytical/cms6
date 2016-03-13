@@ -60,10 +60,15 @@ class ConferenceController extends Controller
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('This conference does not exist.');
         }
+		
+		$confevents = $this->getDoctrine()
+            ->getRepository('AppBundle:Event')
+            ->findBy(array('conference' => $conference->getId()), array('id' => 'DESC'));
 
         return $this->render(
             'conference/conference_show.html.twig', array(
             'conf_id' => $conference,
+			'conf_events' => $confevents
         ));
     }
 
