@@ -82,3 +82,7 @@ event_delete:
 event_reg:
     path:      /event/{conf_id}/{event_id}/register
     defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }
+
+event_reg:
+    path:      /profile/event_registration/{event_reg_id}/edit
+    defaults:  { _controller: AppBundle:EventRegistration:edit }
