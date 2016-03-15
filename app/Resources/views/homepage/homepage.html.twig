@@ -19,7 +19,7 @@
 					You can create a new conference here. Click below to get started.
 				  </div>
 				  <div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference') }}">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_create') }}">
 					  New Conference
 					</a>
 				  </div>
@@ -62,7 +62,7 @@
 			  {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
 
 			  <div class="mdl-card__actions mdl-card--border">
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_reg', {'conf_id': c.id}) }}">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_create', {'conf_id': c.id}) }}">
 				  Join Conference
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">

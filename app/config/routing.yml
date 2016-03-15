@@ -11,6 +11,7 @@ fos_user:
 #   _controller: <bundle>:<class_name>:<method_name>
 
 # TODO: add a crap load of routes as needed
+# for each category we want to have main page, create, show, edit, delete (and admin????)
 
 _welcome:
     path:      /
@@ -19,10 +20,14 @@ _welcome:
 # CONFERENCES
 conference:
     path:      /conference
-    defaults:  { _controller: AppBundle:Conference:conference }
+    defaults:  { _controller: AppBundle:Homepage:homepage }
+
+conference_create:
+    path:      /conference/create
+    defaults:  { _controller: AppBundle:Conference:create }
 
 conference_show:
-    path:      /conference/{conf_id}/
+    path:      /conference/{conf_id}
     defaults:  { _controller: AppBundle:Conference:show }
 
 conference_edit:
@@ -34,9 +39,17 @@ conference_delete:
     defaults:  { _controller: AppBundle:Conference:delete }
 
 # CONFERENCE REGISTRATIONS
-conference_reg:
+conf_reg:
+    path:      /profile/conference_registration
+    defaults:  { _controller: AppBundle:Profile:show }
+
+conf_reg_create:
     path:      /conference/{conf_id}/register
-    defaults:  { _controller: AppBundle:ConferenceRegistration:conferenceRegistration }
+    defaults:  { _controller: AppBundle:ConferenceRegistration:create }
+
+conf_reg_show:
+    path:      /profile/conference_registration/{conf_reg_id}
+    defaults:  { _controller: AppBundle:Profile:show }
 
 conf_reg_edit:
     path:      /profile/conference_registration/{conf_reg_id}/edit
@@ -58,9 +71,26 @@ user_edit:
 # HOTELS
 hotel:
     path:      /hotel
-    defaults:  { _controller: AppBundle:Hotel:hotel }
+    defaults:  { _controller: AppBundle:Homepage:homepage }
+
+hotel_create:
+    path:      /hotel/create
+    defaults:  { _controller: AppBundle:Hotel:create }
+
+hotel_show:
+    path:      /hotel/{hotel_id}
+    defaults:  { _controller: AppBundle:Hotel:show }
+
+hotel_edit:
+    path:      /hotel/{hotel_id}/edit
+    defaults:  { _controller: AppBundle:Hotel:edit }
+
+hotel_delete:
+    path:      /hotel/{hotel_id}/delete
+    defaults:  { _controller: AppBundle:Hotel:delete }
 
 # EVENTS
+# I think this should be /conference/{conf_id}/event/create
 event:
     path:      /event/{conf_id}/
     defaults:  { _controller: AppBundle:Event:event } 
@@ -77,8 +107,8 @@ event_delete:
     path:      /conference/{conf_id}/event/{event_id}
     defaults:  { _controller: AppBundle:Event:delete }
 
-
 # EVENT REGISTRATIONS
+# I think this should be /conference/{conf_id}/event/register
 event_reg:
     path:      /event/{conf_id}/{event_id}/register
     defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }

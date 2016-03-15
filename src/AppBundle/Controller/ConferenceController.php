@@ -13,13 +13,16 @@ use AppBundle\Form\ConferenceType;
 class ConferenceController extends Controller
 {
     /**
-     * @Route("/conference", name="conference")
+     * @Route("/conference/create", name="conference")
+     *
+     * @param Request $request
+     *  The submitted ConferenceType form
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function conferenceAction(Request $request)
+    public function createAction(Request $request)
     {
-        # TODO: We may want to change this route to /conference/create
-        # and have /conference render the homepage
-
+        # TODO: check user privileges
         $conference = new Conference();
         $form = $this->createForm(ConferenceType::class, $conference);
         $form->handleRequest($request);
@@ -34,12 +37,13 @@ class ConferenceController extends Controller
                 'Conference created successfully!'
             );
 
+            # TODO: render admin conference page
             return $this->redirectToRoute('_welcome');
         }
 
-        // renders the main conference page
+        // renders the conference creation page
         return $this->render(
-            'conference/conference.html.twig',
+            'conference/conference_create.html.twig',
             array(
                 'form' => $form->createView())
         );
@@ -47,24 +51,28 @@ class ConferenceController extends Controller
 
     /**
      * @Route("/conference/{conf_id}", name="conference_show")
+     *
+     * @param string $conf_id
+     *  The id of the conference to be displayed
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($conf_id)
     {
-        # TODO: get all events for the conference and pass them to the view
-
-        # render the show page for the conference
+        // get the conference
 		$conference = $this->getDoctrine()
             ->getRepository('AppBundle:Conference')
             ->find($conf_id);
-
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('This conference does not exist.');
         }
-		
+
+        // get the conference events
 		$confevents = $this->getDoctrine()
             ->getRepository('AppBundle:Event')
             ->findBy(array('conference' => $conference->getId()), array('id' => 'DESC'));
 
+        // render the conference page
         return $this->render(
             'conference/conference_show.html.twig', array(
             'conf_id' => $conference,
@@ -74,14 +82,21 @@ class ConferenceController extends Controller
 
     /**
      * @Route("/conference/{conf_id}/edit", name="conference_edit")
+     *
+     * @param Request $request
+     *  The submitted ConferenceType form
+     * @param string $conf_id
+     *  The id of the conference to be edited
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $conf_id)
     {
-
+        # TODO: check user privileges
+        // get the conference
         $conference = $this->getDoctrine()
             ->getRepository('AppBundle:Conference')
             ->find($conf_id);
-
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('The conference you are trying to edit does not exist.');
         }
@@ -99,6 +114,7 @@ class ConferenceController extends Controller
                 'Conference edited successfully!'
             );
 
+            # TODO: render admin conference page
             return $this->redirectToRoute('conference');
         }
 
@@ -111,13 +127,19 @@ class ConferenceController extends Controller
 
     /**
      * @Route("/conference/{conf_id}/delete", name="conference_delete")
+     *
+     * @param string $conf_id
+     *  The id of the conference to be deleted
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction($conf_id)
     {
+        # TODO: check user privileges
+        // get the conference
         $conference = $this->getDoctrine()
         ->getRepository('AppBundle:Conference')
         ->find($conf_id);
-
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('The conference you are trying to delete does not exist.');
         }
@@ -131,7 +153,7 @@ class ConferenceController extends Controller
             'Conference deleted successfully!'
         );
 
-        # calls the homepage controller to render the homepage
+        # TODO: render admin conference page
         return $this->forward('AppBundle:Homepage:homepage');
     }
 }

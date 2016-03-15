@@ -3,13 +3,7 @@
 // src/AppBundle/Controller/ProfileController.php
 namespace AppBundle\Controller;
 
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,14 +22,19 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
+        // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
+        // get the conference registrations
         $registrations = $this->getDoctrine()
             ->getRepository('AppBundle:ConferenceRegistration')
             ->findBy(array('user' => $user->getId()), array('conference' => 'DESC'));
+
+        # TODO: get the event registrations
+        # TODO: get the hotel registrations
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
@@ -48,6 +47,7 @@ class ProfileController extends BaseController
      */
     public function deleteAction()
     {
+        // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');

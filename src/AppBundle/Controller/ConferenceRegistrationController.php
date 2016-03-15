@@ -18,10 +18,16 @@ class ConferenceRegistrationController extends Controller
 {
     /**
      * @Route("/conference/{conf_id}/register", name="conference_reg")
+     *
+     * @param Request $request
+     *  The submitted ConferenceRegistrationType form
+     * @param string $conf_id
+     *  The id of the conference to register for
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function conferenceRegistrationAction(Request $request, $conf_id)
+    public function createAction(Request $request, $conf_id)
     {
-
         // get the conference
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Conference');
@@ -46,7 +52,6 @@ class ConferenceRegistrationController extends Controller
                 'You are already registered for this conference. If you would like to edit your registration, go to your profile.');
         }
 
-        // submit the registration
         $conference_reg = new ConferenceRegistration();
         $form = $this->createForm(ConferenceRegistrationType::class, $conference_reg);
         $form->handleRequest($request);
@@ -58,7 +63,6 @@ class ConferenceRegistrationController extends Controller
             $conference_reg->setUser($user);
             $conference_reg->setConference($conference);
 
-            // persist the registration to the DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($conference_reg);
             $em->flush();
@@ -68,39 +72,33 @@ class ConferenceRegistrationController extends Controller
                 'Successfully registered for conference!'
             );
 
+            // renders the conference page
             return $this->redirectToRoute('conference_show', ['conf_id' => $conf_id]);
         }
 
         // renders the main conference registration page
         return $this->render(
-            'conferenceRegistration/conference_reg.html.twig', array(
+            'conferenceRegistration/conference_reg_create.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/profile/conference_registration", name="user_conf_reg_show")
-     */
-    public function showUserConferenceRegistrationsAction()
-    {
-        # TODO: stub for showing all the CRs of a user
-        # (probably don't need this since we're showing the user registrations on the profile)
-
-        # render the show page for the CRs of the user
-        return $this->render(
-            'conferenceRegistration/conference_registrations_show.html.twig'
-        );
-    }
-
-    /**
      * @Route("/profile/conference_registration/{conf_reg_id}/edit", name="conf_reg_edit")
+     *
+     * @param Request $request
+     *  The submitted ConferenceRegistrationType form
+     * @param string $conf_reg_id
+     *  The id of the conference registration to edit
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $conf_reg_id)
     {
+        // get the registration
         $confReg = $this->getDoctrine()
             ->getRepository('AppBundle:ConferenceRegistration')
             ->find($conf_reg_id);
-
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException('The conference registration you are trying to edit does not exist.');
         }
@@ -121,10 +119,11 @@ class ConferenceRegistrationController extends Controller
                 'Conference Registration edited successfully!'
             );
 
+            // render the profile
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        # render the edit page for the conference
+        // render the edit page for the conference
         return $this->render(
             'conferenceRegistration/conference_reg_edit.html.twig', array(
             'form' => $form->createView()
@@ -133,13 +132,18 @@ class ConferenceRegistrationController extends Controller
 
     /**
      * @Route("/profile/conference_registration/{conf_reg_id}/delete", name="conf_reg_delete")
+     *
+     * @param $conf_reg_id
+     *  The id of the conference registration to delete
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction($conf_reg_id)
     {
+        // get the registration
         $confReg = $this->getDoctrine()
             ->getRepository('AppBundle:ConferenceRegistration')
             ->find($conf_reg_id);
-
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException('The conference registration you are trying to delete does not exist.');
         }
@@ -156,7 +160,7 @@ class ConferenceRegistrationController extends Controller
             'Conference registration deleted successfully!'
         );
 
-        # calls the homepage controller to render the homepage
-        return $this->forward('AppBundle:Homepage:homepage');
+        // renders the profile
+        return $this->redirectToRoute('fos_user_profile_show');
     }
 }
