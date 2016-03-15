@@ -94,10 +94,13 @@ Cards
   width: 100%;
 }
 
+.conference-card-wide > .mdl-card__supporting-text .mdl-card__events {
+	
+}
+
 .conference-card-wide > .mdl-card__supporting-text .conference-expand{
   position: absolute;
   right: 10%;
-  bottom:30px;
   z-index: 3;
 }
 

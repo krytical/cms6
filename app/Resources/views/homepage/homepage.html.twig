@@ -38,7 +38,7 @@
 				</div>
 			{% endif %}
 			
-			{% for c in conferences|sort %}
+			{% for c in conferences %}
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">{{ c.name }}</h2>
@@ -52,11 +52,20 @@
 				<br>
 				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
 				
-				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp">
+				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target="#conf_event">
 					<i class="material-icons">expand_more</i>
-				</button>
+				</button>			  
 			  </div>
 			  
+			   <div id="conf_event" class="mdl-card__actions mdl-card--border collapse">
+				   <div class="mdl-card__supporting-text">
+						<!-- EVENTS -->
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					</div>
+			   </div>
+			  			  
 			  {# TODO: Remove "Join Conference" button once you joined conference #}
 			  
 			  {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
@@ -74,9 +83,9 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event', {'conf_id': c.id}) }}">
 				  Add Event
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
+				<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
 				  Delete Conference
-				</a>
+				</button>
 			  </div>
 			</div>
 			
