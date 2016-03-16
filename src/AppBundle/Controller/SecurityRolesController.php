@@ -75,11 +75,23 @@ class SecurityRolesController extends Controller
 
 
         # TODO: create form
-        //$form = $this->createForm(UserRoleType::class, $user);
-        //$form->handleRequest($request);
+        $form = $this->createForm(UserRoleType::class, $user);
+
+        /*$form->handleRequest($request);
+
+
+        # TODO: for updating user, use userManager
+        $userManager = $this->container->get('fos_user.user_manager');
+        if ($form->isValid()) {
+            $userManager->updateUser($user);
+
+           // return $this->redirect($this->generateUrl('wes_admin_user_edit',
+             //   array('id' => $id)));
+        }*/
 
         return $this->render(
             'Security/security_roles_edit_user.html.twig', array(
+                'form' => $form->createView(),
                 'user' => $user,
                 'roles' => $roles
             )

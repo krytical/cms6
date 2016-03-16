@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserRoleType extends AbstractType
 {
@@ -23,7 +24,20 @@ class UserRoleType extends AbstractType
 
         $builder->add('name', Type\TextareaType::class);
 
-        /**/
+        $builder->add('roles', CollectionType::class, array(
+            'entry_type'   => ChoiceType::class,
+            'entry_options'  => array(
+                'choices'  => array(
+                    'nashville' => 'Nashville',
+                    'paris'     => 'Paris',
+                    'berlin'    => 'Berlin',
+                    'london'    => 'London',
+                ),
+            ),
+        ));
+
+
+        /*
 
         $builder->add('roles', CollectionType::class, array(
 
@@ -32,7 +46,7 @@ class UserRoleType extends AbstractType
             'entry_options'  => array(
                 'required'  => false,
             ),
-        ));
+        ));*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
