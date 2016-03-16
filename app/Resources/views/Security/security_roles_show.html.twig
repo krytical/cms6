@@ -17,7 +17,15 @@
         <ul>
             {% for user in users %}
                 <li>
-                    {{ user.name }}
+                    Name : {{ user.name }}
+                    <ul>
+                        <li>
+                            {% for role in user.roles %}
+                                Role: {{ role }}
+                            {% endfor %}
+                        </li>
+
+                    </ul>
                 </li>
             {%  endfor %}
         </ul>
