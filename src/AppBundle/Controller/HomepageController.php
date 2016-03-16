@@ -13,6 +13,7 @@ class HomepageController extends Controller
      */
     public function homepageAction()
     {
+		$ids = array();
 		$em = $this->getDoctrine()->getManager();
 		$conferences = $em->getRepository('AppBundle:Conference')->findAll();
 		
@@ -21,8 +22,8 @@ class HomepageController extends Controller
 			$confevents = $this->getDoctrine()
 				->getRepository('AppBundle:Event')
 				->findBy(array('conference' => $conferences[$i]->getId()), array('id' => 'DESC'));
+			$ids[] = 'conf_event'.($conferences[$i]->getId());
 		}
-		
 		
 		// If there are no conferences, $confevents is not instantiated
 		// there is probably a better way of doing it but this works
@@ -31,10 +32,10 @@ class HomepageController extends Controller
 				'conferences'=>$conferences,
 			));
 		}
-		else{
+		else{	
 			return $this->render('homepage/homepage.html.twig', array(
 				'conferences'=>$conferences,
-				'conf_events' => $confevents
+				//$ids => $confevents
 			));
 		}
     }
