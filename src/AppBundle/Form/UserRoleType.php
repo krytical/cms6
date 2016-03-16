@@ -20,10 +20,10 @@ class UserRoleType extends AbstractType
     // Form for editing security roles for one user
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('role', CheckboxType::class, array(
-            'label'    => 'Show this entry publicly?',
-            'required' => false,
-        ));
+
+        $builder->add('name', Type\TextareaType::class);
+
+        /**/
 
         $builder->add('roles', CollectionType::class, array(
 
