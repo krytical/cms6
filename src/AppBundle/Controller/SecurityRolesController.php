@@ -50,6 +50,9 @@ class SecurityRolesController extends Controller
         # TODO: create form
         # update one user at a time
 
+        $userManager = $this->container->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+
         return $this->render(
             'Security/security_roles_edit.html.twig'
         );
@@ -67,24 +70,28 @@ class SecurityRolesController extends Controller
 
         # for now I'll just choose one random user
         $roles = $this->container->getParameter('security.role_hierarchy.roles');
+        $user = $this->getUser();
+        $users = [$user];
 
-        $userManager = $this->container->get('fos_user.user_manager');
-        $users = $userManager->findUsers();
-        $user = $users[0];
 
         # TODO: create form
-        #will need something like this
-        $form = $this->createForm(UserRoleType::class, $user);
-        $form->handleRequest($request);
-
+        //$form = $this->createForm(UserRoleType::class, $user);
+        //$form->handleRequest($request);
 
         return $this->render(
             'Security/security_roles_edit_user.html.twig', array(
-            'form' => $form->createView(),
-                'roles' => $roles,
-                'user' => $user
+                'user' => $user,
+                'roles' => $roles
             )
         );
+
+        /*return $this->render(
+            'Security/security_roles_edit_user.html.twig', array(
+            'form' => $form->createView(),
+                'roles' => $roles,
+                //'user' => $user
+            )
+        );*/
 
     }
 

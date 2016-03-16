@@ -1,9 +1,31 @@
 {# app/Resources/views/conference/conference.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Conference Registration{% endblock%}
+{% block title %}{% endblock%}
 
 {% block body %}
-    {% include 'default/form.html.twig' with {'name':'Edit user roles'}%}
+    {#% include 'default/form.html.twig' with {'name':'Edit securily roles for user'}%}#}
+
+    <div class="roles">
+        <h3>ROLES </h3>
+        <ul>
+            {% for role in roles %}
+                <li>
+                    {{ role[0] }}
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+
+
+    <div class="user">
+        <h3>USER </h3>
+        Name : {{ user.name }}
+        <ul>
+        {% for role in user.roles %}
+            <li>  Role: {{ role }} </li>
+        {% endfor %}
+        </ul>
+    </div>
 
 {% endblock body %}
