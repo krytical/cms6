@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Resources\HelperClasses\SecurityRole;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -139,6 +140,15 @@ class User extends BaseUser
 //     * @ORM\Column(name="email", type="string", length=50, unique=true, nullable=true)
 //     */
 //    protected $email;
+
+
+
+    // TODO: temporary solution for serialized roles for form usage
+    /**
+     * @var array
+    */
+    private $userRoles;
+
 
     public function __construct()
     {
@@ -300,5 +310,25 @@ class User extends BaseUser
     public function getApproved()
     {
         return $this->approved;
+    }
+
+
+    //TODO: this is a temporary solution...not the best solution ATM however
+
+
+    /**
+    * Get serialized array of roles for form
+     * @return array
+     * of SecurityRole type
+     */
+    public function getUserRoles(){
+        $userRoles = array();
+        $this->getRoles();
+
+        foreach ($userRoles as $role){
+            $userRoles.array_push($role);
+        }
+
+        return $userRoles;
     }
 }

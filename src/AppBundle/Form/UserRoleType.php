@@ -24,15 +24,10 @@ class UserRoleType extends AbstractType
 
         $builder->add('name', Type\TextareaType::class);
 
-        $builder->add('roles', CollectionType::class, array(
-            'entry_type'   => ChoiceType::class,
-            'entry_options'  => array(
-                'choices'  => array(
-                    'nashville' => 'Nashville',
-                    'paris'     => 'Paris',
-                    'berlin'    => 'Berlin',
-                    'london'    => 'London',
-                ),
+        $builder->add('userRoles', CollectionType::class, array(
+            'entry_type'   => SecurityRoleType::class,
+            'allow_add'  => array(
+                'choices'  => true,
             ),
         ));
 

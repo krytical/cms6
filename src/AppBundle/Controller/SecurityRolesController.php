@@ -77,7 +77,11 @@ class SecurityRolesController extends Controller
         # TODO: create form
         $form = $this->createForm(UserRoleType::class, $user);
 
-        /*$form->handleRequest($request);
+        /*$form->handleRequest($request); OR
+        if ($form->isSubmitted() && $form->isValid()){
+          DO SOMETHING
+        ie. persist to db and redirect
+        }
 
 
         # TODO: for updating user, use userManager
