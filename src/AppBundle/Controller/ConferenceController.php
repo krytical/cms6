@@ -37,8 +37,7 @@ class ConferenceController extends Controller
                 'Conference created successfully!'
             );
 
-            # TODO: render admin conference page
-            return $this->redirectToRoute('_welcome');
+            return $this->redirectToRoute('conference');
         }
 
         // renders the conference creation page
@@ -114,7 +113,6 @@ class ConferenceController extends Controller
                 'Conference edited successfully!'
             );
 
-            # TODO: render admin conference page
             return $this->redirectToRoute('conference');
         }
 
@@ -153,7 +151,6 @@ class ConferenceController extends Controller
             'Conference deleted successfully!'
         );
 
-        # TODO: render admin conference page
-        return $this->forward('AppBundle:Homepage:homepage');
+        return $this->redirectToRoute('conference');
     }
 }

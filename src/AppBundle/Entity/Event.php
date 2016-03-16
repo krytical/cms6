@@ -16,6 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Event
 {
+
+    # TODO: add text column containing larger description of event
+
     /**
      * @var int
      *

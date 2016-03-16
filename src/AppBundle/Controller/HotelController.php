@@ -37,8 +37,8 @@ class HotelController extends Controller
                 'success',
                 'Hotel created successfully!'
             );
-            # TODO: render admin hotel page
-            return $this->redirectToRoute('_welcome');
+
+            return $this->redirectToRoute('hotel');
         }
 
         // renders the hotel creation page
@@ -102,7 +102,6 @@ class HotelController extends Controller
                 'Hotel edited successfully!'
             );
 
-            # TODO: render admin hotel page
             return $this->redirectToRoute('hotel');
         }
 
@@ -141,9 +140,6 @@ class HotelController extends Controller
             'Hotel deleted successfully!'
         );
 
-        # TODO: render admin hotel page
         return $this->redirectToRoute('hotel');
     }
-
-    # TODO: add a controller that manages conference-hotel mappings
 }

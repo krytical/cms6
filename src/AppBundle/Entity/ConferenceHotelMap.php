@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ConferenceHotelMap
 {
+    #TODO: DELETE THIS FILE
+
     /**
      * @var int
      *

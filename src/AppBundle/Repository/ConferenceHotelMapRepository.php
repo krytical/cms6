@@ -12,4 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConferenceHotelMapRepository extends EntityRepository
 {
+    #TODO: DELETE THIS FILE
 }

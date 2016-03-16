@@ -25,6 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
+    # TODO: add columns: first_name, last_name (maybe birthday, country, gender)
+    # TODO: remove columns: name
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -10,8 +10,7 @@ fos_user:
 # the structure for making a new path is as follows:
 #   _controller: <bundle>:<class_name>:<method_name>
 
-# TODO: add a crap load of routes as needed
-# for each category we want to have main page, create, show, edit, delete (and admin????)
+# for each category we want to have main page, create, show, edit, delete
 
 _welcome:
     path:      /

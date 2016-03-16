@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Conference
 {
 
-    # TODO: http://symfony.com/doc/current/book/forms.html#embedding-a-single-object
+    # TODO: add text column containing larger description of conference
 
     /**
      * @var int

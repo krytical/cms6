@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ConferenceRegistration
 {
+    # TODO: add columns: flight_number, needs_accommodation, hotel_only, how many are staying,
+    # homestay (should this be it's own table? should it be a hotel (merge with hotel_id column)?,
+
     /**
      * @var int
      *
