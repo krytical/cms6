@@ -52,12 +52,12 @@
 				<br>
 				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
 			
-				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target="#confevent">
+				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#confevent" ~ c.id}}>
 					<i class="material-icons">expand_more</i>
 				</button>
 			  </div>
 			  
-			   <div id="confevent" class="mdl-card__actions mdl-card--border collapse">
+			   <div id={{ "confevent" ~ c.id}} class="mdl-card__actions mdl-card--border collapse">
 					{% if conf_events is empty %}
 					<div class="mdl-card-empty empty-conference-card mdl-cell mdl-cell--12-col">
 						  <div class="mdl-card__title mdl-color-text--grey">
