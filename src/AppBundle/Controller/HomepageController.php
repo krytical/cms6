@@ -16,7 +16,26 @@ class HomepageController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$conferences = $em->getRepository('AppBundle:Conference')->findAll();
 		
-		return $this->render('homepage/homepage.html.twig', 
-			array('conferences'=>$conferences));
+		// get the conference events
+		for ($i =0; $i < count($conferences); $i++){
+			$confevents = $this->getDoctrine()
+				->getRepository('AppBundle:Event')
+				->findBy(array('conference' => $conferences[$i]->getId()), array('id' => 'DESC'));
+		}
+		
+		
+		// If there are no conferences, $confevents is not instantiated
+		// there is probably a better way of doing it but this works
+		if (empty($conferences)){
+			return $this->render('homepage/homepage.html.twig', array(
+				'conferences'=>$conferences,
+			));
+		}
+		else{
+			return $this->render('homepage/homepage.html.twig', array(
+				'conferences'=>$conferences,
+				'conf_events' => $confevents
+			));
+		}
     }
 }

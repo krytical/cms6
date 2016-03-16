@@ -69,7 +69,7 @@ class EventController extends Controller
                 $em->flush();
 
                 $this->addFlash(
-                    'notice',
+                    'success',
                     'Event created successfully!'
                 );
 
