@@ -26,9 +26,7 @@ class UserRoleType extends AbstractType
 
         $builder->add('userRoles', CollectionType::class, array(
             'entry_type'   => SecurityRoleType::class,
-            'allow_add'  => array(
-                'choices'  => true,
-            ),
+            'allow_add'  => true,
         ));
 
     }
