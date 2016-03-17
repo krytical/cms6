@@ -20,7 +20,15 @@ class HotelController extends Controller
      */
     public function showAllAction()
     {
-        #TODO: this
+        # TODO: check user privileges
+        // get the hotels
+        $hotels = $this->getDoctrine()
+            ->getRepository('AppBundle:Hotel')
+            ->findAll();
+
+        return $this->render('hotel/hotel_show_all.html.twig', array(
+            'hotels'=>$hotels,
+        ));
     }
 
     /**

@@ -23,7 +23,16 @@ class ConferenceRegistrationController extends Controller
      */
     public function showAllAction()
     {
-        #TODO: this
+        # TODO: check user privileges
+        // get the conference registrations
+        $conferenceRegistrations = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->findAll();
+
+        // render the show all conference registrations page
+        return $this->render('conferenceRegistration/conference_reg_show_all.html.twig', array(
+            'conf_regs'=>$conferenceRegistrations,
+        ));
     }
 
     /**
@@ -86,7 +95,7 @@ class ConferenceRegistrationController extends Controller
             return $this->redirectToRoute('conference_show', ['conf_id' => $conf_id]);
         }
 
-        // renders the main conference registration page
+        // renders the register for conference page
         return $this->render(
             'conferenceRegistration/conference_reg_create.html.twig', array(
             'form' => $form->createView()
@@ -96,11 +105,29 @@ class ConferenceRegistrationController extends Controller
     /**
      * @Route("/conference_registration/{conf_reg_id}", name="conf_reg_show")
      *
+     * @param $conf_reg_id
+     *  The ID of the conference registration to show
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAction($conf_reg_id)
     {
-        #TODO: this
+        # TODO: check user privileges
+        // get the conference registration
+        $confReg = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->find($conf_reg_id);
+        if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
+            throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
+        }
+        elseif ($confReg->getUser() != $this->getUser()) {
+            throw new AccessDeniedException('You cannot view the registration of another user.');
+        }
+
+        // render the conference registration page
+        return $this->render('conferenceRegistration/conference_reg_show.html.twig', array(
+            'conf_reg'=>$confReg,
+        ));
     }
 
     /**

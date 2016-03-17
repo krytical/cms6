@@ -77,11 +77,36 @@ class HotelRegistrationController extends Controller
     /**
      * @Route("/conference_registration/{conf_reg_id}/hotel_registration", name="conf_reg_show")
      *
+     * @param $conf_reg_id
+     *  The ID of the conference for which to display hotel information
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAction($conf_reg_id)
     {
-        #TODO: this
+        # TODO: check user privileges
+        // get the hotel registration
+        $hotelReg = $this->getDoctrine()
+            ->getRepository('AppBundle:HotelRegistration')
+            ->findOneBy(array('conferenceRegistration' => $conf_reg_id));
+        if (!is_object($hotelReg) || !$hotelReg instanceof HotelRegistration) {
+            throw $this->createNotFoundException("The hotel registration to display does not exist.");
+        }
+
+        // get the conference registration so we can check the user
+        $confReg = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->find($conf_reg_id);
+        if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
+            throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
+        }
+        elseif ($confReg->getUser() != $this->getUser()) {
+            throw new AccessDeniedException('You cannot view the registration of another user.');
+        }
+
+        // render the hotel registration page
+        return $this->render('hotelRegistration/hotel_reg_show.html.twig', array(
+            'hotel_reg'=>$hotelReg,
+        ));
     }
 
     /**
