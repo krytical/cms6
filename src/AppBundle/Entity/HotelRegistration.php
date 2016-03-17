@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class HotelRegistration
 {
+    # TODO: change this to accommodationRegistration
     /**
      * @var int
      *
@@ -25,8 +26,11 @@ class HotelRegistration
     /**
      * @var int
      *
-     * @ORM\OneToOne(targetEntity="ConferenceRegistration", inversedBy="hotel_registration")
+     * @ORM\OneToOne(targetEntity="ConferenceRegistration", inversedBy="hotelRegistration")
      * @ORM\JoinColumn(name="conference_registration_id", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @Assert\Type(type="AppBundle\Entity\ConferenceRegistration")
+     * @Assert\Valid()
      */
     private $conferenceRegistration;
 
@@ -35,6 +39,9 @@ class HotelRegistration
      *
      * @ORM\ManyToOne(targetEntity="Hotel")
      * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @Assert\Type(type="AppBundle\Entity\Hotel")
+     * @Assert\Valid()
      */
     private $hotel;
 
@@ -102,6 +109,7 @@ class HotelRegistration
     public function setConferenceRegistration(\AppBundle\Entity\ConferenceRegistration $conferenceRegistration = null)
     {
         $this->conferenceRegistration = $conferenceRegistration;
+        $conferenceRegistration->setHotelRegistration($this);
 
         return $this;
     }

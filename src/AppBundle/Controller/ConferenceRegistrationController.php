@@ -17,7 +17,26 @@ use AppBundle\Form\ConferenceRegistrationType;
 class ConferenceRegistrationController extends Controller
 {
     /**
-     * @Route("/conference/{conf_id}/register", name="conference_reg")
+     * @Route("/conference_registration", name="conf_reg_show_all")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showAllAction()
+    {
+        # TODO: check user privileges
+        // get the conference registrations
+        $conferenceRegistrations = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->findAll();
+
+        // render the show all conference registrations page
+        return $this->render('conferenceRegistration/conference_reg_show_all.html.twig', array(
+            'conf_regs'=>$conferenceRegistrations,
+        ));
+    }
+
+    /**
+     * @Route("/conference/{conf_id}/register", name="conf_reg_create")
      *
      * @param Request $request
      *  The submitted ConferenceRegistrationType form
@@ -76,7 +95,7 @@ class ConferenceRegistrationController extends Controller
             return $this->redirectToRoute('conference_show', ['conf_id' => $conf_id]);
         }
 
-        // renders the main conference registration page
+        // renders the register for conference page
         return $this->render(
             'conferenceRegistration/conference_reg_create.html.twig', array(
             'form' => $form->createView()
@@ -84,7 +103,35 @@ class ConferenceRegistrationController extends Controller
     }
 
     /**
-     * @Route("/profile/conference_registration/{conf_reg_id}/edit", name="conf_reg_edit")
+     * @Route("/conference_registration/{conf_reg_id}", name="conf_reg_show")
+     *
+     * @param $conf_reg_id
+     *  The ID of the conference registration to show
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showAction($conf_reg_id)
+    {
+        # TODO: check user privileges
+        // get the conference registration
+        $confReg = $this->getDoctrine()
+            ->getRepository('AppBundle:ConferenceRegistration')
+            ->find($conf_reg_id);
+        if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
+            throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
+        }
+        elseif ($confReg->getUser() != $this->getUser()) {
+            throw new AccessDeniedException('You cannot view the registration of another user.');
+        }
+
+        // render the conference registration page
+        return $this->render('conferenceRegistration/conference_reg_show.html.twig', array(
+            'conf_reg'=>$confReg,
+        ));
+    }
+
+    /**
+     * @Route("/conference_registration/{conf_reg_id}/edit", name="conf_reg_edit")
      *
      * @param Request $request
      *  The submitted ConferenceRegistrationType form
@@ -100,7 +147,7 @@ class ConferenceRegistrationController extends Controller
             ->getRepository('AppBundle:ConferenceRegistration')
             ->find($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
-            throw $this->createNotFoundException('The conference registration you are trying to edit does not exist.');
+            throw $this->createNotFoundException("The conference registration (with ID {$conf_reg_id}) you are trying to edit does not exist.");
         }
         elseif ($confReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot edit the Registration of another user.');
@@ -131,7 +178,7 @@ class ConferenceRegistrationController extends Controller
     }
 
     /**
-     * @Route("/profile/conference_registration/{conf_reg_id}/delete", name="conf_reg_delete")
+     * @Route("/conference_registration/{conf_reg_id}/delete", name="conf_reg_delete")
      *
      * @param $conf_reg_id
      *  The id of the conference registration to delete
@@ -145,7 +192,7 @@ class ConferenceRegistrationController extends Controller
             ->getRepository('AppBundle:ConferenceRegistration')
             ->find($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
-            throw $this->createNotFoundException('The conference registration you are trying to delete does not exist.');
+            throw $this->createNotFoundException("The conference registration (with ID: {$conf_reg_id}) you are trying to delete does not exist.");
         }
         elseif ($confReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot delete the Registration of another user.');

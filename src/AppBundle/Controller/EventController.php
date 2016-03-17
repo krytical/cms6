@@ -11,43 +11,13 @@ use AppBundle\Form\EventType;
 
 class EventController extends Controller
 {
-//    /**
-//     * @Route("/event", name="event")
-//     */
-//    public function eventAction()
-//    {
-//        # TODO: stub for main event page (in case we want to do something with all events)
-//        # (can probably remove)
-//
-//        // renders the main event page
-//        return $this->render(
-//            'event/event.html.twig'
-//        );
-//    }
-
-//    /**
-//     * @Route("/conference/{conf_id}/event", name="conference_events_show")
-//     */
-//    public function showConferenceEventsAction($conf_id)
-//    {
-//        # TODO: stub for showing all the events in a conference
-//        # (probably don't need this, maybe just redirect to conference page)
-//
-//        # render the show page for the conference events
-//        return $this->render(
-//            'conference/event/conference_events_show.html.twig', array(
-//            'conf_id' => $conf_id,
-//        ));
-//    }
-
-    
     /**
     * @Route("/event/{conf_id}", name="event")
-    */   
-
+    */
     public function eventAction(Request $request,$conf_id)
         {
 
+            # TODO: I think this should be moved to createAction but it's up to you
             $conference = $this->getDoctrine()
                 ->getRepository('AppBundle:Conference')
                 ->find($conf_id);
@@ -87,7 +57,6 @@ class EventController extends Controller
      /**
      * @Route("/conference/{conf_id}/event/{event_id}", name="event_show")
      */
-
      public function showAction($conf_id, $event_id)
     {
         $repository = $this->getDoctrine()
@@ -104,7 +73,6 @@ class EventController extends Controller
         }
 
         # TODO: stub for showing a single event
-        # (not totally necessary but would be nice)
 
         # render the show page for the event
         return $this->render(
@@ -158,7 +126,7 @@ class EventController extends Controller
                 'Event edited successfully!'
             );
 
-            return $this->redirectToRoute('conference');
+            return $this->redirectToRoute('conference_show_all');
         }
 
         # render the edit page for the event
