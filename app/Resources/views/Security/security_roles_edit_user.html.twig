@@ -5,7 +5,21 @@
 
 {% block body %}
     {% include 'default/form.html.twig' with {'name':'Edit securily roles for user'}%}
+    {{ form_start(form) }}
 
+        {# TODO: render username #}
+
+        {# render all roles #}
+        <h3>Security roles </h3>
+        <ul class="security roles">
+            {# iterate over existing roles and render the names TODO: add checkbox or somehting#}
+            {% for user_role in form.userRoles  %}
+                <li> {{ form_row(user_role.name) }} </li>
+            {% endfor %}
+        </ul>
+
+    {{ form_end(form) }}
+---------------------------------
     <div class="roles">
         <h3>ROLES </h3>
         <ul>
@@ -26,6 +40,5 @@
             <li>  Role: {{ role }} </li>
         {% endfor %}
         </ul>
-    </div>
 
 {% endblock body %}

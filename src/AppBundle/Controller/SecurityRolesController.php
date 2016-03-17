@@ -71,10 +71,7 @@ class SecurityRolesController extends Controller
         # for now I'll just choose one random user
         $roles = $this->container->getParameter('security.role_hierarchy.roles');
         $user = $this->getUser();
-        $users = [$user];
 
-
-        # TODO: create form
         $form = $this->createForm(UserRoleType::class, $user);
 
         /*$form->handleRequest($request); OR
@@ -100,14 +97,6 @@ class SecurityRolesController extends Controller
                 'roles' => $roles
             )
         );
-
-        /*return $this->render(
-            'Security/security_roles_edit_user.html.twig', array(
-            'form' => $form->createView(),
-                'roles' => $roles,
-                //'user' => $user
-            )
-        );*/
 
     }
 

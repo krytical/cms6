@@ -31,17 +31,6 @@ class UserRoleType extends AbstractType
             ),
         ));
 
-
-        /*
-
-        $builder->add('roles', CollectionType::class, array(
-
-            'entry_type'   => CheckboxType::class,
-
-            'entry_options'  => array(
-                'required'  => false,
-            ),
-        ));*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
