@@ -13,8 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ConferenceRegistration
 {
-    # TODO: add columns: flight_number, needs_accommodation, hotel_only, how many are staying,
-    # homestay (should this be it's own table? should it be a hotel (merge with hotel_id column)?,
+    # TODO: add columns: flight_number, needs_accommodation, preferred accommodation (hotel, home stay or don't care), how many are staying
 
     /**
      * @var int
@@ -52,7 +51,7 @@ class ConferenceRegistration
 
     /**
      * @var int
-     * @ORM\OneToOne(targetEntity="HotelRegistration", mappedBy="conference_registration")\
+     * @ORM\OneToOne(targetEntity="HotelRegistration", mappedBy="conferenceRegistration")\
      * @ORM\JoinColumn(name="hotel_registration_id", referencedColumnName="id", onDelete="SET NULL")
      *
      * @Assert\Type(type="AppBundle\Entity\HotelRegistration")

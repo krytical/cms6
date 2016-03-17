@@ -14,7 +14,17 @@ use Symfony\Component\Form\Extension\Core\Type;
 class HotelController extends Controller
 {
     /**
-     * @Route("/hotel", name="hotel")
+     * @Route("/hotel", name="hotel_show_all")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showAllAction()
+    {
+        #TODO: this
+    }
+
+    /**
+     * @Route("/hotel", name="hotel_create")
      *
      * @param Request $request
      *  The submitted HotelType form
@@ -38,7 +48,7 @@ class HotelController extends Controller
                 'Hotel created successfully!'
             );
 
-            return $this->redirectToRoute('hotel');
+            return $this->redirectToRoute('_welcome');
         }
 
         // renders the hotel creation page
@@ -102,7 +112,7 @@ class HotelController extends Controller
                 'Hotel edited successfully!'
             );
 
-            return $this->redirectToRoute('hotel');
+            return $this->redirectToRoute('hotel_show_all');
         }
 
         # render the edit page for the hotel
@@ -140,6 +150,6 @@ class HotelController extends Controller
             'Hotel deleted successfully!'
         );
 
-        return $this->redirectToRoute('hotel');
+        return $this->redirectToRoute('hotel_show_all');
     }
 }
