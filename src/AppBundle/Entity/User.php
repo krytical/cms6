@@ -323,10 +323,11 @@ class User extends BaseUser
      */
     public function getUserRoles(){
         $userRoles = array();
-        $this->getRoles();
+        $roles = $this->getRoles();
 
-        foreach ($userRoles as $role){
-            $userRoles.array_push($role);
+        foreach ($roles as $role){
+            $userRole = new SecurityRole($role);
+            $userRoles[] = $userRole;
         }
 
         return $userRoles;
