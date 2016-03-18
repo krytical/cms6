@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Resources\HelperClasses\SecurityRole;
+use AppBundle\Resources\HelperClasses\UserRole;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -326,7 +326,7 @@ class User extends BaseUser
         $roles = $this->getRoles();
 
         foreach ($roles as $role){
-            $userRole = new SecurityRole($role);
+            $userRole = new UserRole($role);
             $userRoles[] = $userRole;
         }
 

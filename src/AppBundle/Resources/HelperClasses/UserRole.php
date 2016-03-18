@@ -3,10 +3,12 @@
 namespace AppBundle\Resources\HelperClasses;
 
 
-class SecurityRole
+class UserRole
 {
 
     private $name;
+
+    private $enabled;
 
     public function __construct($name)
     {
@@ -16,5 +18,15 @@ class SecurityRole
     public function getName(){
         return $this->name;
     }
+
+    public function isEnabled(){
+        return $this->enabled;
+    }
+
+    public function setEnabled($enable){
+        $this->enabled = $enable;
+    }
+
+
 
 }
