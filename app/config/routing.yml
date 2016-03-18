@@ -59,7 +59,7 @@ conf_reg_delete:
     defaults:  { _controller: AppBundle:ConferenceRegistration:delete }
 
 # USERS
-#TODO: show_all page
+#TODO: show_all (admin) page
 user_delete:
     path:      /profile/delete
     defaults:  { _controller: AppBundle:Profile:delete }

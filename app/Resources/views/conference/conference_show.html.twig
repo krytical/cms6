@@ -23,7 +23,7 @@
 					<h2 class="mdl-card__title-text">Details</h2>
 				</div>
 				<div class="mdl-card__supporting-text">
-					{{ conf_id.description }}
+					{{ conf_id.fullDescription }}
 				</div>
 				<ul class="conference-detail-list mdl-list">
 				  <li class="mdl-list__item">
@@ -101,7 +101,7 @@
 
 			  <div class="mdl-card__supporting-text">
 				<div class = "description__text">
-					{{ conference_events.description }}
+					{{ conference_events.shortDescription }}
 				</div>
 				<br>
 				{{ conference_events.startDatetime | date("m/d/Y")}} - {{ conference_events.endDatetime | date("m/d/Y")}} · {{ conference_events.location }}

@@ -97,16 +97,6 @@
                     {% endfor %}
                 {% endif %}
             {% endblock %}
-
-            {# TODO: figure out how to properly display form validation errors
-            {% block errors %}
-                <ul>
-                    {% for error in errors %}
-                        <li>{{ error.message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endblock %}
-            #}
 			
 			<div class="cms-content mdl-layout__content">
             {% block body %}{% endblock %}

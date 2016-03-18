@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class HotelRegistration
 {
-    # TODO: change this to accommodationRegistration
     /**
      * @var int
      *

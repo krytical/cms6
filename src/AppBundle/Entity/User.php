@@ -25,8 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
-    # TODO: add columns: first_name, last_name (maybe birthday, country, gender)
-    # TODO: remove columns: name
+    # TODO: maybe add columns:  birthday, country, gender
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -37,10 +37,10 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="first_name", type="string", length=100)
      *
      * @Assert\NotBlank(
-     *     message="Please enter your name.",
+     *     message="Please enter your first name.",
      *     groups={"Registration", "Profile"})
      * @Assert\Length(
      *     min=3,
@@ -49,7 +49,24 @@ class User extends BaseUser
      *     maxMessage="The name is too long.",
      *     groups={"Registration", "Profile"})
      */
-    private $name;
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=100)
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter your last name.",
+     *     groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=100,
+     *     minMessage="The name is too short.",
+     *     maxMessage="The name is too long.",
+     *     groups={"Registration", "Profile"})
+     */
+    private $lastName;
 
     /**
      * @var string
@@ -82,18 +99,11 @@ class User extends BaseUser
     private $imageName;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
     private $updatedAt;
-
-//    /**
-//     * @var string
-//     *
-//     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
-//     */
-//    private $imgName;
 
     /**
      * @var bool
@@ -149,26 +159,49 @@ class User extends BaseUser
     }
 
     /**
-     * Set name
+     * Set first name
      *
-     * @param string $name
+     * @param string $firstName
      * @return User
      */
-    public function setName($name)
+    public function setFirstName($firstName)
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get first name
      *
      * @return string 
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->firstName;
+    }
+
+    /**
+     * Set last name
+     *
+     * @param string $lastName
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get last name
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
     }
 
     /**
@@ -193,29 +226,6 @@ class User extends BaseUser
     {
         return $this->phone;
     }
-
-//    /**
-//     * Set imgName
-//     *
-//     * @param string $imgName
-//     * @return User
-//     */
-//    public function setImgName($imgName)
-//    {
-//        $this->imgName = $imgName;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get imgName
-//     *
-//     * @return string
-//     */
-//    public function getImgName()
-//    {
-//        return $this->imgName;
-//    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance

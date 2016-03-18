@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Conference
 {
-
-    # TODO: add text column containing larger description of conference
-
     /**
      * @var int
      *
@@ -47,10 +44,18 @@ class Conference
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="short_description", type="string")
      *
      */
-    private $description;
+    private $shortDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="full_description", type="text")
+     *
+     */
+    private $fullDescription;
 
     /**
      * @var string
@@ -112,18 +117,11 @@ class Conference
     private $imageName;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
     private $updatedAt;
-
-//    /**
-//     * @var string
-//     *
-//     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
-//     */
-//    private $imgName;
 
     public function __construct()
     {
@@ -232,29 +230,6 @@ class Conference
         return $this->endDatetime;
     }
 
-//    /**
-//     * Set imgName
-//     *
-//     * @param string $imgName
-//     * @return Conference
-//     */
-//    public function setImgName($imgName)
-//    {
-//        $this->imgName = $imgName;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get imgName
-//     *
-//     * @return string
-//     */
-//    public function getImgName()
-//    {
-//        return $this->imgName;
-//    }
-
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the  update. If this
@@ -308,25 +283,48 @@ class Conference
     }
 
     /**
-     * Set description
+     * Set short description
      *
-     * @param string $description
+     * @param string $shortDescription
      * @return Conference
      */
-    public function setDescription($description)
+    public function setShortDescription($shortDescription)
     {
-        $this->description = $description;
+        $this->shortDescription = $shortDescription;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get short description
      *
      * @return string 
      */
-    public function getDescription()
+    public function getShortDescription()
     {
-        return $this->description;
+        return $this->shortDescription;
+    }
+
+    /**
+     * Set full description
+     *
+     * @param string $fullDescription
+     * @return Conference
+     */
+    public function setFullDescription($fullDescription)
+    {
+        $this->fullDescription = $fullDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get full description
+     *
+     * @return string
+     */
+    public function getFullDescription()
+    {
+        return $this->fullDescription;
     }
 }

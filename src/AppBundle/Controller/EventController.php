@@ -24,12 +24,12 @@ class EventController extends Controller
 
             if (!$conference) {
                 throw $this->createNotFoundException(
-                'No product found for id '.$currentUrl
+                'No conference found for id '.$conf_id
                 );
             }
 
             $event = new Event();
-            $event->setId($conference);
+            $event->setConference($conference);
             $form = $this->createForm(EventType::class, $event);
             $form->handleRequest($request);
 

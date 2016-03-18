@@ -11,32 +11,29 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        # TODO: Split name into first and last
-        $builder->add('name')
-        ->add('phone')
+        $builder->add('firstName')
+        ->add('lastName')
+        ->add('phone', Type\TextType::class, array(
+            'required' => false,
+            'label' => 'Phone Number (optional)'
+        ))
         ->add('imageFile', Type\FileType::class, array(
-            'label' => 'Profile Picture'
+            'required' => false,
+            'label' => 'Profile Picture (optional)'
         ))
         ->add('approved', Type\HiddenType::class, array(
             'data' => 'false'
         ));
     }
 
-    # TODO: Add this in to get our user validation working
-
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults(array(
-//            'validation_groups' => array('User'),
-//            'data_class' => 'AppBundle\Entity\User',
-//
-//            # TODO: figure out if we need these (copied from RegistrationFormType.php)
-//            //'data_class' => $this->class,
-//            //'csrf_token_id' => 'registration',
-//            //    // BC for SF < 2.8
-//            //'intention'  => 'registration',
-//        ));
-//    }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => array('User'),
+            'data_class' => 'AppBundle\Entity\User',
+            //'csrf_token_id' => 'registration',
+        ));
+    }
 
     public function getParent()
     {

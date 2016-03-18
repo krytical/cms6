@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ConferenceRegistration
 {
-    # TODO: add columns: flight_number, needs_accommodation, preferred accommodation (hotel, home stay or don't care), how many are staying
-
     /**
      * @var int
      *
@@ -45,9 +43,6 @@ class ConferenceRegistration
      * @Assert\Valid()
      */
     private $conference;
-
-    # TODO: The association AppBundle\Entity\ConferenceRegistration#hotelRegistration
-    # refers to the owning side field AppBundle\Entity\HotelRegistration#conference_registration which does not exist.
 
     /**
      * @var int
@@ -90,8 +85,8 @@ class ConferenceRegistration
      *     message="Please enter the number of guests attending.",
      *     groups={"ConferenceRegistration"})
      *  @Assert\Range(
-     *      min = 0,
-     *      minMessage = "Please enter a value of at least zero.",
+     *      min = 1,
+     *      minMessage = "Please enter a value of at least one.",
      *      groups={"ConferenceRegistration"})
      */
     private $guests;
@@ -99,10 +94,49 @@ class ConferenceRegistration
     /**
      * @var string
      *
-     * @ORM\Column(name="accommodations", type="string")
+     * @ORM\Column(name="flight_number", type="string", length=25, nullable=true)
+     *
+     * @Assert\Length(
+     *     max=25,
+     *     maxMessage="The number is too long.",
+     *     groups={"ConferenceRegistration"})
+     */
+    private $flightNumber;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="needs_accommodation", type="boolean")
+     *
+     * @Assert\NotBlank(
+     *     message="Please enter if you need need accommodation.",
+     *     groups={"ConferenceRegistration"})\
+     */
+    private $needsAccommodation;
+
+    // TODO: maybe put this back in
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="accommodation_preference", type="string", length=25)
+//     *
+//     * @Assert\NotBlank(
+//     *     message="Please enter a preference.",
+//     *     groups={"ConferenceRegistration"})
+//     * @Assert\Length(
+//     *     max=25,
+//     *     maxMessage="The preference is too long.",
+//     *     groups={"ConferenceRegistration"})
+//     */
+//    private $accommodationPreference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="additional_info", type="string", nullable=true)
      *
      */
-    private $accommodations;
+    private $additionalInfo;
 
     /**
      * @var bool
@@ -200,6 +234,75 @@ class ConferenceRegistration
     }
 
     /**
+     * Set flightNumber
+     *
+     * @param string $flightNumber
+     * @return ConferenceRegistration
+     */
+    public function setFlightNumber($flightNumber)
+    {
+        $this->flightNumber = $flightNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get flightNumber
+     *
+     * @return string
+     */
+    public function getFlightNumber()
+    {
+        return $this->flightNumber;
+    }
+
+//    /**
+//     * Set accommodationPreference
+//     *
+//     * @param string $accommodationPreference
+//     * @return ConferenceRegistration
+//     */
+//    public function setAccommodationPreference($accommodationPreference)
+//    {
+//        $this->accommodationPreference = $accommodationPreference;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get accommodationPreference
+//     *
+//     * @return string
+//     */
+//    public function getAccommodationPreference()
+//    {
+//        return $this->accommodationPreference;
+//    }
+
+    /**
+     * Set needsAccommodation
+     *
+     * @param int $needsAccommodation
+     * @return ConferenceRegistration
+     */
+    public function setNeedsAccommodation($needsAccommodation)
+    {
+        $this->needsAccommodation = $needsAccommodation;
+
+        return $this;
+    }
+
+    /**
+     * Get needsAccommodation
+     *
+     * @return boolean
+     */
+    public function getNeedsAccommodation()
+    {
+        return $this->needsAccommodation;
+    }
+
+    /**
      * Set approved
      *
      * @param boolean $approved
@@ -223,26 +326,26 @@ class ConferenceRegistration
     }
 
     /**
-     * Set accommodations
+     * Set additionalInfo
      *
-     * @param string $accommodations
+     * @param string $additionalInfo
      * @return ConferenceRegistration
      */
-    public function setAccommodations($accommodations)
+    public function setAdditionalInfo($additionalInfo)
     {
-        $this->accommodations = $accommodations;
+        $this->additionalInfo = $additionalInfo;
 
         return $this;
     }
 
     /**
-     * Get accommodations
+     * Get additionalInfo
      *
      * @return string 
      */
-    public function getAccommodations()
+    public function getAdditionalInfo()
     {
-        return $this->accommodations;
+        return $this->additionalInfo;
     }
 
     /**
