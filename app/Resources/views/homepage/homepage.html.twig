@@ -47,7 +47,7 @@
 
 			  <div class="mdl-card__supporting-text">
 				<div class = "description__text">
-					{{ c.description }}
+					{{ c.shortDescription }}
 				</div>
 				<br>
 				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
@@ -72,7 +72,7 @@
 						  <h4 class="list-group-item-heading">{{ event.name }}</h4>
 						    <p class="list-group-item-text">
 							<div class = "description__text">
-								{{ event.description }}
+								{{ conference_events.shortDescription }}
 							</div>
 							{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
 						  </p>

@@ -17,15 +17,25 @@ class ConferenceRegistrationType extends AbstractType
         // (http://symfony.com/doc/2.8/cookbook/form/data_transformers.html)
         // our foreign keys bypass the form and are added later in the controller.
         // This means our foreign keys are set to null by default in the form.
-        $builder->add('arrivalDatetime', Type\DateTimeType::class)
-        ->add('departureDatetime', Type\DateTimeType::class)
-        ->add('guests')
-        ->add('accommodations', Type\TextareaType::class, array(
-            'label' => 'Additional Requirements'
-        ))
+        $builder->add('flightNumber', Type\TextType::class, array(
+        'required' => false,
+        'label' => 'Flight Number (leave blank if not flying to conference)'))
+        ->add('arrivalDatetime', Type\DateTimeType::class, array(
+            'required' => false,
+            'label' => 'Arrival Flight Time (leave blank if not flying to conference)'))
+        ->add('departureDatetime', Type\DateTimeType::class, array(
+            'required' => false,
+            'label' => 'Departure Flight Time (leave blank if not flying to conference)'))
+        ->add('guests', Type\IntegerType::class, array(
+            'label' => 'Number Of Attendees in your group (including you)',
+            'data' => 1))
+        ->add('needsAccommodation', Type\CheckboxType::class, array(
+            'label' => 'I Need Accommodation (Hotel or Home-stay)'))
+        ->add('additionalInfo', Type\TextareaType::class, array(
+            'required' => false,
+            'label' => 'Please Specify Any Additional Information (required care packages, wheelchair access...)'))
         ->add('approved', Type\HiddenType::class, array(
-            'data' => 'false'
-        ));
+            'data' => 'false'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

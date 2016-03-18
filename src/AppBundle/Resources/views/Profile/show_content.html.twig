@@ -12,7 +12,7 @@
 <main class="mdl-layout__content-profile-show">
 	<div class="page-content mdl-grid">	
 		<div class="mdl-card profile-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">		
-			<h2>Hello, {{ user.name }}</h2>
+			<h2>Hello, {{ user.firstName }}</h2>
 			
 			<!-- Profile details here -->
 			<div class="mdl-card profile-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -104,7 +104,7 @@
 
 			  <div class="mdl-card__supporting-text">
 				<div class = "description__text">
-					{{ conference_reg.conference.description }}
+					{{ conference_reg.conference.shortDescription }}
 				</div>
 				<br>
 				{#{{ conference_reg.conference.startDatetime | date("m/d/Y")}} - {{ conference_reg.conference.endDatetime | date("m/d/Y")}} · {{ conference_reg.conference.location }}#}
@@ -119,7 +119,7 @@
 			  {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
 
 			  <div class="mdl-card__actions mdl-card--border">
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete',{'conf_reg_id': conference_reg.id}) }}">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete',{'conf_id': conference_reg.conference.id, 'conf_reg_id': conference_reg.id}) }}">
 				  Leave Conference
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': conference_reg.conference.id }) }}">

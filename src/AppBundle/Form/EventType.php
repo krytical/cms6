@@ -13,14 +13,26 @@ class EventType extends AbstractType
     {
         # Note conference_id will be added in the controller
         $builder->add('name')
+        ->add('shortDescription', Type\TextareaType::class, array(
+            'label' => 'Enter a brief summary of the conference'
+        ))
+        ->add('fullDescription', Type\TextareaType::class, array(
+            'label' => 'Enter a full description of the conference to be displayed on the conference page'
+        ))
         ->add('location')
         ->add('speaker')
         ->add('startDatetime', Type\DateTimeType::class)
         ->add('endDatetime', Type\DateTimeType::class)
-        ->add('capacity')
-        ->add('spotsRemaining')
-        ->add('description', Type\TextareaType::class)
+        ->add('capacity', Type\IntegerType::class, array(
+            'required' => false,
+            'label' => 'Event Capacity'
+        ))
+        ->add('spotsRemaining', Type\IntegerType::class, array(
+            'required' => false,
+            'label' => 'Event Seats Remaining'
+        ))
         ->add('imageFile', Type\FileType::class, array(
+            'required' => false,
             'label' => 'Event Photo'
         ));
     }

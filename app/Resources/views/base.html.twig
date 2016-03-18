@@ -89,7 +89,6 @@
 				{% endif %}
             </div>
 
-            {# TODO: figure out how to flash messages work #}
             {% block messages %}
                 {% if app.request.hasPreviousSession %}
                     {% for type, messages in app.session.flashbag.all() %}
@@ -102,16 +101,6 @@
                     {% endfor %}
                 {% endif %}
             {% endblock %}
-
-            {# TODO: figure out how to properly display form validation errors
-            {% block errors %}
-                <ul>
-                    {% for error in errors %}
-                        <li>{{ error.message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endblock %}
-            #}
 			
 			<div class="cms-content mdl-layout__content">
             {% block body %}{% endblock %}
