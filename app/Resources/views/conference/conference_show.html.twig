@@ -58,15 +58,18 @@
 					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_create', {'conf_id': conf_id.id}) }}">
 						Join Conference
 					</a>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': conf_id.id}) }}">
-						Edit Conference
-					</a>
 					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event', {'conf_id': conf_id.id}) }}">
 						Add Event
 					</a>
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+						Attendance List
+					</a>
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': conf_id.id}) }}">
+						Edit Conference
+					</a>
 					<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
-				  Delete Conference
-				</button>
+						Delete Conference
+					</button>
 				</div>
 			</div>
 
@@ -75,7 +78,7 @@
             {# TODO: Add edit and delete buttons on each event #}
 			
 			<div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Events</h2>
+                <h1 class="mdl-card__title-text">Events</h1>
 			</div>
 			
 			<!-- Events here -->
@@ -108,6 +111,9 @@
 			  <div class="mdl-card__actions mdl-card--border">
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  Join Event
+				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+				  View Details
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  Edit Event
