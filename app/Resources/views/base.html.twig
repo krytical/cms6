@@ -66,6 +66,7 @@
 				<img class="drawer-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
 				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
                 <nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="/">Home</a>
                     <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}#user-conferences">Your Conferences</a>
 
                     {# TODO: check user privileges before displaying these #}
