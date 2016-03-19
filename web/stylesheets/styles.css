@@ -1,5 +1,5 @@
 body {
-margin: 0;
+ margin: 0;
 }
 
 /*
@@ -41,6 +41,15 @@ General
 	margin-bottom: 0px;
 }
 
+.upcoming-conference{
+	margin-left: 8px;
+	margin-top: 0px;
+	color: #9e9e9e;
+}
+
+#event-description{
+	padding-bottom: 8px;
+}
 
 /*
 Cards
@@ -48,6 +57,24 @@ Cards
 .mdl-card{
 	margin-bottom: 30px;
 	transition: 0.3s;
+}
+
+.mdl-card > .event-collapse{
+	padding: 0px;
+	min-height: 0px;
+}
+
+.mdl-card > .event-collapse .list-group{
+	margin-bottom: 0px;
+}
+
+.mdl-card > .event-collapse > .event-list .list-group-item-heading{
+	color: #9e9e9e;
+}
+
+.mdl-card > .event-collapse > .event-list .list-group-item{
+	color: #9e9e9e;
+	border-radius: 0 !important;
 }
 
 .mdl-card:hover{

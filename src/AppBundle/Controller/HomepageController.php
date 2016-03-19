@@ -13,29 +13,24 @@ class HomepageController extends Controller
      */
     public function homepageAction()
     {
-		$em = $this->getDoctrine()->getManager();
-		$conferences = $em->getRepository('AppBundle:Conference')->findAll();
-		
-		// get the conference events
-		for ($i =0; $i < count($conferences); $i++){
-			$confevents = $this->getDoctrine()
-				->getRepository('AppBundle:Event')
-				->findBy(array('conference' => $conferences[$i]->getId()), array('id' => 'DESC'));
-		}
-		
-		
-		// If there are no conferences, $confevents is not instantiated
-		// there is probably a better way of doing it but this works
-		if (empty($conferences)){
-			return $this->render('homepage/homepage.html.twig', array(
-				'conferences'=>$conferences,
-			));
-		}
-		else{
-			return $this->render('homepage/homepage.html.twig', array(
-				'conferences'=>$conferences,
-				'conf_events' => $confevents
-			));
-		}
+        // get the conferences
+        $conferences = $this->getDoctrine()
+            ->getRepository('AppBundle:Conference')
+            ->findAll();
+
+		// map all conference ids to an array of their respective event objects
+        // (<conf_id_1> => (<event_1>, <event_2>...), <conf_id_2> => ...)
+        $events = array();
+        foreach ($conferences as $conference){
+            $conf_id = $conference->getID();
+            $events[$conf_id] = $this->getDoctrine()
+                ->getRepository('AppBundle:Event')
+                ->findBy(array('conference' => $conf_id), array('id' => 'DESC'));
+        }
+
+        return $this->render('homepage/homepage.html.twig', array(
+            'conferences'=>$conferences,
+            'events' => $events
+        ));
     }
 }

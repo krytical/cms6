@@ -44,7 +44,8 @@
                         <span class="mdl-layout-title">Conference Management System</span>
                         <!-- Add spacer, to align navigation to the right -->
                         <div class="mdl-layout-spacer"></div>
-                        <nav class="mdl-navigation">
+                        <nav class="mdl-navigation mdl-layout--large-screen-only">
+							<a class="mdl-navigation__link" href="#">Admin</a>
                             <a class="mdl-navigation__link" href="/">Home</a>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
@@ -66,6 +67,8 @@
 				<img class="drawer-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
 				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
                 <nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="#">Admin</a>
+					<a class="mdl-navigation__link" href="/">Home</a>
                     <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}#user-conferences">Your Conferences</a>
 
                     {# TODO: check user privileges before displaying these #}
@@ -78,6 +81,7 @@
 				{% else %}
 				<span class="mdl-layout-title">CMS</span>
                     <nav class="mdl-navigation">
+						<a class="mdl-navigation__link" href="/">Home</a>
 						<a class="mdl-navigation__link" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle')}}</a>
                         <a class="mdl-navigation__link" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle')}}</a>
 
