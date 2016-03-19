@@ -1,0 +1,93 @@
+{# app/Resources/views/event/event_show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.name }}{% endblock%}
+
+{% block body %}
+{# Added a check in the controller instead. Conf will always be defined now. #}
+{# THIS TEMPLATE IS BASED OFF OF CONFERENCE PAGE #}
+
+<div class="conference-cover">
+	<img class="conference-cover-image" src="{{ asset('images/event/' ~ event.imageName) }}"/>
+</div>
+
+<main class="mdl-layout__content-conference-show">
+	<div class="page-content mdl-grid">	
+		<div class="mdl-card conference-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">		
+			<h2>{{ event.name }}</h2>
+
+			{# TODO: add map for location of event #}
+			{# Probably won't have time for this #}
+
+			<!-- Event details here -->
+			<div class="mdl-card conference-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+			    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+					<h2 class="mdl-card__title-text">Details</h2>
+				</div>
+				<div class="mdl-card__supporting-text">
+					{{ event.fullDescription }}
+				</div>
+				<ul class="conference-detail-list mdl-list">
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">room</i>
+					  Location: {{ event.location }}
+					</span>
+				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">access_time</i>
+					  Start Date: {{ event.startDatetime | date("m/d/Y")}}
+					</span>
+				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">access_time</i>
+					  End Date: {{ event.endDatetime | date("m/d/Y")}}
+					</span>
+				  </li>
+				</ul>
+				
+				{# TODO: Remove "Join Event" button once you joined #}
+			  
+				{# TODO: Add "Leave Event" button after you joined #}
+				
+				<div class="mdl-card__actions mdl-card--border">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg', {'event': event.id}) }}">
+						Join Event
+					</a>
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_edit', {'event': event.id}) }}">
+						Edit Event
+					</a>
+					<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteEventModal">
+						Delete Event
+					</button>
+				</div>
+			</div>			
+		</div>		
+	</div>
+</main>
+</div>
+
+<!-- Modal -->
+<div id="deleteEventModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+	<!-- Modal content-->
+	<div class="modal-content">
+	  <div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Confirm Delete</h4>
+	  </div>
+	  <div class="modal-body">
+		<p>Are you sure you want to delete this event?</p>
+	  </div>
+	  <div class="modal-footer">
+		<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
+		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_delete', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">Delete</a>
+	  </div>
+	</div>
+  </div>
+</div>
+
+{% endblock %}		

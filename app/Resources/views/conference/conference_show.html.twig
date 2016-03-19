@@ -120,13 +120,34 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  Edit Event
 				</a>
-				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#">
-				  Delete Event
+				<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteEventModal">
+				   Delete Event
 				</button>
 			  </div>
 			</div>
+
+			<!-- Modal -->
+			<div id="deleteEventModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+				<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Confirm Delete</h4>
+						</div>
+						<div class="modal-body">
+							<p>Are you sure you want to delete this event?</p>
+						</div>
+						<div class="modal-footer">
+							<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
+							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_delete', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			{% endfor %}
-		</div>		
+		</div>	
 	</div>
 </main>
 </div>

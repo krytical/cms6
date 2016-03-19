@@ -71,11 +71,11 @@
 						<a href="{{ path('event_show', {'conf_id': c.id, 'event_id': event.id}) }}" class="list-group-item">
 						  <h4 class="list-group-item-heading">{{ event.name }}</h4>
 						    <p class="list-group-item-text">
-							<div class = "description__text">
-								{{ conference_events.shortDescription }}
-							</div>
-							{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
-						  </p>
+								<div id="event-description">
+									{{ event.shortDescription }}
+								</div>
+								{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
+						    </p>
 						</a>
 						{% endfor %}
 					</div>

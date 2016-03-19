@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
-	$('#delete_conf').click(function(){
+	$(document).on('click', '#delete_conf', (function(){
 		$($(this).attr("data-target")).appendTo("body");
-	});
+	}));
 
 });
