@@ -93,7 +93,7 @@ class User extends BaseUser
     private $imageFile;
 
     /**
-     * @ORM\Column(name="img_name", type="string", length=100, nullable=true)
+     * @ORM\Column(name="image_name", type="string", length=100, nullable=true)
      *
      * @var string
      */

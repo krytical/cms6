@@ -22,7 +22,7 @@ class UserRoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('name', Type\TextareaType::class);
+        $builder->add('firstName', Type\TextareaType::class);
 
         $builder->add('userRoles', CollectionType::class, array(
             'entry_type'   => SecurityRoleType::class,
