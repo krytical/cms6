@@ -114,7 +114,7 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  Join Event
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_show', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">
 				  View Details
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_edit', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">
