@@ -113,7 +113,7 @@ class EventController extends Controller
 
         # render the edit page for the event
         return $this->render(
-            'conference/event_edit.html.twig', array(
+            'event/event_edit.html.twig', array(
             'form' => $form->createView()
         ));
     }
