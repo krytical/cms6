@@ -117,8 +117,8 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
 				  View Details
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-				  Edit Event
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_edit', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">
+					Edit Event
 				</a>
 				<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteEventModal">
 				   Delete Event
