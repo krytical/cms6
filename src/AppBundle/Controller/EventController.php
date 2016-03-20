@@ -12,12 +12,10 @@ use AppBundle\Form\EventType;
 class EventController extends Controller
 {
     /**
-    * @Route("/event/{conf_id}", name="event")
+    * @Route("/conference/{conf_id}/event/create", name="event_create")
     */
-    public function eventAction(Request $request,$conf_id)
+    public function createAction(Request $request,$conf_id)
         {
-
-            # TODO: I think this should be moved to createAction but it's up to you
             $conference = $this->getDoctrine()
                 ->getRepository('AppBundle:Conference')
                 ->find($conf_id);
@@ -63,7 +61,7 @@ class EventController extends Controller
             ->getRepository('AppBundle:Event');
 
         $event = $repository -> findOneBy(
-            array('conference_id' => $conf_id,'id' => $event_id)
+            array('conference' => $conf_id,'id' => $event_id)
         );
         
 
@@ -72,27 +70,11 @@ class EventController extends Controller
             throw $this->createNotFoundException('This event does not exist.');
         }
 
-        # TODO: stub for showing a single event
-
         # render the show page for the event
         return $this->render(
-            'conference/event/event_show.html.twig', array(
+            'event/event_show.html.twig', array(
             'conf_id' => $conf_id,
-            'event_id' => $event_id,
-        ));
-    }
-
-    /**
-     * @Route("/conference/{conf_id}/event/create", name="event_create")
-     */
-    public function createAction(Request $request, $conf_id)
-    {
-        # TODO: stub for creating an event
-
-        # render the create page for events
-        return $this->render(
-            'conference/event_create.html.twig', array(
-            'conf_id' => $conf_id,
+            'event' => $event,
         ));
     }
 
@@ -105,7 +87,7 @@ class EventController extends Controller
             ->getRepository('AppBundle:Event');
 
         $event = $repository -> findOneBy(
-            array('conference_id' => $conf_id,'id' => $event_id)
+            array('conference' => $conf_id,'id' => $event_id)
         );
 
          if (!is_object($event) || !$event 
@@ -139,14 +121,13 @@ class EventController extends Controller
     /**
      * @Route("/conference/{conf_id}/event/{event_id}/delete", name="event_delete")
      */
-    public function deleteAction(Request $request, $conf_id, $event_id)
+    public function deleteAction($conf_id, $event_id)
     {
-        # TODO: stub for deleting an event
          $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Event');
 
         $event = $repository -> findOneBy(
-            array('conference_id' => $conf_id,'id' => $event_id)
+            array('conference' => $conf_id,'id' => $event_id)
         );
 
          if (!is_object($event) || !$event 
