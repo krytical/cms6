@@ -132,31 +132,22 @@ event_delete:
     defaults:  { _controller: AppBundle:Event:delete }
 
 # EVENT REGISTRATIONS
-# TODO: I think it should be like this but it's up to you
-#event_reg_show_all:
-#    path:      /???
-#    defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
-#
+event_reg_show_all:
+    path:      /event_registration
+    defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
+
 event_reg_create:
     path:      /conference/{conf_id}/event/{event_id}/register
     defaults:  { _controller: AppBundle:EventRegistration:create }
-#
-#event_reg_show_:
-#    path:      /???/{event_reg_id}
-#    defaults:  { _controller: AppBundle:EventRegistration:show }
-#
+
+event_reg_show:
+    path:      /event_registration/{event_reg_id}
+    defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
+
 #event_reg_edit:
-#    path:      /???/{event_reg_id}/edit
-#    defaults:  { _controller: AppBundle:EventRegistration:edit }
-#
-#event_reg_delete:
-#    path:      /???/{event_reg_id}/edit
+#    path:      /profile/event_registration/{event_reg_id}/edit
 #    defaults:  { _controller: AppBundle:EventRegistration:edit }
 
-event_reg:
-    path:      /event/{conf_id}/{event_id}/register
-    defaults:  { _controller: AppBundle:EventRegistration:eventRegistration }
-
-event_reg:
-    path:      /profile/event_registration/{event_reg_id}/edit
-    defaults:  { _controller: AppBundle:EventRegistration:edit }
+event_reg_delete:
+    path:      /event_registration/{event_reg_id}/delete
+    defaults:  { _controller: AppBundle:EventRegistration:delete }

@@ -107,10 +107,6 @@ class ConferenceRegistration
      * @var bool
      *
      * @ORM\Column(name="needs_accommodation", type="boolean")
-     *
-     * @Assert\NotBlank(
-     *     message="Please enter if you need need accommodation.",
-     *     groups={"ConferenceRegistration"})\
      */
     private $needsAccommodation;
 

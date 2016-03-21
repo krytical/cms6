@@ -12,11 +12,24 @@ class HotelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
-        ->add('location')
-        ->add('capacity')
-        ->add('vacancy')
-        ->add('imgName');
+        $builder->add('name', Type\TextType::class, array(
+            'label' => 'Hotel Name'
+        ))
+        ->add('location', Type\TextType::class, array(
+            'label' => 'Hotel Location'
+        ))
+        ->add('capacity', Type\IntegerType::class, array(
+            'required' => false,
+            'label' => 'Hotel Capacity (optional)'
+        ))
+        ->add('vacancy', Type\IntegerType::class, array(
+            'required' => false,
+            'label' => 'Hotel Vacancy (optional)'
+        ))
+        ->add('imageFile', Type\FileType::class, array(
+            'required' => false,
+            'label' => 'Hotel Photo (optional)'
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

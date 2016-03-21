@@ -30,6 +30,7 @@ class ConferenceRegistrationType extends AbstractType
             'label' => 'Number Of Attendees in your group (including you)',
             'data' => 1))
         ->add('needsAccommodation', Type\CheckboxType::class, array(
+            'required' => false,
             'label' => 'I Need Accommodation (Hotel or Home-stay)'))
         ->add('additionalInfo', Type\TextareaType::class, array(
             'required' => false,

@@ -22,8 +22,6 @@ class EventRegistrationController extends Controller
     /**
      * @Route("/event/{conf_id}/event/{event_id}/register", name="event_reg_create")
      */
-      # TODO: stub for main ER page in case we want to do something with all ERs
-        # (probably don't need this since we're having a single page for the registration manager)
     public function createAction(Request $request, $conf_id, $event_id)
     {
          $event = $this->getDoctrine()
@@ -85,23 +83,9 @@ class EventRegistrationController extends Controller
         );
 
 
-        // renders the main event page
-        return $this->render(
-            'eventRegistration/event_reg_create.html.twig'
-        );
-    }
-
-    /**
-     * @Route("/profile/event_registration", name="user_event_reg_show")
-     */
-    public function showUserEventRegistrationsAction()
-    {
-        # TODO: stub for showing all the ERs of a user
-        # (probably don't need this since we're showing it on the profile instead)
-
-        # render the show page for the ERs of the user
-        return $this->render(
-            'Profile/event_registrations_show.html.twig'
+        // renders the conference page of that event
+        return $this->redirectToRoute('conference_show',
+            array('conf_id' => $conf_id)
         );
     }
 
@@ -110,7 +94,7 @@ class EventRegistrationController extends Controller
      */
     public function editAction(Request $request, $event_reg_id)
     {
-        # TODO: stub for editing an ER
+        # NOT CURRENTLY USED
 
          $eventReg = $this->getDoctrine()
             ->getRepository('AppBundle:EventRegistration')
@@ -139,7 +123,6 @@ class EventRegistrationController extends Controller
 
             return $this->redirectToRoute('fos_user_profile_show');
         }
-
 
         # render the edit page for the event
         return $this->render(
