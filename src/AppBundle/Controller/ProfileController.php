@@ -35,10 +35,21 @@ class ProfileController extends BaseController
 
         # TODO: get the event registrations
         # TODO: get the hotel registrations
+		
+		// map all conference ids to an array of their respective event objects
+        // (<conf_id_1> => (<event_1>, <event_2>...), <conf_id_2> => ...)
+        $events = array();
+        foreach ($registrations as $event_reg){
+            $conf_id = $event_reg->getID();
+            $events[$conf_id] = $this->getDoctrine()
+                ->getRepository('AppBundle:EventRegistration')
+                ->findBy(array('user' => $user->getId()), array('event' => 'DESC'));
+        }
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
-            'conference_registrations' => $registrations
+            'conference_registrations' => $registrations,
+			'event_registrations' => $events
         ));
     }
 
