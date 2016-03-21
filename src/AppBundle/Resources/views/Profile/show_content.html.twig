@@ -28,7 +28,7 @@
 						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 							for="menu-lower-right" href="#">
 						  <li class="mdl-menu__item"><a href="{{ path('user_edit') }}">Update Info</a></li>
-						  <li class="mdl-menu__item" data-toggle="modal" data-target="#deleteUserModal">Delete Account</li>
+						  <li id="delete_modal" class="mdl-menu__item" data-toggle="modal" data-target="#deleteUserModal">Delete Account</li>
 						</ul>
 						
 						<div id="deleteUserModal" class="modal fade" role="dialog">
@@ -74,12 +74,6 @@
 				</ul>
 			</div>
 			
-			<a name="user-conferences"></a>
-			
-			<div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Your Conferences and Events</h2>
-			</div>
-			
 			<!-- Joined Conferences and Events here -->
 			{% if conference_registrations is empty %}
 				<div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -90,13 +84,15 @@
                     <h2 class="mdl-card__title-text">You didn't join any conferences yet</h2>
 				  </div>
 				</div>
-			{% endif %}
+			{% else %}
+			
+			<h4 class="upcoming-conference">Your Conferences and Events</h4>
 	
 			{% for conference_reg in conference_registrations %}
 			
 			{# TODO: Show joined conferences here #}
 			{# TODO: Add edit and delete buttons on each registration #}
-			  	<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">{{ conference_reg.conference.name }}</h2>
 				<img class="conference-image" src="{{ asset('images/conference/' ~ conference_reg.conference.imageName) }}"/>
@@ -107,12 +103,37 @@
 					{{ conference_reg.conference.shortDescription }}
 				</div>
 				<br>
-				{#{{ conference_reg.conference.startDatetime | date("m/d/Y")}} - {{ conference_reg.conference.endDatetime | date("m/d/Y")}} · {{ conference_reg.conference.location }}#}
+				{{ conference_reg.conference.startDatetime | date("m/d/Y")}} - {{ conference_reg.conference.endDatetime | date("m/d/Y")}} · {{ conference_reg.conference.location }}
 				
-				<button class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp">
+				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#conf_event" ~ conference_reg.conference.id}}>
 					<i class="material-icons">expand_more</i>
 				</button>
 			  </div>
+			  
+			  <div id={{ "conf_event" ~ conference_reg.conference.id}} class="mdl-card__actions event-collapse mdl-card--border collapse">
+					{% if event_registrations[conference_reg.id] is empty %}
+					<div class="mdl-card-empty empty-conference-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__title mdl-color-text--grey">
+							<h2 class="mdl-card__title-text">You did not join any events in this conference</h2>
+						</div>
+					</div>
+				    {% else %}
+					<div class="list-group event-list">
+						<!-- EVENTS -->
+						{% for event in event_registrations[conference_reg.id] %}
+						<a href="{{ path('event_show', {'conf_id': conference_reg.conference.id, 'event_id': event.id}) }}" class="list-group-item">
+						  <h4 class="list-group-item-heading">{{ event.name }}</h4>
+						    <p class="list-group-item-text">
+								<div id="event-description">
+									{{ event.shortDescription }}
+								</div>
+								{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
+						    </p>
+						</a>
+						{% endfor %}
+					</div>
+					{% endif %}
+			   </div>
 			  
 			  {# TODO: Remove "Join Conference" button once you joined conference #}
 			  
@@ -128,7 +149,7 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': conference_reg.conference.id }) }}">
 				  Edit Conference
 				</a>
-				<button id="delete_conf" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
+				<button id="delete_modal" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
 				  Delete Conference
 				</button>
 			  </div>
@@ -155,6 +176,7 @@
 			  </div>
 			</div>
 			{% endfor %}
+			{% endif %}
 		</div>
 	</div>
 </main>
