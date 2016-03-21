@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Resources\HelperClasses\UserRole;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +61,7 @@ class SecurityRolesController extends Controller
 
 
     /**
-     *  @Route("/security_roles/edit_user", name="security_roles_edit_user.html.twig")
+     *  @Route("/security_roles/edit_user", name="security_roles_edit.html.twig")
      * TODO: temporary controller action to edit a single user at a time
      */
     public function editUserRoleAction(Request $request)
@@ -69,10 +70,14 @@ class SecurityRolesController extends Controller
         # TODO: get user by user id from request?
 
         # for now I'll just choose one random user
-        $roles = $this->container->getParameter('security.role_hierarchy.roles');
-        $user = $this->getUser();
+        $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
+        $user = $this->getUser(); // TODO: need user ID of user being edited not signed in user
+        $userRoles = $user->getRoles();
 
-        $form = $this->createForm(UserRoleType::class, $user);
+
+        //$form = $this->createForm(UserRoleType::class, $user);
+
+        $rolesWithStatus =  $this->getEnabledStatusForRoles($systemRoles, $userRoles);
 
         /*$form->handleRequest($request); OR
         if ($form->isSubmitted() && $form->isValid()){
@@ -91,13 +96,41 @@ class SecurityRolesController extends Controller
         }*/
 
         return $this->render(
-            'Security/security_roles_edit_user.html.twig', array(
-                'form' => $form->createView(),
+            'Security/security_roles_edit.html.twig', array(
+               // 'form' => $form->createView(),
                 'user' => $user,
-                'roles' => $roles
+                'userRoles' => $userRoles,
+                'roles' => $rolesWithStatus,
+                'systemRoles' => $systemRoles,
             )
         );
 
+    }
+
+    /**
+     *  @Route("/security_roles/user_add_role")
+     */
+    public function addRoleAction(){
+        //TODO: need user ID of user being edited not signed in user
+
+        #redirect to edit user role action
+         return $this->redirect($this->generateUrl('security_roles_edit_user'));
+    }
+
+
+    private function getEnabledStatusForRoles($systemRoles, $userRoles){
+        $rolesWithStatus = array();
+        foreach($systemRoles as $systemRole){
+            $currRole = new UserRole($systemRole[0]);
+            if(in_array($systemRole, $userRoles)){
+                $currRole->setEnabled(true);
+            }
+            else{
+                $currRole->setEnabled(false);
+            }
+            $rolesWithStatus[] = $currRole;
+        }
+        return $rolesWithStatus;
     }
 
     private function updateUsers($users){
