@@ -7,7 +7,7 @@ security:
     role_hierarchy:
         ROLE_USER:        ROLE_USER
         ROLE_ADMIN:      [ROLE_USER, ROLE_CONFERENCE_MANAGER, ROLE_BOOKINGS_MANAGER]
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_ADMIN  #TODO: do we need an admin and super admin role?
         ROLE_CONFERENCE_MANAGER: ROLE_CONFERENCE_MANAGER
         ROLE_BOOKINGS_MANAGER: ROLE_BOOKINGS_MANAGER
         #TODO: find a way to provide user-friendly names for roles.

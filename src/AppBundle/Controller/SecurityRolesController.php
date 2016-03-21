@@ -119,19 +119,66 @@ class SecurityRolesController extends Controller
         //TODO: need user ID of user being edited not signed in user
         //TODO: need role name
 
-
         //get user
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $userID));
         $user->addRole($role);
+
+        $user->addRole('ROLE_CONFERENCE_MANAGER'); // dummy line
 
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($user);
         $em->flush();
 
+        $user = $userManager->findUserBy(array('id' => $userID));
+        //TODO: adding the right roles is not working
+        if ($this->isGranted('ROLE_CONFERENCE_MANAGER', $user)){
+
+        }
+
+        $message = $role + "added successfully";
+
+        $this->addFlash(
+            'success',
+            $message
+        );
+
         #redirect to edit user role action
-         return $this->redirect($this->generateUrl('security_roles_edit_user'));
+        return $this->redirect($this->generateUrl('security_roles_edit_user'));
+    }
+
+    //TODO: find better solution to get role name
+    // ideally, we would get role name from request
+    // can't figure out how to create request from form cuz its just a redirect button
+    //look info form types maybe?
+    /**
+     *  @Route("/security_roles/{userID}/user_remove_role/{role}")
+     */
+    public function removeRoleAction($userID, $role){
+        //TODO: need user ID of user being edited not signed in user
+        //TODO: need role name
+
+        //get user
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id' => $userID));
+        $user->removeRole($role);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($user);
+        $em->flush();
+
+
+        $message = $role + "removed successfully";
+
+        $this->addFlash(
+            'success',
+            'role removed successfully'
+        );
+
+        #redirect to edit user role action
+        return $this->redirect($this->generateUrl('security_roles_edit_user'));
     }
 
 
