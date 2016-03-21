@@ -29,7 +29,7 @@
                         {#<a href="{{ path('security_roles_remove_role_user', {'userID': user.id}) }}">Remove</a>#}
                     {% else %}
                         disabled
-                        <a href="{{ path('security_roles_add_role_user', {'userID': user.id}) }}">Add</a>
+                        <a href="{{ path('security_roles_add_role_user', {'userID': user.id, 'role': role.getName}) }}">Add</a>
                     {% endif %}
 
                 </li>

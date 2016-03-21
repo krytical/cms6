@@ -72,7 +72,7 @@ class SecurityRolesController extends Controller
         # for now I'll just choose one random user
         $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
         $user = $this->getUser(); // TODO: need user ID of user being edited not signed in user
-        $user->addRole('ROLE_ADMIN'); // dummy line
+        //$user->addRole('ROLE_ADMIN'); // dummy line
         $userRoles = $user->getRoles();
 
 
@@ -108,10 +108,14 @@ class SecurityRolesController extends Controller
 
     }
 
+    //TODO: find better solution to get role name
+    // ideally, we would get role name from request
+    // can't figure out how to create request from form cuz its just a redirect button
+    //look info form types maybe?
     /**
-     *  @Route("/security_roles/{userID}/user_add_role")
+     *  @Route("/security_roles/{userID}/user_add_role/{role}")
      */
-    public function addRoleAction($userID){
+    public function addRoleAction($userID, $role){
         //TODO: need user ID of user being edited not signed in user
         //TODO: need role name
 
@@ -119,8 +123,12 @@ class SecurityRolesController extends Controller
         //get user
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $userID));
-        $user->removeRole('default');
+        $user->addRole($role);
+        
+        $em = $this->getDoctrine()->getManager();
 
+        $em->persist($user);
+        $em->flush();
 
         #redirect to edit user role action
          return $this->redirect($this->generateUrl('security_roles_edit_user'));
