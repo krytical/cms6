@@ -24,8 +24,10 @@
             {% for role in roles %}
                 <li>
                     Name: {{ role.getName }}
-                    {% if role.enabled %}enabled
-                    {% else %} not enabled
+                    {% if role.enabled %}
+                        enabled
+                    {% else %}
+                        not enabled
                     {% endif %}
 
                 </li>

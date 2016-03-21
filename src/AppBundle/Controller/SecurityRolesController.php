@@ -72,6 +72,7 @@ class SecurityRolesController extends Controller
         # for now I'll just choose one random user
         $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
         $user = $this->getUser(); // TODO: need user ID of user being edited not signed in user
+        $user->addRole('ROLE_ADMIN'); // dummy line
         $userRoles = $user->getRoles();
 
 
@@ -122,7 +123,7 @@ class SecurityRolesController extends Controller
         $rolesWithStatus = array();
         foreach($systemRoles as $systemRole){
             $currRole = new UserRole($systemRole[0]);
-            if(in_array($systemRole, $userRoles)){
+            if(in_array($systemRole[0], $userRoles)){
                 $currRole->setEnabled(true);
             }
             else{
