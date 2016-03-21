@@ -20,18 +20,20 @@ use AppBundle\Form\EventRegistrationType;
 class EventRegistrationController extends Controller
 {
     /**
-     * @Route("/event/{conf_id}/{event_id}/register", name="event_reg")
+     * @Route("/event/{conf_id}/event/{event_id}/register", name="event_reg_create")
      */
       # TODO: stub for main ER page in case we want to do something with all ERs
         # (probably don't need this since we're having a single page for the registration manager)
-    public function eventRegistrationAction(Request $request, $conf_id, $event_id)
+    public function createAction(Request $request, $conf_id, $event_id)
     {
-         $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Event');
+         $event = $this->getDoctrine()
+            ->getRepository('AppBundle:Event')
+            ->find($event_id);
 
-        $event = $repository -> findOneBy(
-            array('conference_id' => $conf_id,'id' => $event_id)
-        );
+        $conference = $this->getDoctrine()
+            ->getRepository('AppBundle:Conference')
+            ->find($conf_id);
+
 
          if (!is_object($event) || !$event 
             instanceof Event) {
@@ -57,42 +59,35 @@ class EventRegistrationController extends Controller
         // Check if the user already registered for the event
         $check = $this->getDoctrine()
             ->getRepository('AppBundle:EventRegistration')
-            ->findOneBy(array('user' => $user->getId(), 'event' => $conference->getId()));
+            ->findOneBy(array('user' => $user->getId(), 'event' => $event->getId()));
         if (is_object($check) && $check instanceof EventRegistration){
             throw new AccessDeniedException(
                 'You are already registered for this Event. If you would like to edit your registration, go to your profile.');
         }
 
-        // submit the registration
+        // set data for table
         $event_reg = new EventRegistration();
-        $form = $this->createForm(EventRegistrationType::class, $event_reg);
-        $form->handleRequest($request);
+        $event_reg-> setUser($user);
+        $event_reg-> setEvent($event);
+        $event_reg-> setGuests("1");
+        $event_reg-> setApproved("y");
 
-        if ($form->isValid()) {
+        
+        //put it in the database
+        $em = $this->getDoctrine()->getManager();
 
-            // add the foreign keys now
-            // this needs to be changed
-            $event_reg->setUser($user);
-            $event_reg->setEvent($conference);
+        $em->persist($event_reg);
+    	$em->flush();
 
-
-            // persist the registration to the DB
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conference_reg);
-            $em->flush();
-
-            $this->addFlash(
+    	$this->addFlash(
                 'success',
                 'Successfully registered for event!'
-            );
+        );
 
-             return $this->redirectToRoute('conference_show', ['conf_id' => $conf_id]);
-
-        }
 
         // renders the main event page
         return $this->render(
-            'eventRegistration/event_registration.html.twig'
+            'eventRegistration/event_reg_create.html.twig'
         );
     }
 
@@ -179,8 +174,7 @@ class EventRegistrationController extends Controller
             'Event registration deleted successfully!'
         );
 
-          # calls the homepage controller to render the homepage
-        return $this->forward('AppBundle:Homepage:homepage');
-
+    	// renders the profile
+        return $this->redirectToRoute('fos_user_profile_show');
     }
 }

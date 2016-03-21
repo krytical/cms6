@@ -53,7 +53,7 @@
 				{# TODO: Add "Leave Event" button after you joined #}
 				
 				<div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg', {'conf_id': conf_id, 'event_id': event.id}) }}">
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg_create', {'conf_id': conf_id, 'event_id': event.id}) }}">
 						Join Event
 					</a>
 					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_edit', {'conf_id': conf_id, 'event_id': event.id}) }}">

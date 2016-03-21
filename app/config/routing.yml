@@ -137,9 +137,9 @@ event_delete:
 #    path:      /???
 #    defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
 #
-#event_reg_create:
-#    path:      /conference/{conf_id}/event/{event_id}/register
-#    defaults:  { _controller: AppBundle:EventRegistration:create }
+event_reg_create:
+    path:      /conference/{conf_id}/event/{event_id}/register
+    defaults:  { _controller: AppBundle:EventRegistration:create }
 #
 #event_reg_show_:
 #    path:      /???/{event_reg_id}
