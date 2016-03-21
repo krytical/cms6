@@ -6,20 +6,10 @@
 {% block body %}
 
     {# TODO: render username #}
-    <div>
-        <h3>USER ROLES </h3>
-        <ul>
-            {% for role in userRoles %}
-                <li>
-                    {{ role }}
-                </li>
-            {%  endfor %}
-        </ul>
-    </div>
 
 
     <div>
-        <h3>STATUS ROLES </h3>
+        <h3>EDIT USER ROLES </h3>
         <ul>
             {% for role in roles %}
                 <li>
@@ -37,15 +27,5 @@
         </ul>
     </div>
 
-    <div>
-        <h3>SYSTEM ROLES </h3>
-        <ul>
-            {% for role in systemRoles %}
-                <li>
-                    {{ role[0] }}
-                </li>
-            {%  endfor %}
-        </ul>
-    </div>
 
 {% endblock body %}

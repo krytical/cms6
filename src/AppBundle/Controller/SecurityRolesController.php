@@ -124,7 +124,7 @@ class SecurityRolesController extends Controller
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $userID));
         $user->addRole($role);
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($user);
@@ -148,13 +148,6 @@ class SecurityRolesController extends Controller
             $rolesWithStatus[] = $currRole;
         }
         return $rolesWithStatus;
-    }
-
-    private function updateUsers($users){
-        # $users = User array (delete or ignore this comment
-        foreach($users as $user){
-            # udpate user
-        }
     }
 
 }
