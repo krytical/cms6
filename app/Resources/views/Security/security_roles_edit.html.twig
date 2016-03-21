@@ -26,6 +26,7 @@
                     Name: {{ role.getName }}
                     {% if role.enabled %}
                         enabled
+                        <a href="{{ path('security_roles_add_role_user', {'userID': user.id}) }}">Remove</a>
                     {% else %}
                         not enabled
                     {% endif %}

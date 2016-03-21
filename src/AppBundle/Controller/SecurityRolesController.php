@@ -109,10 +109,18 @@ class SecurityRolesController extends Controller
     }
 
     /**
-     *  @Route("/security_roles/user_add_role")
+     *  @Route("/security_roles/{userID}/user_add_role")
      */
-    public function addRoleAction(){
+    public function addRoleAction($userID){
         //TODO: need user ID of user being edited not signed in user
+        //TODO: need role name
+
+
+        //get user
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id' => $userID));
+        $user->removeRole('default');
+
 
         #redirect to edit user role action
          return $this->redirect($this->generateUrl('security_roles_edit_user'));
