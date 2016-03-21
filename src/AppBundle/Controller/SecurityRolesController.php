@@ -67,12 +67,13 @@ class SecurityRolesController extends Controller
     public function editUserRoleAction(Request $request)
     {
 
+
+
         # TODO: get user by user id from request?
 
         # for now I'll just choose one random user
         $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
         $user = $this->getUser(); // TODO: need user ID of user being edited not signed in user
-        //$user->addRole('ROLE_ADMIN'); // dummy line
         $userRoles = $user->getRoles();
 
 
@@ -124,8 +125,6 @@ class SecurityRolesController extends Controller
         $user = $userManager->findUserBy(array('id' => $userID));
         $user->addRole($role);
 
-        $user->addRole('ROLE_CONFERENCE_MANAGER'); // dummy line
-
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($user);
@@ -133,16 +132,16 @@ class SecurityRolesController extends Controller
 
         $user = $userManager->findUserBy(array('id' => $userID));
         //TODO: adding the right roles is not working
-        if ($this->isGranted('ROLE_CONFERENCE_MANAGER', $user)){
+        if ($this->isGranted($role, $user) && $user->hasRole($role)){
+            $message = $role." added successfully";
 
+            $this->addFlash(
+                'success',
+                $message
+            );
         }
 
-        $message = $role + "added successfully";
 
-        $this->addFlash(
-            'success',
-            $message
-        );
 
         #redirect to edit user role action
         return $this->redirect($this->generateUrl('security_roles_edit_user'));
@@ -159,6 +158,7 @@ class SecurityRolesController extends Controller
         //TODO: need user ID of user being edited not signed in user
         //TODO: need role name
 
+
         //get user
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserBy(array('id' => $userID));
@@ -169,13 +169,14 @@ class SecurityRolesController extends Controller
         $em->persist($user);
         $em->flush();
 
+        if (!$this->isGranted($role, $user) && !$user->hasRole($role)){
+            $message = $role." removed successfully";
 
-        $message = $role + "removed successfully";
-
-        $this->addFlash(
-            'success',
-            'role removed successfully'
-        );
+            $this->addFlash(
+                'success',
+                $message
+            );
+        }
 
         #redirect to edit user role action
         return $this->redirect($this->generateUrl('security_roles_edit_user'));
