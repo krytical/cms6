@@ -120,14 +120,14 @@
 				    {% else %}
 					<div class="list-group event-list">
 						<!-- EVENTS -->
-						{% for event in event_registrations[conference_reg.id] %}
-						<a href="{{ path('event_show', {'conf_id': conference_reg.conference.id, 'event_id': event.id}) }}" class="list-group-item">
-						  <h4 class="list-group-item-heading">{{ event.name }}</h4>
+						{% for event_reg in event_registrations[conference_reg.id] %}
+						<a href="{{ path('event_show', {'conf_id': conference_reg.conference.id, 'event_id': event_reg.id}) }}" class="list-group-item">
+						  <h4 class="list-group-item-heading">{{ event_reg.event.name }}</h4>
 						    <p class="list-group-item-text">
 								<div id="event-description">
-									{{ event.shortDescription }}
+									{{ event_reg.event.shortDescription }}
 								</div>
-								{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
+								{{ event_reg.event.startDatetime | date("m/d/Y")}} - {{ event_reg.event.endDatetime | date("m/d/Y")}} · {{ event_reg.event.location }}
 						    </p>
 						</a>
 						{% endfor %}
