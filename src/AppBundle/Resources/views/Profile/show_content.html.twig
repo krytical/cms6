@@ -121,7 +121,7 @@
 					<div class="list-group event-list">
 						<!-- EVENTS -->
 						{% for event_reg in event_registrations[conference_reg.id] %}
-						<a href="{{ path('event_show', {'conf_id': conference_reg.conference.id, 'event_id': event_reg.id}) }}" class="list-group-item">
+						<a href="{{ path('event_show', {'conf_id': conference_reg.conference.id, 'event_id': event_reg.event.id}) }}" class="list-group-item">
 						  <h4 class="list-group-item-heading">{{ event_reg.event.name }}</h4>
 						    <p class="list-group-item-text">
 								<div id="event-description">
