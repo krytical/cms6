@@ -49,7 +49,11 @@
                             <a class="mdl-navigation__link" href="/">Home</a>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
+								{% if app.user.imageName is null %}
+								<img class="navbar-image" src="{{ asset('images/user/Default.png') }}"/>
+								{% else %}
 								<img class="navbar-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
+								{% endif %}
 								{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}
 								</a>
 								<a class="mdl-navigation__link" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
@@ -64,7 +68,11 @@
             <div class="cms-drawer mdl-layout__drawer">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <span class="mdl-layout-title">
+				{% if app.user.imageName is null %}
+				<img class="drawer-image" src="{{ asset('images/user/Default.png') }}"/>
+				{% else %}
 				<img class="drawer-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
+				{% endif %}
 				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
                 <nav class="mdl-navigation">
 					<a class="mdl-navigation__link" href="#">Admin</a>

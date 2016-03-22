@@ -7,7 +7,11 @@
 {# Added a check in the controller instead. Conf will always be defined now. #}
 {# if conf_id is defined #}
 <div class="conference-cover">
+	{% if conf_id.imageName is null %}
+	<img class="conference-cover-image" src="{{ asset('images/conference/Default.png') }}"/>
+	{% else %}
 	<img class="conference-cover-image" src="{{ asset('images/conference/' ~ conf_id.imageName) }}"/>
+	{% endif %}
 </div>
 
 <main class="mdl-layout__content-conference-show">
@@ -97,7 +101,11 @@
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
 				<h2 class="mdl-card__title-text">{{ conference_events.name }}</h2>
+				{% if conference_events.imageName is null %}
+				<img class="conference-image" src="{{ asset('images/event/Default.png') }}"/>
+				{% else %}
 				<img class="conference-image" src="{{ asset('images/event/' ~ conference_events.imageName) }}"/>
+				{% endif %}
 			  </div>
 
 			  <div class="mdl-card__supporting-text">

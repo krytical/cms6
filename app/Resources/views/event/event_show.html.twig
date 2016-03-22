@@ -8,7 +8,11 @@
 {# THIS TEMPLATE IS BASED OFF OF CONFERENCE PAGE #}
 
 <div class="conference-cover">
+	{% if event.imageName is null %}
+	<img class="conference-cover-image" src="{{ asset('images/event/Default.png') }}"/>
+	{% else %}
 	<img class="conference-cover-image" src="{{ asset('images/event/' ~ event.imageName) }}"/>
+	{% endif %}
 </div>
 
 <main class="mdl-layout__content-conference-show">
@@ -44,6 +48,24 @@
 					<span class="mdl-list__item-primary-content">
 					<i class="material-icons mdl-list__item-icon">access_time</i>
 					  End Date: {{ event.endDatetime | date("m/d/Y")}}
+					</span>
+				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">face</i>
+					  Speaker: {{ event.speaker }}
+					</span>
+				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">group</i>
+					  Capacity: {{ event.capacity }}
+					</span>
+				  </li>
+				  <li class="mdl-list__item">
+					<span class="mdl-list__item-primary-content">
+					<i class="material-icons mdl-list__item-icon">group</i>
+					  Remaining: {{ event.spotsRemaining }}
 					</span>
 				  </li>
 				</ul>
