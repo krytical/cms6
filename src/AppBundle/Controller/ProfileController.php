@@ -22,40 +22,31 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        // get the conference registrations
-        $registrations = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->findBy(array('user' => $user->getId()), array('conference' => 'DESC'));
+        // get all the conference registrations for the user
+        $conference_regs = $helper->getAllUsersConferenceRegistrations($user->getID());
 
-        // map all conference ids to an array of their respective hotelRegistration objects
-        // (<conf_id_1> => (<hotel_reg_1>, <hotel_reg_2>...), <conf_id_2> => ...)
-        $hotel_regs = array();
-        foreach ($registrations as $conf_reg) {
-            $conf_id = $conf_reg->getID();
-            $hotel_regs[$conf_id] = $this->getDoctrine()
-                ->getRepository('AppBundle:HotelRegistration')
-                ->findBy(array('conferenceRegistration' => $user->getId()));
-        }
-		// map all conference ids to an array of their respective event objects
-        // (<conf_id_1> => (<event_1>, <event_2>...), <conf_id_2> => ...)
-        $event_regs = array();
-        foreach ($registrations as $conf_reg){
-            $conf_id = $conf_reg->getID();
-            $event_regs[$conf_id] = $this->getDoctrine()
-                ->getRepository('AppBundle:EventRegistration')
-                ->findBy(array('user' => $user->getId()), array('event' => 'DESC'));
-        }
+        // get all the conference_registration_id to event registration mappings for the user
+        $eventRegMap = $helper->conferenceRegEventRegMap($conference_regs);
+
+        // get all the conference_registration_id to hotelRegistration mappings
+        $hotel_regs = $helper->conferenceHotelRegistrationMap($conference_regs);
+
+        # TODO: We may want to get ALL the events and just show the registered ones in a different color
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
-            'conference_registrations' => $registrations,
-			'event_registrations' => $event_regs,
+            'conference_registrations' => $conference_regs,
+			'event_registrations' => $eventRegMap,
             'hotel_registrations' => $hotel_regs
         ));
     }

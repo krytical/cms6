@@ -41,6 +41,14 @@ class EventRegistration
     /**
      * @var int
      *
+     * @ORM\ManyToOne(targetEntity="ConferenceRegistration")
+     * @ORM\JoinColumn(name="conference_registration_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $conferenceRegistration;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="guests", type="integer")
      *
      * @Assert\NotBlank(
@@ -123,6 +131,29 @@ class EventRegistration
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Set ConferenceRegistration
+     *
+     * @param \AppBundle\Entity\ConferenceRegistration $conferenceRegistration
+     * @return EventRegistration
+     */
+    public function setConferenceRegistration(\AppBundle\Entity\ConferenceRegistration $conferenceRegistration = null)
+    {
+        $this->conferenceRegistration = $conferenceRegistration;
+
+        return $this;
+    }
+
+    /**
+     * Get ConferenceRegistration
+     *
+     * @return \AppBundle\Entity\ConferenceRegistration
+     */
+    public function getConferenceRegistration()
+    {
+        return $this->conferenceRegistration;
     }
 
     /**

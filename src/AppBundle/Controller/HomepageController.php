@@ -13,24 +13,30 @@ class HomepageController extends Controller
      */
     public function homepageAction()
     {
-        // get the conferences
-        $conferences = $this->getDoctrine()
-            ->getRepository('AppBundle:Conference')
-            ->findAll();
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
-		// map all conference ids to an array of their respective event objects
-        // (<conf_id_1> => (<event_1>, <event_2>...), <conf_id_2> => ...)
-        $events = array();
-        foreach ($conferences as $conference){
-            $conf_id = $conference->getID();
-            $events[$conf_id] = $this->getDoctrine()
-                ->getRepository('AppBundle:Event')
-                ->findBy(array('conference' => $conf_id), array('id' => 'DESC'));
-        }
+        // get the user
+        $user = $this->getUser();
+
+        // get all the conferences
+        $conferences = $helper->getAllConferences();
+
+		// get all the conference_id to event mappings
+        $eventsMap = $helper->conferenceEventMap($conferences);
+
+        // get all of the conference registrations for the user
+        $conferenceRegs = $helper->getAllUsersConferenceRegistrations($user->getID());
+
+        // get all the conference_registration_id to event registration mappings for the user
+        $eventRegMap = $helper->conferenceRegEventRegMap($conferenceRegs);
 
         return $this->render('homepage/homepage.html.twig', array(
-            'conferences'=>$conferences,
-            'events' => $events
+            'conferences' => $conferences,
+            'events' => $eventsMap,
+            'conference_regs' => $conferenceRegs,
+            'event_regs' => $eventRegMap
         ));
     }
 }
