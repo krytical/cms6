@@ -28,12 +28,24 @@ class ConferenceRegistrationController extends Controller
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
 
-        // get the conference registrations
+        // get all the conferences
+        $conferences = $helper->getAllConferences();
+
+        // get all the events
+        $events = $helper->getAllEvents();
+
+        // get all the conference registrations
         $conferenceRegistrations = $helper->getAllConferenceRegistrations();
+
+        // get all the event registrations
+        $eventRegistrations = $helper->getAllEventRegistrations();
 
         // render the show all conference registrations page
         return $this->render('conferenceRegistration/conference_reg_show_all.html.twig', array(
-            'conf_regs'=>$conferenceRegistrations,
+            'conferences' => $conferences,
+            'events' => $events,
+            'conf_regs' => $conferenceRegistrations,
+            'event_regs' => $eventRegistrations
         ));
     }
 

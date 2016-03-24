@@ -128,7 +128,8 @@ class HotelRegistrationController extends Controller
 
         // render the hotel registration page
         return $this->render('hotelRegistration/hotel_reg_show.html.twig', array(
-            'hotel_reg'=>$hotelReg,
+            'hotel' => $hotelReg->getHotel(),
+            'hotel_reg' => $hotelReg
         ));
     }
 

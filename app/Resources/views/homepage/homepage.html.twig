@@ -8,8 +8,11 @@
 	 <main class="mdl-layout_content">
 		<div class="page-content mdl-grid">
 
-			{# TODO: Display message saying they're not approved and until they are they can't
-			  join conferences. They should provide an email if they want to be notified upon approval#}
+            {# TODO: make this pretty please#}
+            {% if app.user is not null and app.user.approved == false %}
+            <h2> Your account has not yet been approved</h2>
+            You will not be able to join conferences until you account is approved. If haven't done so yet, we recommend you add an email to your profile so that you can be notified upon approval.
+            {% endif %}
 
 			<!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
 			<!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->

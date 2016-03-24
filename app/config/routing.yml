@@ -16,6 +16,14 @@ _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
+admin:
+    path:      /admin
+    defaults:  { _controller: AppBundle:Admin:admin }
+
+transportation:
+    path:      /transportation
+    defaults:  { _controller: AppBundle:Admin:transportation }
+
 # CONFERENCES
 conference_show_all:
     path:      /conference
@@ -59,7 +67,6 @@ conf_reg_delete:
     defaults:  { _controller: AppBundle:ConferenceRegistration:delete }
 
 # USERS
-#TODO: show_all (admin) page
 user_delete:
     path:      /profile/delete
     defaults:  { _controller: AppBundle:Profile:delete }

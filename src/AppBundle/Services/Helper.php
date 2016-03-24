@@ -43,6 +43,17 @@ class Helper
     }
 
     # ----------------
+    # USERS
+    # ----------------
+
+    public function getAllUsers()
+    {
+        return $this->em
+            ->getRepository('AppBundle:User')
+            ->findAll();
+    }
+
+    # ----------------
     # CONFERENCES
     # ----------------
 
@@ -142,6 +153,13 @@ class Helper
     # EVENT REGISTRATIONS
     # ----------------
 
+    public function getAllEventRegistrations()
+    {
+        return $this->em
+            ->getRepository('AppBundle:EventRegistration')
+            ->findAll();
+    }
+
     public function getEventRegistration($event_reg_id)
     {
         return $this->em
@@ -206,6 +224,13 @@ class Helper
         return $this->em
             ->getRepository('AppBundle:HotelRegistration')
             ->findOneBy(array('conferenceRegistration' => $conf_reg_id));
+    }
+
+    public function getHotelRegistrationsByHotel($hotel_id)
+    {
+        return $this->em
+            ->getRepository('AppBundle:HotelRegistration')
+            ->findBy(array('hotel' => $hotel_id));
     }
 
     /**

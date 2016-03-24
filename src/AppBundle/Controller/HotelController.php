@@ -88,13 +88,17 @@ class HotelController extends Controller
         // get the hotel
         $hotel = $helper->getHotel($hotel_id);
         if (!is_object($hotel) || !$hotel instanceof Hotel) {
-            throw $this->createNotFoundException('The hotel you are trying to edit does not exist.');
+            throw $this->createNotFoundException('The hotel you are trying to view does not exist.');
         }
+
+        // get the hotel registrations for the hotel
+        $hotel_registrations = $helper->getHotelRegistrationsByHotel($hotel_id);
 
         # render the show page for the hotel
         return $this->render(
             'hotel/hotel_show.html.twig', array(
-            'hotel_id' => $hotel_id,
+            'hotel' => $hotel,
+            'hotel_registrations' => $hotel_registrations
         ));
     }
 
