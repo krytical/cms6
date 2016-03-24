@@ -49,9 +49,6 @@ class HotelRegistration
      *
      * @ORM\Column(name="check_in_datetime", type="datetime", nullable=true)
      *
-     * @Assert\NotBlank(
-     *     message="Please enter the check in datetime.",
-     *     groups={"HotelRegistration"})
      * @Assert\DateTime(
      *     message="Please enter a valid datetime.",
      *     groups={"HotelRegistration"})
@@ -63,9 +60,6 @@ class HotelRegistration
      *
      * @ORM\Column(name="check_out_datetime", type="datetime", nullable=true)
      *
-     * @Assert\NotBlank(
-     *     message="Please enter the check out datetime.",
-     *     groups={"HotelRegistration"})
      * @Assert\DateTime(
      *     message="Please enter a valid datetime.",
      *     groups={"HotelRegistration"})

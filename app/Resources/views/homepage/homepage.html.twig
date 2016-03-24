@@ -7,7 +7,10 @@
             
 	 <main class="mdl-layout_content">
 		<div class="page-content mdl-grid">
-			
+
+			{# TODO: Display message saying they're not approved and until they are they can't
+			  join conferences. They should provide an email if they want to be notified upon approval#}
+
 			<!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
 			<!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->
 			
@@ -61,7 +64,7 @@
 				</button>
 			  </div>
 			  
-			   <div id={{ "conf_event" ~ c.id}} class="mdl-card__actions event-collapse mdl-card--border collapse">
+			   <div id="{{ "conf_event" ~ c.id}}" class="mdl-card__actions event-collapse mdl-card--border collapse">
 					{% if events[c.id] is empty %}
 					<div class="mdl-card-empty empty-conference-card mdl-cell mdl-cell--12-col">
 						<div class="mdl-card__title mdl-color-text--grey">

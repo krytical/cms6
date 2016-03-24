@@ -3,6 +3,8 @@
 // src/AppBundle/Controller/HotelRegistrationController.php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +58,33 @@ class HotelRegistrationController extends Controller
 
             $helper->setEntity($hotelRegistration);
 
-            $this->addFlash(
-                'success',
-                'Successfully registered for hotel!'
-            );
+            // send a notification e-mail to the user if they have an e-mail set.
+            $user = $conferenceRegistration->getUser();
+            if (is_object($user) && $user instanceof UserInterface && !empty($user->getEmail())) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('CMS Hotel Registration')
+                    ->setFrom($this->getParameter('contact_email'))
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/hotel_registration.html.twig', array(
+                                'name' => $user->getFirstName())
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
+
+                $this->addFlash(
+                    'success',
+                    'Hotel registration created successfully! An email has been sent to the user!'
+                );
+            }
+            else {
+                $this->addFlash(
+                    'success',
+                    'Hotel registration created successfully! No notification sent (User is not registered with an e-mail).'
+                );
+            }
 
             // renders the conference registration page
             return $this->redirectToRoute('conf_reg_show', ['conf_reg_id' => $conf_reg_id]);

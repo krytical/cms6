@@ -1,0 +1,11 @@
+{# app/Resources/views/emails/conference_approval.html.twig #}
+<h3>Hello {{ name }},</h3>
+Your request to join a conference at <strong>Gobind Sarvar, Conference Management System </strong> has been approved!
+
+To login and start joining events, <a href="{{ url('fos_user_security_login') }}">click here</a>.
+
+Thanks!
+
+<img src="{{ absolute_url(asset('images/Logo.png')) }}">
+
+This is an automated e-mail, please DO NOT REPLY to this e-mail.
