@@ -38,10 +38,10 @@ class SecurityRolesController extends Controller
 
 
     /**
-     *  @Route("/security_roles/{usedId}/edit", name="security_roles_edit.html.twig")
+     *  @Route("/security_roles/{usedID}/edit", name="security_roles_edit.html.twig")
      * TODO: temporary controller action to edit a single user at a time
      */
-    public function editUserRolesAction(Request $request, $userId)
+    public function editUserRolesAction(Request $request, $userID)
     {
 
         # TODO: get user by user id from request?
@@ -49,7 +49,7 @@ class SecurityRolesController extends Controller
         $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
 
         $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserBy(array('id'=>$userId));
+        $user = $userManager->findUserBy(array('id'=>$userID));
         $userRoles = $user->getRoles();
 
 

@@ -7,7 +7,7 @@
             {% for user in users %}
                 <li>
                      Name : {{ user.firstName }} {{ user.lastName }}
-                    <a href="{{ path('security_roles_edit_user', {'userId': user.id}) }}">Edit security roles</a>
+                    <a href="{{ path('security_roles_edit_user', {'userID': user.id}) }}">Edit security roles</a>
             {%  endfor %}
         </ul>
     </div>
