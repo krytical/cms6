@@ -51,6 +51,7 @@
 						</ul>
 					</div>
 				</div>
+				
 				<div class="mdl-card__supporting-text">
 					{{ conf_id.fullDescription }}
 				</div>
@@ -129,6 +130,9 @@
 					<!-- Menu Button Options -->
 
 					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="event-card-menu" href="#">
+						<li class="mdl-menu__item"><a href="#">
+							Attendance List
+						</a></li>
 						<li class="mdl-menu__item"><a href="{{ path('event_edit', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">
 							Edit Event
 						</a></li>
