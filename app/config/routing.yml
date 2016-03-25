@@ -169,8 +169,8 @@ security_roles_show:
 
 # TODO: temporary controller action to edit roles for single user.
 security_roles_edit_user:
-    path:      /security_roles/edit_user
-    defaults:  { _controller: AppBundle:SecurityRoles:editUserRole }
+    path:      /security_roles/{userId}/edit
+    defaults:  { _controller: AppBundle:SecurityRoles:editUserRoles }
 
 #TODO: fix naming
 security_roles_add_role_user:

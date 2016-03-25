@@ -61,41 +61,23 @@ class SecurityRolesController extends Controller
 
 
     /**
-     *  @Route("/security_roles/edit_user", name="security_roles_edit.html.twig")
+     *  @Route("/security_roles/{usedId}/edit", name="security_roles_edit.html.twig")
      * TODO: temporary controller action to edit a single user at a time
      */
-    public function editUserRoleAction(Request $request)
+    public function editUserRolesAction(Request $request, $userId)
     {
-
-
 
         # TODO: get user by user id from request?
 
-        # for now I'll just choose one random user
         $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
-        $user = $this->getUser(); // TODO: need user ID of user being edited not signed in user
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('id'=>$userId));
         $userRoles = $user->getRoles();
 
 
-        //$form = $this->createForm(UserRoleType::class, $user);
-
         $rolesWithStatus =  $this->getEnabledStatusForRoles($systemRoles, $userRoles);
 
-        /*$form->handleRequest($request); OR
-        if ($form->isSubmitted() && $form->isValid()){
-          DO SOMETHING
-        ie. persist to db and redirect
-        }
-
-
-        # TODO: for updating user, use userManager
-        $userManager = $this->container->get('fos_user.user_manager');
-        if ($form->isValid()) {
-            $userManager->updateUser($user);
-
-           // return $this->redirect($this->generateUrl('wes_admin_user_edit',
-             //   array('id' => $id)));
-        }*/
 
         return $this->render(
             'Security/security_roles_edit_user.html.twig', array(
@@ -140,11 +122,10 @@ class SecurityRolesController extends Controller
                 $message
             );
         }
-
-
+        
 
         #redirect to edit user role action
-        return $this->redirect($this->generateUrl('security_roles_edit_user'));
+        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userId' => $userID)));
     }
 
     //TODO: find better solution to get role name
@@ -178,8 +159,7 @@ class SecurityRolesController extends Controller
             );
         }
 
-        #redirect to edit user role action
-        return $this->redirect($this->generateUrl('security_roles_edit_user'));
+        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userId' => $userID)));
     }
 
 
