@@ -20,6 +20,14 @@ admin:
     path:      /admin
     defaults:  { _controller: AppBundle:Admin:admin }
 
+admin_user_list:
+    path:      /admin/users
+    defaults:  { _controller: AppBundle:Admin:adminUsers }
+
+admin_request_list:
+    path:      /admin/requests
+    defaults:  { _controller: AppBundle:Admin:adminRequests }
+
 transportation:
     path:      /transportation
     defaults:  { _controller: AppBundle:Admin:transportation }

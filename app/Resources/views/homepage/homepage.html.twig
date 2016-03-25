@@ -10,8 +10,14 @@
 
             {# TODO: make this pretty please#}
             {% if app.user is not null and app.user.approved == false %}
-            <h2> Your account has not yet been approved</h2>
-            You will not be able to join conferences until you account is approved. If haven't done so yet, we recommend you add an email to your profile so that you can be notified upon approval.
+			<div class="mdl-card not-approved-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+				  <div class="not-approved-icon">
+						<i class="material-icons mdl-list__item-icon">report</i>
+				  </div>
+                  <div class="mdl-card__supporting-text mdl-color-text--grey">
+					You will not be able to join conferences until you account is approved. If you haven't done so already, we recommend you add an email to your profile so that you can be notified upon approval.
+				  </div>
+			</div>
             {% endif %}
 
 			<!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
@@ -108,6 +114,9 @@
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': c.id}) }}">
 				  Edit Conference
+				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('transportation') }}">
+				  Manage Transportation
 				</a>
 				<button id="delete_modal" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
 				  Delete Conference

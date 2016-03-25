@@ -11,7 +11,14 @@ class AdminController extends Controller
     /**
      * @Route("/admin", name="admin")
      */
-    public function adminAction()
+	 public function adminAction(){
+		return $this->render('admin/admin.html.twig'); 
+	 }
+	
+	/**
+     * @Route("/admin/users", name="admin_user_list")
+     */
+    public function adminUsersAction()
     {
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
@@ -20,7 +27,27 @@ class AdminController extends Controller
         // get all the users
         $users = $helper->getAllUsers();
 
-        return $this->render('admin/admin.html.twig', array(
+        return $this->render('admin/admin_users.html.twig', array(
+            'users' => $users
+        ));
+    }
+	
+	/**
+     * @Route("/admin/users", name="admin_request_list")
+     */
+    public function adminRequestsAction()
+    {	
+		// THIS PAGE WILL SHOW ONLY USERS WITH REQUESTS AND THE CONFERENCE
+		// THEY ARE REQUESTING IN
+		
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get all the users
+        $users = $helper->getAllUsers();
+
+        return $this->render('admin/admin_requests.html.twig', array(
             'users' => $users
         ));
     }
