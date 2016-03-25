@@ -123,7 +123,7 @@ class SecurityRolesController extends Controller
             );
         }
 
-        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userId' => $userID)));
+        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userID' => $userID)));
     }
 
 
