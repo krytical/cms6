@@ -52,14 +52,14 @@ security:
         # HOTEL MANAGEMENT
         - { path: ^/hotel, role: ROLE_ADMIN }
         - { path: ^/hotel/create, role: ROLE_ADMIN }
-        - { path: ^/hotel/{hotel_id}/edit, role: ROLE_ADMIN }
-        - { path: ^/hotel/{hotel_id}/delete, role: ROLE_ADMIN }
+        - { path: ^/hotel/.*/edit, role: ROLE_ADMIN }
+        - { path: ^/hotel/.*/delete, role: ROLE_ADMIN }
 
         # HOTEL REGISTRATIONS - TO BE DONE BY ADMIN OR HOTEL MANAGER
-        - { path: ^/conference_registration/{conf_reg_id}/hotel_registration/create, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/{conf_reg_id}/hotel_registration, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/{conf_reg_id}/hotel_registration/edit, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/{conf_reg_id}/hotel_registration/delete, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/create, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_ADMIN }
 
 
         #TODO: try replacing this by annotations in each controller
