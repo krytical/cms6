@@ -95,7 +95,7 @@ class SecurityRolesController extends Controller
 
 
         #redirect to edit user role action
-        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userId' => $userID)));
+        return $this->redirect($this->generateUrl('security_roles_edit_user', array('userID' => $userID)));
     }
 
     //TODO: find better solution to get role name
