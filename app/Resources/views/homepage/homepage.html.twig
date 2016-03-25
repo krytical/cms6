@@ -12,7 +12,7 @@
             {% if app.user is not null and app.user.approved == false %}
 			<div class="mdl-card not-approved-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 				  <div class="not-approved-icon">
-						<i class="material-icons mdl-list__item-icon">report</i>
+						<i class="material-icons mdl-list__item-icon">info</i>
 				  </div>
                   <div class="mdl-card__supporting-text mdl-color-text--grey">
 					You will not be able to join conferences until you account is approved. If you haven't done so already, we recommend you add an email to your profile so that you can be notified upon approval.
@@ -69,7 +69,7 @@
 				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
 			
 				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#conf_event" ~ c.id}}>
-					<i class="material-icons">expand_more</i>
+					<i id="expand_button" class="material-icons">expand_more</i>
 				</button>
 			  </div>
 			  
