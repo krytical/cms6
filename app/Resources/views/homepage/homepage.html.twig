@@ -53,14 +53,37 @@
 			{% for c in conferences %}
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
-				<h2 class="mdl-card__title-text">{{ c.name }}</h2>
+				<h2 class="mdl-card__title-text">{{ c.name }}</h2>				
 				{% if c.imageName is null %}
 				<img class="conference-image" src="{{ asset('images/conference/Default.png') }}"/>
 				{% else %}
 				<img class="conference-image" src="{{ asset('images/conference/' ~ c.imageName) }}"/>
 				{% endif %}
 			  </div>
+			  
+			  <div class="mdl-card__menu">
+					<button id="card-menu" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+						<i class="material-icons">more_vert</i>
+					</button>
+						
+					<!-- Menu Button Options -->
 
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="card-menu" href="#">		
+						<li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': c.id}) }}">
+						  Add Event
+						</a></li>
+						<li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': c.id}) }}">
+							Edit Conference
+						</a></li>
+						<li class="mdl-menu__item"><a href="{{ path('transportation') }}">
+							Manage Transportation
+						</a></li>
+						<li class="mdl-menu__item"><a id="delete_modal" data-toggle="modal" data-target="#deleteModal">
+							Delete Conference
+						</a></li>
+					</ul>
+				</div>
+			  
 			  <div class="mdl-card__supporting-text">
 				<div class = "description__text">
 					{{ c.shortDescription }}
@@ -109,18 +132,6 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">
 				  View Details
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_create', {'conf_id': c.id}) }}">
-				  Add Event
-				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_edit', {'conf_id': c.id}) }}">
-				  Edit Conference
-				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('transportation') }}">
-				  Manage Transportation
-				</a>
-				<button id="delete_modal" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-toggle="modal" data-target="#deleteModal">
-				  Delete Conference
-				</button>
 			  </div>
 			</div>
 			
