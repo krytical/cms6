@@ -4,41 +4,28 @@
 {% block title %}{% endblock%}
 
 {% block body %}
-    {% include 'default/form.html.twig' with {'name':'Edit securily roles for user'}%}
-    {{ form_start(form) }}
 
-        {# TODO: render username #}
+    {# TODO: render username #}
 
-        {# render all roles #}
-        <h3>Security roles </h3>
-        <ul class="security roles">
-            {# iterate over existing roles and render the names TODO: add checkbox or somehting#}
-            {% for user_role in form.userRoles  %}
-                <li> {{ form_row(user_role.name) }} </li>
-            {% endfor %}
-        </ul>
 
-    {{ form_end(form) }}
----------------------------------
-    <div class="roles">
-        <h3>ROLES </h3>
+    <div>
+        <h3>EDIT USER ROLES </h3>
         <ul>
             {% for role in roles %}
                 <li>
-                    {{ role[0] }}
+                    Name: {{ role.getName }}
+                    {% if role.enabled %}
+                        enabled
+                        <a href="{{ path('security_roles_remove_role_user', {'userID': user.id, 'role': role.getName}) }}">Remove</a>
+                    {% else %}
+                        disabled
+                        <a href="{{ path('security_roles_add_role_user', {'userID': user.id, 'role': role.getName}) }}">Add</a>
+                    {% endif %}
+
                 </li>
             {%  endfor %}
         </ul>
     </div>
 
-
-    <div class="user">
-        <h3>USER </h3>
-        Name : {{ user.firstName }}
-        <ul>
-        {% for role in user.roles %}
-            <li>  Role: {{ role }} </li>
-        {% endfor %}
-        </ul>
 
 {% endblock body %}

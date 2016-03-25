@@ -98,7 +98,7 @@ class SecurityRolesController extends Controller
         }*/
 
         return $this->render(
-            'Security/security_roles_edit.html.twig', array(
+            'Security/security_roles_edit_user.html.twig', array(
                // 'form' => $form->createView(),
                 'user' => $user,
                 'userRoles' => $userRoles,
