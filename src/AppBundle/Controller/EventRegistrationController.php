@@ -35,7 +35,15 @@ class EventRegistrationController extends Controller
 
          if (!is_object($event) || !$event 
             instanceof Event) {
-            throw $this->createNotFoundException('This event you are trying to register for does not exist.');
+            $this->addFlash(
+                'Error',
+                'This event you are trying to register for does not exist.'
+            );
+
+            // go to profile page
+            return $this->redirectToRoute('conference_show',
+            array('conf_id' => $conf_id)
+            );
         }
 
         // get the user
@@ -50,8 +58,15 @@ class EventRegistrationController extends Controller
             ->getRepository('AppBundle:ConferenceRegistration')
             ->findOneBy(array('user' => $user->getId(), 'conference' => $conference->getId()));
         if (!is_object($registration) && !$registration instanceof ConferenceRegistration){
-            throw new AccessDeniedException(
-                'You are not registered for the conference of this event and so you cannot register for this event. Please register for the conference and then try again');
+            $this->addFlash(
+                'Error',
+                'You are not registered for the conference of this event and so you cannot register for this event. Please register for the conference and then try again'
+            );
+
+            // go to profile page
+            return $this->redirectToRoute('conference_show',
+            array('conf_id' => $conf_id)
+            );
         }
 
         // Check if the user already registered for the event
@@ -59,8 +74,15 @@ class EventRegistrationController extends Controller
             ->getRepository('AppBundle:EventRegistration')
             ->findOneBy(array('user' => $user->getId(), 'event' => $event->getId()));
         if (is_object($check) && $check instanceof EventRegistration){
-            throw new AccessDeniedException(
-                'You are already registered for this Event. If you would like to edit your registration, go to your profile.');
+            $this->addFlash(
+                'Error',
+                'You are already registered for this Event. If you would like to edit your registration, go to your profile.'
+            );
+
+            // go to profile page
+            // go to profile page
+            return $this->redirectToRoute('fos_user_profile_show');
+            
         }
 
         // set data for table

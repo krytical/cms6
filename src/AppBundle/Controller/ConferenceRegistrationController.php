@@ -52,7 +52,13 @@ class ConferenceRegistrationController extends Controller
             ->getRepository('AppBundle:Conference');
         $conference = $repository->find($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
-            throw $this->createNotFoundException('The conference you are trying to register for does not exist.');
+             $this->addFlash(
+                'Error',
+                'The conference you are trying to register for does not exist'
+            );
+
+            // go to profile page
+            return $this->redirectToRoute('fos_user_profile_show');
         }
 
         // get the user
@@ -67,8 +73,13 @@ class ConferenceRegistrationController extends Controller
             ->getRepository('AppBundle:ConferenceRegistration')
             ->findOneBy(array('user' => $user->getId(), 'conference' => $conference->getId()));
         if (is_object($registration) && $registration instanceof ConferenceRegistration){
-            throw new AccessDeniedException(
-                'You are already registered for this conference. If you would like to edit your registration, go to your profile.');
+            $this->addFlash(
+                'Error',
+                'You are already registered to this conference, please check your profile!'
+            );
+
+            // go to profile page
+            return $this->redirectToRoute('fos_user_profile_show');
         }
 
         $conference_reg = new ConferenceRegistration();
