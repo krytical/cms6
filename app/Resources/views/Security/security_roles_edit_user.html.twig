@@ -1,0 +1,31 @@
+{# app/Resources/views/conference/conference.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock%}
+
+{% block body %}
+
+    {# TODO: render username #}
+
+
+    <div>
+        <h3>EDIT USER ROLES </h3>
+        <ul>
+            {% for role in roles %}
+                <li>
+                    Name: {{ role.getName }}
+                    {% if role.enabled %}
+                        enabled
+                        <a href="{{ path('security_roles_remove_role_user', {'userID': user.id, 'role': role.getName}) }}">Remove</a>
+                    {% else %}
+                        disabled
+                        <a href="{{ path('security_roles_add_role_user', {'userID': user.id, 'role': role.getName}) }}">Add</a>
+                    {% endif %}
+
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+
+
+{% endblock body %}

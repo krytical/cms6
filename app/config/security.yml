@@ -5,8 +5,14 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:        ROLE_USER
+        ROLE_ADMIN:      [ROLE_USER, ROLE_CONFERENCE_MANAGER, ROLE_BOOKINGS_MANAGER]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN  #TODO: do we need an admin and super admin role?
+        ROLE_CONFERENCE_MANAGER: ROLE_CONFERENCE_MANAGER
+        ROLE_BOOKINGS_MANAGER: ROLE_BOOKINGS_MANAGER
+        # TODO may need a hotel manager role
+        #TODO: find a way to provide user-friendly names for roles.
+        #might find this in a library or some role class.
 
     providers:
         fos_userbundle:
@@ -33,3 +39,29 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+
+        # CONFERENCE MANAGEMENT
+        - { path: ^/conference$, role: ROLE_CONFERENCE_MANAGER } #create new conference
+        - { path: ^/conference/.*/edit, role: ROLE_CONFERENCE_MANAGER } # edit conference
+        - { path: ^/conference/.*/delete, role: ROLE_CONFERENCE_MANAGER } # delete conference
+        - { path: /conference_registration$, role: ROLE_CONFERENCE_MANAGER }
+
+        # USER MANAGEMENT
+        - { path: ^/profile/delete, role: ROLE_ADMIN }
+
+        # HOTEL MANAGEMENT
+        - { path: ^/hotel, role: ROLE_ADMIN }
+        - { path: ^/hotel/create, role: ROLE_ADMIN }
+        - { path: ^/hotel/.*/edit, role: ROLE_ADMIN }
+        - { path: ^/hotel/.*/delete, role: ROLE_ADMIN }
+
+        # HOTEL REGISTRATIONS - TO BE DONE BY ADMIN OR HOTEL MANAGER
+        - { path: ^/conference_registration/.*/hotel_registration/create, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_ADMIN }
+
+
+        #TODO: try replacing this by annotations in each controller
+        # or figure out a way to user route names instead of full path
+        #TODO: make custom page for unauthorized page - better user experience

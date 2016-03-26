@@ -163,6 +163,26 @@ event_reg_show:
 #    path:      /profile/event_registration/{event_reg_id}/edit
 #    defaults:  { _controller: AppBundle:EventRegistration:edit }
 
+
 event_reg_delete:
     path:      /event_registration/{event_reg_id}/delete
     defaults:  { _controller: AppBundle:EventRegistration:delete }
+
+# SECURITY ROLES
+
+security_roles_users:
+    path:      /security_roles/users
+    defaults:  { _controller: AppBundle:SecurityRoles:show }
+
+security_roles_edit_user:
+    path:      /security_roles/{userID}/edit
+    defaults:  { _controller: AppBundle:SecurityRoles:editUserRoles }
+
+#TODO: fix naming
+security_roles_add_role_user:
+    path:      /security_roles/{userID}/user_add_role/{role}
+    defaults:  { _controller: AppBundle:SecurityRoles:addRole }
+
+security_roles_remove_role_user:
+    path:      /security_roles/{userID}/user_remove_role/{role}
+    defaults:  { _controller: AppBundle:SecurityRoles:removeRole }
