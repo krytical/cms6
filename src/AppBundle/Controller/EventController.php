@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Conference;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 
@@ -16,11 +17,13 @@ class EventController extends Controller
     */
     public function createAction(Request $request,$conf_id)
         {
-            $conference = $this->getDoctrine()
-                ->getRepository('AppBundle:Conference')
-                ->find($conf_id);
+            // get the helper service and the EntityManager
+            $helper = $this->get('app.services.helper');
+            $helper->setEM($this->getDoctrine()->getEntityManager());
 
-            if (!$conference) {
+            // get the conference
+            $conference = $helper->getConference($conf_id);
+            if (!is_object($conference) || !$conference instanceof Conference) {
                 throw $this->createNotFoundException(
                 'No conference found for id '.$conf_id
                 );
@@ -32,9 +35,7 @@ class EventController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($event);
-                $em->flush();
+                $helper->setEntity($event);
 
                 $this->addFlash(
                     'success',
@@ -57,16 +58,13 @@ class EventController extends Controller
      */
      public function showAction($conf_id, $event_id)
     {
-        $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Event');
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
-        $event = $repository -> findOneBy(
-            array('conference' => $conf_id,'id' => $event_id)
-        );
-        
-
-        if (!is_object($event) || !$event 
-            instanceof Event) {
+        // get the event
+        $event = $helper->getEvent($conf_id, $event_id);
+        if (!is_object($event) || !$event instanceof Event) {
             throw $this->createNotFoundException('This event does not exist.');
         }
 
@@ -83,15 +81,13 @@ class EventController extends Controller
      */
     public function editAction(Request $request, $conf_id, $event_id)
     {
-         $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Event');
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
-        $event = $repository -> findOneBy(
-            array('conference' => $conf_id,'id' => $event_id)
-        );
-
-         if (!is_object($event) || !$event 
-            instanceof Event) {
+        // get the event
+        $event = $helper->getEvent($conf_id, $event_id);
+         if (!is_object($event) || !$event instanceof Event) {
             throw $this->createNotFoundException('This event you are trying to edit does not exist.');
         }
         
@@ -99,9 +95,7 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
+            $helper->setEntity($event);
 
             $this->addFlash(
                 'success',
@@ -123,21 +117,17 @@ class EventController extends Controller
      */
     public function deleteAction($conf_id, $event_id)
     {
-         $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Event');
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
-        $event = $repository -> findOneBy(
-            array('conference' => $conf_id,'id' => $event_id)
-        );
-
-         if (!is_object($event) || !$event 
-            instanceof Event) {
+        // get the event
+        $event = $helper->getEvent($conf_id, $event_id);
+         if (!is_object($event) || !$event instanceof Event) {
             throw $this->createNotFoundException('This event you are trying to delete does not exist.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($event);
-        $em->flush();
+        $helper->deleteEntity($event);
 
         $this->addFlash(
             'success',

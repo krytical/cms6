@@ -21,10 +21,12 @@ class HotelController extends Controller
     public function showAllAction()
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the hotels
-        $hotels = $this->getDoctrine()
-            ->getRepository('AppBundle:Hotel')
-            ->findAll();
+        $hotels = $helper->getAllHotels();
 
         return $this->render('hotel/hotel_show_all.html.twig', array(
             'hotels'=>$hotels,
@@ -42,14 +44,16 @@ class HotelController extends Controller
     public function createAction(Request $request)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($hotel);
-            $em->flush();
+            $helper->setEntity($hotel);
 
             $this->addFlash(
                 'success',
@@ -76,13 +80,25 @@ class HotelController extends Controller
      */
     public function showAction($hotel_id)
     {
-        # TODO: stub for showing a hotel
-        # (probably don't need this)
+        # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get the hotel
+        $hotel = $helper->getHotel($hotel_id);
+        if (!is_object($hotel) || !$hotel instanceof Hotel) {
+            throw $this->createNotFoundException('The hotel you are trying to view does not exist.');
+        }
+
+        // get the hotel registrations for the hotel
+        $hotel_registrations = $helper->getHotelRegistrationsByHotel($hotel_id);
 
         # render the show page for the hotel
         return $this->render(
             'hotel/hotel_show.html.twig', array(
-            'hotel_id' => $hotel_id,
+            'hotel' => $hotel,
+            'hotel_registrations' => $hotel_registrations
         ));
     }
 
@@ -99,10 +115,12 @@ class HotelController extends Controller
     public function editAction(Request $request, $hotel_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the hotel
-        $hotel = $this->getDoctrine()
-            ->getRepository('AppBundle:Hotel')
-            ->find($hotel_id);
+        $hotel = $helper->getHotel($hotel_id);
         if (!is_object($hotel) || !$hotel instanceof Hotel) {
             throw $this->createNotFoundException('The hotel you are trying to edit does not exist.');
         }
@@ -111,9 +129,7 @@ class HotelController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($hotel);
-            $em->flush();
+            $helper->setEntity($hotel);
 
             $this->addFlash(
                 'success',
@@ -141,17 +157,17 @@ class HotelController extends Controller
     public function deleteAction($hotel_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the hotel
-        $hotel = $this->getDoctrine()
-            ->getRepository('AppBundle:Hotel')
-            ->find($hotel_id);
+        $hotel = $helper->getHotel($hotel_id);
         if (!is_object($hotel) || !$hotel instanceof Hotel) {
             throw $this->createNotFoundException('The hotel you are trying to delete does not exist.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($hotel);
-        $em->flush();
+        $helper->deleteEntity($hotel);
 
         $this->addFlash(
             'success',

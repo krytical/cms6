@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Conference;
 use AppBundle\Form\ConferenceType;
@@ -23,14 +22,16 @@ class ConferenceController extends Controller
     public function createAction(Request $request)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         $conference = new Conference();
         $form = $this->createForm(ConferenceType::class, $conference);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conference);
-            $em->flush();
+            $helper->setEntity($conference);
 
             $this->addFlash(
                 'success',
@@ -58,24 +59,24 @@ class ConferenceController extends Controller
      */
     public function showAction($conf_id)
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference
-		$conference = $this->getDoctrine()
-            ->getRepository('AppBundle:Conference')
-            ->find($conf_id);
+        $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('This conference does not exist.');
         }
 
         // get the conference events
-		$confevents = $this->getDoctrine()
-            ->getRepository('AppBundle:Event')
-            ->findBy(array('conference' => $conference->getId()), array('id' => 'DESC'));
+		$conf_events = $helper->getConferenceEvents($conference->getId());
 
         // render the conference page
         return $this->render(
             'conference/conference_show.html.twig', array(
             'conf_id' => $conference,
-			'conf_events' => $confevents
+			'conf_events' => $conf_events
         ));
     }
 
@@ -92,10 +93,12 @@ class ConferenceController extends Controller
     public function editAction(Request $request, $conf_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference
-        $conference = $this->getDoctrine()
-            ->getRepository('AppBundle:Conference')
-            ->find($conf_id);
+        $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('The conference you are trying to edit does not exist.');
         }
@@ -104,9 +107,7 @@ class ConferenceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conference);
-            $em->flush();
+            $helper->setEntity($conference);
 
             $this->addFlash(
                 'success',
@@ -134,17 +135,17 @@ class ConferenceController extends Controller
     public function deleteAction($conf_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference
-        $conference = $this->getDoctrine()
-        ->getRepository('AppBundle:Conference')
-        ->find($conf_id);
+        $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('The conference you are trying to delete does not exist.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($conference);
-        $em->flush();
+        $helper->deleteEntity($conference);
 
         $this->addFlash(
             'success',

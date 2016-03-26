@@ -14,7 +14,7 @@ use AppBundle\Entity\ConferenceRegistration;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Event;
 
-use AppBundle\Form\EventRegistrationType;
+//use AppBundle\Form\EventRegistrationType;
 
 
 class EventRegistrationController extends Controller
@@ -24,28 +24,23 @@ class EventRegistrationController extends Controller
      */
     public function createAction(Request $request, $conf_id, $event_id)
     {
-         $event = $this->getDoctrine()
-            ->getRepository('AppBundle:Event')
-            ->find($event_id);
-
-        $conference = $this->getDoctrine()
-            ->getRepository('AppBundle:Conference')
-            ->find($conf_id);
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
 
-         if (!is_object($event) || !$event 
-            instanceof Event) {
-            $this->addFlash(
-                'Error',
-                'This event you are trying to register for does not exist.'
-            );
+        // get the event
+        $event = $helper->getEvent($conf_id, $event_id);
+        if (!is_object($event) || !$event instanceof Event) {
+            throw $this->createNotFoundException('This event you are trying to register for does not exist.');
 
-            // go to profile page
-            return $this->redirectToRoute('conference_show',
-            array('conf_id' => $conf_id)
-            );
         }
 
+        // get the conference
+        $conference = $helper->getConference($conf_id);
+        if (!is_object($conference) || !$conference instanceof Conference) {
+            throw $this->createNotFoundException('The conference of the event you are trying to register for does not exist.');
+        }
         // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof User) {
@@ -54,9 +49,7 @@ class EventRegistrationController extends Controller
         }
 
         // Check if the user is registered for the conference
-        $registration = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->findOneBy(array('user' => $user->getId(), 'conference' => $conference->getId()));
+        $registration = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
         if (!is_object($registration) && !$registration instanceof ConferenceRegistration){
             $this->addFlash(
                 'Error',
@@ -70,9 +63,7 @@ class EventRegistrationController extends Controller
         }
 
         // Check if the user already registered for the event
-        $check = $this->getDoctrine()
-            ->getRepository('AppBundle:EventRegistration')
-            ->findOneBy(array('user' => $user->getId(), 'event' => $event->getId()));
+        $check = $helper->getUsersEventRegistration($user->getId(), $event->getId());
         if (is_object($check) && $check instanceof EventRegistration){
             $this->addFlash(
                 'Error',
@@ -89,15 +80,14 @@ class EventRegistrationController extends Controller
         $event_reg = new EventRegistration();
         $event_reg-> setUser($user);
         $event_reg-> setEvent($event);
-        $event_reg-> setGuests("1");
+        $event_reg-> setConferenceRegistration($registration);
+        # TODO: look into setting this field manually
+        $event_reg-> setGuests($registration->getGuests());
         $event_reg-> setApproved("y");
 
         
         //put it in the database
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($event_reg);
-    	$em->flush();
+        $helper->setEntity($event_reg);
 
     	$this->addFlash(
                 'success',
@@ -118,14 +108,16 @@ class EventRegistrationController extends Controller
     {
         # NOT CURRENTLY USED
 
-         $eventReg = $this->getDoctrine()
-            ->getRepository('AppBundle:EventRegistration')
-            ->find($event_reg_id);
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get the event registration
+        $eventReg = $helper->getEventRegistration($event_reg_id);
 
         if (!is_object($eventReg) || !$eventReg instanceof EventRegistration) {
             throw $this->createNotFoundException('The event registration you are trying to edit does not exist.');
         }
-
          elseif ($eventReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot edit the Registration of another user.');
         }
@@ -134,9 +126,7 @@ class EventRegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($eventReg);
-            $em->flush();
+            $helper->setEntity($eventReg);
 
             $this->addFlash(
                 'success',
@@ -159,20 +149,20 @@ class EventRegistrationController extends Controller
      */
     public function deleteAction($event_reg_id)
     {
-         $eventReg = $this->getDoctrine()
-            ->getRepository('AppBundle:EventRegistration')
-            ->find($event_reg_id);
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
 
-         if (!is_object($eventReg) || !$eventReg instanceof EventRegistration) {
+        // get the event registration
+        $eventReg = $helper->getEventRegistration($event_reg_id);
+        if (!is_object($eventReg) || !$eventReg instanceof EventRegistration) {
             throw $this->createNotFoundException('The event registration you are trying to delete does not exist.');
         }
         elseif ($eventReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot delete the Registration of another user.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($eventReg);
-        $em->flush();
+        $helper->deleteEntity($eventReg);
 
          $this->addFlash(
             'success',

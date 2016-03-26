@@ -1,0 +1,16 @@
+
+<div class="security roles">
+
+    <div class="users">
+        <h1>USERS </h1>
+        <ul>
+            {% for user in users %}
+                <li>
+                     Name : {{ user.firstName }} {{ user.lastName }}
+                    <a href="{{ path('security_roles_edit_user', {'userID': user.id}) }}">Edit security roles</a>
+            {%  endfor %}
+        </ul>
+    </div>
+
+
+</div>

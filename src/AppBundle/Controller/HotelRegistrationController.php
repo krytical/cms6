@@ -3,6 +3,8 @@
 // src/AppBundle/Controller/HotelRegistrationController.php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,18 +29,18 @@ class HotelRegistrationController extends Controller
     public function createAction(Request $request, $conf_reg_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference registration
-        $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration');
-        $conferenceRegistration = $repository->find($conf_reg_id);
+        $conferenceRegistration = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($conferenceRegistration) || !$conferenceRegistration instanceof ConferenceRegistration) {
             throw $this->createNotFoundException('The conference registration you are trying to assign a hotel to does not exist.');
         }
 
         // Check if the conference registration already has a hotel registration
-        $hotelRegistration = $this->getDoctrine()
-            ->getRepository('AppBundle:HotelRegistration')
-            ->findOneBy(array('conferenceRegistration' => $conferenceRegistration->getId()));
+        $hotelRegistration = $helper->getHotelRegistration($conf_reg_id);
         if (is_object($hotelRegistration) && $hotelRegistration instanceof HotelRegistration){
             throw new AccessDeniedException(
                 "The conference registration (ID: {$conf_reg_id}) already has a hotel registration (ID: {$hotelRegistration->getId()}). Try editing the registration or delete it and create a new one."
@@ -54,14 +56,35 @@ class HotelRegistrationController extends Controller
             // add the foreign keys now
             $hotelRegistration->setConferenceRegistration($conferenceRegistration);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($hotelRegistration);
-            $em->flush();
+            $helper->setEntity($hotelRegistration);
 
-            $this->addFlash(
-                'success',
-                'Successfully registered for hotel!'
-            );
+            // send a notification e-mail to the user if they have an e-mail set.
+            $user = $conferenceRegistration->getUser();
+            if (is_object($user) && $user instanceof UserInterface && !empty($user->getEmail())) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('CMS Hotel Registration')
+                    ->setFrom($this->getParameter('contact_email'))
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/hotel_registration.html.twig', array(
+                                'name' => $user->getFirstName())
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
+
+                $this->addFlash(
+                    'success',
+                    'Hotel registration created successfully! An email has been sent to the user!'
+                );
+            }
+            else {
+                $this->addFlash(
+                    'success',
+                    'Hotel registration created successfully! No notification sent (User is not registered with an e-mail).'
+                );
+            }
 
             // renders the conference registration page
             return $this->redirectToRoute('conf_reg_show', ['conf_reg_id' => $conf_reg_id]);
@@ -84,18 +107,18 @@ class HotelRegistrationController extends Controller
     public function showAction($conf_reg_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the hotel registration
-        $hotelReg = $this->getDoctrine()
-            ->getRepository('AppBundle:HotelRegistration')
-            ->findOneBy(array('conferenceRegistration' => $conf_reg_id));
+        $hotelReg = $helper->getHotelRegistration($conf_reg_id);
         if (!is_object($hotelReg) || !$hotelReg instanceof HotelRegistration) {
             throw $this->createNotFoundException("The hotel registration to display does not exist.");
         }
 
         // get the conference registration so we can check the user
-        $confReg = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->find($conf_reg_id);
+        $confReg = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
         }
@@ -105,7 +128,8 @@ class HotelRegistrationController extends Controller
 
         // render the hotel registration page
         return $this->render('hotelRegistration/hotel_reg_show.html.twig', array(
-            'hotel_reg'=>$hotelReg,
+            'hotel' => $hotelReg->getHotel(),
+            'hotel_reg' => $hotelReg
         ));
     }
 
@@ -122,10 +146,12 @@ class HotelRegistrationController extends Controller
     public function editAction(Request $request, $conf_reg_id)
     {
         # TODO: check use privilege
-        // get the registration
-        $hotelReg = $this->getDoctrine()
-            ->getRepository('AppBundle:HotelRegistration')
-            ->findOneBy(array('conferenceRegistration' => $conf_reg_id));
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get the hotel registration
+        $hotelReg = $helper->getHotelRegistration($conf_reg_id);
         if (!is_object($hotelReg) || !$hotelReg instanceof HotelRegistration) {
             throw $this->createNotFoundException("The hotel registration you are trying to edit does not exist.");
         }
@@ -134,9 +160,7 @@ class HotelRegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($hotelReg);
-            $em->flush();
+            $helper->setEntity($hotelReg);
 
             $this->addFlash(
                 'success',
@@ -165,17 +189,17 @@ class HotelRegistrationController extends Controller
     public function deleteAction($conf_reg_id)
     {
         # TODO: check use privilege
-        // get the registration
-        $hotelReg = $this->getDoctrine()
-            ->getRepository('AppBundle:HotelRegistration')
-            ->findOneBy(array('conferenceRegistration' => $conf_reg_id));
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get the hotel registration
+        $hotelReg = $helper->getHotelRegistration($conf_reg_id);
         if (!is_object($hotelReg) || !$hotelReg instanceof HotelRegistration) {
-            throw $this->createNotFoundException("The hotel registration you are trying to edit does not exist.");
+            throw $this->createNotFoundException("The hotel registration you are trying to delete does not exist.");
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($hotelReg);
-        $em->flush();
+        $helper->deleteEntity($hotelReg);
 
         $this->addFlash(
             'success',

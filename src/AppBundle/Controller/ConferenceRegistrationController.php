@@ -24,14 +24,28 @@ class ConferenceRegistrationController extends Controller
     public function showAllAction()
     {
         # TODO: check user privileges
-        // get the conference registrations
-        $conferenceRegistrations = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->findAll();
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get all the conferences
+        $conferences = $helper->getAllConferences();
+
+        // get all the events
+        $events = $helper->getAllEvents();
+
+        // get all the conference registrations
+        $conferenceRegistrations = $helper->getAllConferenceRegistrations();
+
+        // get all the event registrations
+        $eventRegistrations = $helper->getAllEventRegistrations();
 
         // render the show all conference registrations page
         return $this->render('conferenceRegistration/conference_reg_show_all.html.twig', array(
-            'conf_regs'=>$conferenceRegistrations,
+            'conferences' => $conferences,
+            'events' => $events,
+            'conf_regs' => $conferenceRegistrations,
+            'event_regs' => $eventRegistrations
         ));
     }
 
@@ -47,10 +61,12 @@ class ConferenceRegistrationController extends Controller
      */
     public function createAction(Request $request, $conf_id)
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference
-        $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Conference');
-        $conference = $repository->find($conf_id);
+        $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
              $this->addFlash(
                 'Error',
@@ -69,9 +85,7 @@ class ConferenceRegistrationController extends Controller
         }
 
         // Check if the user already registered for the conference
-        $registration = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->findOneBy(array('user' => $user->getId(), 'conference' => $conference->getId()));
+        $registration = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
         if (is_object($registration) && $registration instanceof ConferenceRegistration){
             $this->addFlash(
                 'Error',
@@ -93,9 +107,7 @@ class ConferenceRegistrationController extends Controller
             $conference_reg->setUser($user);
             $conference_reg->setConference($conference);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conference_reg);
-            $em->flush();
+            $helper->setEntity($conference_reg);
 			
             $this->addFlash(
                 'success',
@@ -124,10 +136,12 @@ class ConferenceRegistrationController extends Controller
     public function showAction($conf_reg_id)
     {
         # TODO: check user privileges
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the conference registration
-        $confReg = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->find($conf_reg_id);
+        $confReg = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
         }
@@ -153,10 +167,12 @@ class ConferenceRegistrationController extends Controller
      */
     public function editAction(Request $request, $conf_reg_id)
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the registration
-        $confReg = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->find($conf_reg_id);
+        $confReg = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (with ID {$conf_reg_id}) you are trying to edit does not exist.");
         }
@@ -168,9 +184,7 @@ class ConferenceRegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($confReg);
-            $em->flush();
+            $helper->setEntity($confReg);
 
             $this->addFlash(
                 'success',
@@ -198,10 +212,12 @@ class ConferenceRegistrationController extends Controller
      */
     public function deleteAction($conf_reg_id)
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the registration
-        $confReg = $this->getDoctrine()
-            ->getRepository('AppBundle:ConferenceRegistration')
-            ->find($conf_reg_id);
+        $confReg = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (with ID: {$conf_reg_id}) you are trying to delete does not exist.");
         }
@@ -209,9 +225,7 @@ class ConferenceRegistrationController extends Controller
             throw new AccessDeniedException('You cannot delete the Registration of another user.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($confReg);
-        $em->flush();
+        $helper->deleteEntity($confReg);
 
         $this->addFlash(
             'success',

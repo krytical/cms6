@@ -15,20 +15,20 @@ class ConferenceType extends AbstractType
             'label' => 'Conference Name'
         ))
         ->add('shortDescription', Type\TextareaType::class, array(
-            'label' => 'Enter a brief summary of the conference'
+            'label' => 'A brief summary of the conference to be displayed on the home page'
         ))
         ->add('fullDescription', Type\TextareaType::class, array(
-            'label' => 'Enter a full description of the conference to be displayed on the conference page'
+            'label' => 'A full description of the conference to be displayed on the conference page'
         ))
         ->add('location', Type\TextType::class, array(
             'empty_data'  => 'TBA',
             'label' => 'Conference Location (optional)'
         ))
-        ->add('startDatetime', Type\DateTimeType::class, array(
-            'label' => 'Conference Start Time'
+        ->add('startDatetime', Type\DateType::class, array(
+            'label' => 'Conference Start Date'
         ))
-        ->add('endDatetime', Type\DateTimeType::class, array(
-            'label' => 'Conference End Time'
+        ->add('endDatetime', Type\DateType::class, array(
+            'label' => 'Conference End Date'
         ))
         ->add('imageFile', Type\FileType::class, array(
             'required' => false,

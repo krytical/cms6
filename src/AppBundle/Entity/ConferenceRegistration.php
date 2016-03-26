@@ -110,7 +110,7 @@ class ConferenceRegistration
      */
     private $needsAccommodation;
 
-    // TODO: maybe put this back in
+    // TODO: Put this back in if adding home stays
 //    /**
 //     * @var string
 //     *
