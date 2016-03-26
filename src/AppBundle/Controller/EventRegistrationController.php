@@ -108,39 +108,39 @@ class EventRegistrationController extends Controller
     {
         # NOT CURRENTLY USED
 
-        // get the helper service and the EntityManager
-        $helper = $this->get('app.services.helper');
-        $helper->setEM($this->getDoctrine()->getEntityManager());
-
-        // get the event registration
-        $eventReg = $helper->getEventRegistration($event_reg_id);
-
-        if (!is_object($eventReg) || !$eventReg instanceof EventRegistration) {
-            throw $this->createNotFoundException('The event registration you are trying to edit does not exist.');
-        }
-         elseif ($eventReg->getUser() != $this->getUser()) {
-            throw new AccessDeniedException('You cannot edit the Registration of another user.');
-        }
-
-        $form = $this->createForm(EventRegistrationType::class, $eventReg);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $helper->setEntity($eventReg);
-
-            $this->addFlash(
-                'success',
-                'Event Registration edited successfully!'
-            );
-
-            return $this->redirectToRoute('fos_user_profile_show');
-        }
-
-        # render the edit page for the event
-        return $this->render(
-            'Profile/event_registration_edit.html.twig', array(
-            'form' => $form->createView()
-        ));
+//        // get the helper service and the EntityManager
+//        $helper = $this->get('app.services.helper');
+//        $helper->setEM($this->getDoctrine()->getEntityManager());
+//
+//        // get the event registration
+//        $eventReg = $helper->getEventRegistration($event_reg_id);
+//
+//        if (!is_object($eventReg) || !$eventReg instanceof EventRegistration) {
+//            throw $this->createNotFoundException('The event registration you are trying to edit does not exist.');
+//        }
+//         elseif ($eventReg->getUser() != $this->getUser()) {
+//            throw new AccessDeniedException('You cannot edit the Registration of another user.');
+//        }
+//
+//        $form = $this->createForm(EventRegistrationType::class, $eventReg);
+//        $form->handleRequest($request);
+//
+//        if ($form->isValid()) {
+//            $helper->setEntity($eventReg);
+//
+//            $this->addFlash(
+//                'success',
+//                'Event Registration edited successfully!'
+//            );
+//
+//            return $this->redirectToRoute('fos_user_profile_show');
+//        }
+//
+//        # render the edit page for the event
+//        return $this->render(
+//            'Profile/event_registration_edit.html.twig', array(
+//            'form' => $form->createView()
+//        ));
     }
 
 

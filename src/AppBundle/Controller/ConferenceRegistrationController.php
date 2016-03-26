@@ -23,7 +23,6 @@ class ConferenceRegistrationController extends Controller
      */
     public function showAllAction()
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -70,7 +69,7 @@ class ConferenceRegistrationController extends Controller
         if (!is_object($conference) || !$conference instanceof Conference) {
              $this->addFlash(
                 'Error',
-                'The conference you are trying to register for does not exist'
+                "The conference  with ID {$conf_id} that you are trying to register for does not exist"
             );
 
             // go to profile page
@@ -135,7 +134,6 @@ class ConferenceRegistrationController extends Controller
      */
     public function showAction($conf_reg_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());

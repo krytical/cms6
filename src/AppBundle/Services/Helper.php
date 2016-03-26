@@ -3,6 +3,7 @@
 // src/AppBundle/Services/Helper.php
 namespace AppBundle\Services;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Conference;
 use Proxies\__CG__\AppBundle\Entity\ConferenceRegistration;
@@ -46,11 +47,25 @@ class Helper
     # USERS
     # ----------------
 
+    /**
+     * @return User[]
+     */
     public function getAllUsers()
     {
         return $this->em
             ->getRepository('AppBundle:User')
             ->findAll();
+    }
+
+    /**
+     * @param $user_id
+     * @return null|User
+     */
+    public function getUser($user_id)
+    {
+        return $this->em
+            ->getRepository('AppBundle:User')
+            ->find($user_id);
     }
 
     # ----------------

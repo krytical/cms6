@@ -14,7 +14,77 @@ class AdminController extends Controller
 	 public function adminAction(){
 		return $this->render('admin/admin.html.twig'); 
 	 }
-	
+
+    /**
+     * @Route("/admin/users/{user_id}/approve", name="admin_user_approve")
+     *
+     * @param $user_id
+     *  The ID of the user to be approved
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function approveUserAction($user_id){
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        $user = $helper->getUser($user_id);
+        $user->setApproved(true);
+
+        $helper->setEntity($user);
+
+        // render the users view
+        return $this->redirectToRoute('admin_user_list');
+    }
+
+    /**
+     * @Route("/admin/users/{user_id}/disapprove", name="admin_user_disapprove")
+     *
+     * @param $user_id
+     *  The ID of the user to be disapproved
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function disapproveUserAction($user_id){
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        $user = $helper->getUser($user_id);
+        $user->setApproved(false);
+
+        $helper->setEntity($user);
+
+        // render the users view
+        return $this->redirectToRoute('admin_user_list');
+    }
+
+    /**
+     * @Route("/admin/users/{user_id}/delete", name="admin_user_delete")
+     *
+     * @param string $user_id
+     *  The ID of the user to be deleted
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteUserAction($user_id){
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        $user = $helper->getUser($user_id);
+
+        $helper->deleteEntity($user);
+
+        $this->addFlash(
+            'success',
+            'User deleted successfully!'
+        );
+
+        // render the users view
+        return $this->redirectToRoute('admin_user_list');
+    }
+
 	/**
      * @Route("/admin/users", name="admin_user_list")
      */
@@ -37,7 +107,9 @@ class AdminController extends Controller
      */
     public function adminRequestsAction()
     {	
-		// THIS PAGE WILL SHOW ONLY USERS WITH REQUESTS AND THE CONFERENCE
+
+        # TODO: do we need this??
+        // THIS PAGE WILL SHOW ONLY USERS WITH REQUESTS AND THE CONFERENCE
 		// THEY ARE REQUESTING IN
 		
         // get the helper service and the EntityManager

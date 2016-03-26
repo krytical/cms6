@@ -28,7 +28,6 @@ class HotelRegistrationController extends Controller
      */
     public function createAction(Request $request, $conf_reg_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -106,7 +105,6 @@ class HotelRegistrationController extends Controller
      */
     public function showAction($conf_reg_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -145,7 +143,6 @@ class HotelRegistrationController extends Controller
      */
     public function editAction(Request $request, $conf_reg_id)
     {
-        # TODO: check use privilege
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -188,7 +185,6 @@ class HotelRegistrationController extends Controller
      */
     public function deleteAction($conf_reg_id)
     {
-        # TODO: check use privilege
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());

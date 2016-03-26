@@ -12,164 +12,223 @@ fos_user:
 
 # for each category we want to have show_all, create, show, edit, delete
 
+# shows all the conferences
 _welcome:
     path:      /
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
+# links to other admin pages and shows the log
 admin:
     path:      /admin
     defaults:  { _controller: AppBundle:Admin:admin }
 
+# show all the users linking to set role, approve and delete pages
 admin_user_list:
     path:      /admin/users
     defaults:  { _controller: AppBundle:Admin:adminUsers }
 
+# approve a user
+admin_user_approve:
+    path:      /admin/users/{user_id}/approve
+    defaults:  { _controller: AppBundle:Admin:approveUser }
+
+# disapprove a user
+admin_user_disapprove:
+    path:      /admin/users/{user_id}/disapprove
+    defaults:  { _controller: AppBundle:Admin:disapproveUser }
+
+# delete a user
+admin_user_delete:
+    path:      /admin/users/{user_id}/delete
+    defaults:  { _controller: AppBundle:Admin:deleteUser }
+
+# ????
 admin_request_list:
     path:      /admin/requests
     defaults:  { _controller: AppBundle:Admin:adminRequests }
 
+# shows the conference registration arrival times for each conference
 transportation:
     path:      /transportation
     defaults:  { _controller: AppBundle:Admin:transportation }
 
 # CONFERENCES
+
+# shows all the conferences (just links to homepage)
 conference_show_all:
     path:      /conference
     defaults:  { _controller: AppBundle:Homepage:homepage }
 
+# creates a conference
 conference_create:
     path:      /conference/create
     defaults:  { _controller: AppBundle:Conference:create }
 
+# shows a conference and it's events
 conference_show:
     path:      /conference/{conf_id}
     defaults:  { _controller: AppBundle:Conference:show }
 
+# edits a conference
 conference_edit:
     path:      /conference/{conf_id}/edit
     defaults:  { _controller: AppBundle:Conference:edit }
 
+# deletes a conference
 conference_delete:
     path:      /conference/{conf_id}/delete
     defaults:  { _controller: AppBundle:Conference:delete }
 
 # CONFERENCE REGISTRATIONS
+
+# show all the conference and event registrations for every conference
 conf_reg_show_all:
     path:      /conference_registration
     defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
 
+# registers for a conference
 conf_reg_create:
     path:      /conference/{conf_id}/register
     defaults:  { _controller: AppBundle:ConferenceRegistration:create }
 
+# shows the fields of a single conference registration
 conf_reg_show:
     path:      /conference_registration/{conf_reg_id}
     defaults:  { _controller: AppBundle:ConferenceRegistration:show }
 
+# edit the conference registration
 conf_reg_edit:
     path:      /conference_registration/{conf_reg_id}/edit
     defaults:  { _controller: AppBundle:ConferenceRegistration:edit }
 
+# delete the conference registration
 conf_reg_delete:
     path:      /conference_registration/{conf_reg_id}/delete
     defaults:  { _controller: AppBundle:ConferenceRegistration:delete }
 
 # USERS
+
+# delete the user
 user_delete:
     path:      /profile/delete
     defaults:  { _controller: AppBundle:Profile:delete }
 
+# edit the user
 user_edit:
     path:      /profile/edit
     defaults:  { _controller: AppBundle:Profile:edit }
 
 # HOTELS
+
+# show all the hotels
 hotel_show_all:
     path:      /hotel
     defaults:  { _controller: AppBundle:Hotel:showAll }
 
+# create a hotel
 hotel_create:
     path:      /hotel/create
     defaults:  { _controller: AppBundle:Hotel:create }
 
+# show a single hotel with it's regstrations
 hotel_show:
     path:      /hotel/{hotel_id}
     defaults:  { _controller: AppBundle:Hotel:show }
 
+# edit a hotel
 hotel_edit:
     path:      /hotel/{hotel_id}/edit
     defaults:  { _controller: AppBundle:Hotel:edit }
 
+# delete a hotel
 hotel_delete:
     path:      /hotel/{hotel_id}/delete
     defaults:  { _controller: AppBundle:Hotel:delete }
 
 # HOTEL REGISTRATIONS
+
+# NOT USED
 #hotel_reg_show_all:
 #    path:      /hotel_registration
 #    defaults:  { _controller: AppBundle:HotelRegistration:showAll }
 
+# create a hotel registration
 hotel_reg_create:
     path:      /conference_registration/{conf_reg_id}/hotel_registration/create
     defaults:  { _controller: AppBundle:HotelRegistration:create }
 
+# show a single hotel registration
 hotel_reg_show:
     path:      /conference_registration/{conf_reg_id}/hotel_registration
     defaults:  { _controller: AppBundle:HotelRegistration:show }
 
+# edit a hotel registration
 hotel_reg_edit:
     path:      /conference_registration/{conf_reg_id}/hotel_registration/edit
     defaults:  { _controller: AppBundle:HotelRegistration:edit }
 
+# delete a hotel registration
 hotel_reg_delete:
     path:      /conference_registration/{conf_reg_id}/hotel_registration/delete
     defaults:  { _controller: AppBundle:HotelRegistration:delete }
 
 # EVENTS
+
+# show the conference (render conference page)
 event_show_all:
     path:      /conference/{conf_id}/event
     defaults:  { _controller: AppBundle:Conference:show }
 
+# create an event
 event_create:
     path:      /conference/{conf_id}/event/create
     defaults:  { _controller: AppBundle:Event:create }
 
+# show a single event
 event_show:
     path:      /conference/{conf_id}/event/{event_id}
     defaults:  { _controller: AppBundle:Event:show }
 
+# edit an event
 event_edit:
     path:      /conference/{conf_id}/event/{event_id}/edit
     defaults:  { _controller: AppBundle:Event:edit }
 
+# delete an event
 event_delete:
     path:      /conference/{conf_id}/event/{event_id}/delete
     defaults:  { _controller: AppBundle:Event:delete }
 
 # EVENT REGISTRATIONS
+
+# show all the conference and event registrations for every conference
 event_reg_show_all:
     path:      /event_registration
     defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
 
+# create an event registration
 event_reg_create:
     path:      /conference/{conf_id}/event/{event_id}/register
     defaults:  { _controller: AppBundle:EventRegistration:create }
 
+# show all the conference and event registrations for every conference
 event_reg_show:
     path:      /event_registration/{event_reg_id}
     defaults:  { _controller: AppBundle:ConferenceRegistration:showAll }
 
+# NOT USED
 #event_reg_edit:
 #    path:      /profile/event_registration/{event_reg_id}/edit
 #    defaults:  { _controller: AppBundle:EventRegistration:edit }
 
-
+# delete an event registration
 event_reg_delete:
     path:      /event_registration/{event_reg_id}/delete
     defaults:  { _controller: AppBundle:EventRegistration:delete }
 
 # SECURITY ROLES
 
+# TODO: are these all merging with the admin pages????
 security_roles_users:
     path:      /security_roles/users
     defaults:  { _controller: AppBundle:SecurityRoles:show }

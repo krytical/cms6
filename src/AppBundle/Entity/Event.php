@@ -133,6 +133,7 @@ class Event
      */
     private $capacity;
 
+    #TODO: Kill this field!
     /**
      * @var int
      *

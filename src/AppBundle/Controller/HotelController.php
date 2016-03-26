@@ -20,7 +20,6 @@ class HotelController extends Controller
      */
     public function showAllAction()
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -43,7 +42,6 @@ class HotelController extends Controller
      */
     public function createAction(Request $request)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -80,7 +78,6 @@ class HotelController extends Controller
      */
     public function showAction($hotel_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -114,7 +111,6 @@ class HotelController extends Controller
      */
     public function editAction(Request $request, $hotel_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -156,7 +152,6 @@ class HotelController extends Controller
      */
     public function deleteAction($hotel_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());

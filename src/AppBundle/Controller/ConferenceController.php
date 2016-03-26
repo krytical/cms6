@@ -21,7 +21,6 @@ class ConferenceController extends Controller
      */
     public function createAction(Request $request)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -66,7 +65,7 @@ class ConferenceController extends Controller
         // get the conference
         $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
-            throw $this->createNotFoundException('This conference does not exist.');
+            throw $this->createNotFoundException("The conference with ID {$conf_id} does not exist.");
         }
 
         // get the conference events
@@ -92,7 +91,6 @@ class ConferenceController extends Controller
      */
     public function editAction(Request $request, $conf_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -100,7 +98,8 @@ class ConferenceController extends Controller
         // get the conference
         $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
-            throw $this->createNotFoundException('The conference you are trying to edit does not exist.');
+            throw $this->createNotFoundException(
+                "The conference with ID {$conf_id} that you are trying to edit does not exist.");
         }
 
         $form = $this->createForm(ConferenceType::class, $conference);
@@ -134,7 +133,6 @@ class ConferenceController extends Controller
      */
     public function deleteAction($conf_id)
     {
-        # TODO: check user privileges
         // get the helper service and the EntityManager
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -142,7 +140,8 @@ class ConferenceController extends Controller
         // get the conference
         $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
-            throw $this->createNotFoundException('The conference you are trying to delete does not exist.');
+            throw $this->createNotFoundException(
+                "The conference with ID {$conf_id} that you are trying to delete does not exist.");
         }
 
         $helper->deleteEntity($conference);

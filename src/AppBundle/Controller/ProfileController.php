@@ -56,15 +56,17 @@ class ProfileController extends BaseController
      */
     public function deleteAction()
     {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
         // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
-        $em->flush();
+        $helper->deleteEntity($user);
 
         # Log the user out by invalidating their session
         $this->get('security.token_storage')->setToken(null);
