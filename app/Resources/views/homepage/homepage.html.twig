@@ -1,162 +1,153 @@
-{# app/Resources/views/homepage/homepage.html.twig #}
-{% extends 'base.html.twig' %}
+{# app/Resources/views/homepage/homepage.html.twig #} 
+{% extends 'base.html.twig' %} 
 
-{% block title %}Home{% endblock%}
+{% block title %}Home{% endblock%} 
 
 {% block body %}
-            
-	 <main class="mdl-layout_content">
-		<div class="page-content mdl-grid">
 
-            {# TODO: make this pretty please#}
-            {% if app.user is not null and app.user.approved == false %}
-			<div class="mdl-card not-approved-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-				  <div class="not-approved-icon">
-						<i class="material-icons mdl-list__item-icon">info</i>
-				  </div>
-                  <div class="mdl-card__supporting-text mdl-color-text--grey">
-					You will not be able to join conferences until you account is approved. If you haven't done so already, we recommend you add an email to your profile so that you can be notified upon approval.
-				  </div>
-			</div>
-            {% endif %}
+<main class="mdl-layout_content">
+  <div class="page-content mdl-grid">
 
-			<!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
-			<!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->
-			
-				<div class="mdl-card create-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-				  <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-                    <h2 class="mdl-card__title-text">Create New Conference</h2>
-				  </div>
-				  <div class="mdl-card__supporting-text">
-					You can create a new conference here. Click below to get started.
-				  </div>
-				  <div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_create') }}">
+    {# TODO: make this pretty please#} {% if app.user is not null and app.user.approved == false %}
+    <div class="mdl-card not-approved-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+      <div class="not-approved-icon">
+        <i class="material-icons mdl-list__item-icon">info</i>
+      </div>
+      <div class="mdl-card__supporting-text mdl-color-text--grey">
+        You will not be able to join conferences until you account is approved. If you haven't done so already, we recommend you add an email to your profile so that you can be notified upon approval.
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
+    <!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->
+
+    <div class="mdl-card create-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+      <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+        <h2 class="mdl-card__title-text">Create New Conference</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        You can create a new conference here. Click below to get started.
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_create') }}">
 					  New Conference
 					</a>
-				  </div>
-				</div>
+      </div>
+    </div>
 
-			<!-- SHOW CONFERENCES HERE -->
-			
-			{% if conferences is empty %}
-				<div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-				  <div class="no-conference-icon">
-						<i class="material-icons mdl-list__item-icon">event_busy</i>
-				  </div>
-				  <div class="mdl-card__title mdl-color-text--grey">
-                    <h2 class="mdl-card__title-text">There are no conferences for you to join right now</h2>
-				  </div>
-				</div>
-			{% else %}
-			<h3 class="upcoming-conference">Upcoming Conferences</h3>
-			{% for c in conferences %}
-			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-			  <div class="mdl-card__title">
-				<h2 class="mdl-card__title-text">{{ c.name }}</h2>				
-				{% if c.imageName is null %}
-				<img class="conference-image" src="{{ asset('images/conference/Default.png') }}"/>
-				{% else %}
-				<img class="conference-image" src="{{ asset('images/conference/' ~ c.imageName) }}"/>
-				{% endif %}
-			  </div>
-			  
-			  <div class="mdl-card__menu">
-					<button id="card-menu" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+    <!-- SHOW CONFERENCES HERE -->
+
+    {% if conferences is empty %}
+    <div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+      <div class="no-conference-icon">
+        <i class="material-icons mdl-list__item-icon">event_busy</i>
+      </div>
+      <div class="mdl-card__title mdl-color-text--grey">
+        <h2 class="mdl-card__title-text">There are no conferences for you to join right now</h2>
+      </div>
+    </div>
+    {% else %}
+    <h3 class="upcoming-conference">Upcoming Conferences</h3> {% for c in conferences %}
+    <div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">{{ c.name }}</h2> {% if c.imageName is null %}
+        <img class="conference-image" src="{{ asset('images/conference/Default.png') }}" /> {% else %}
+        <img class="conference-image" src="{{ asset('images/conference/' ~ c.imageName) }}" /> {% endif %}
+      </div>
+
+      <div class="mdl-card__menu">
+        <button id="card-menu" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
 						<i class="material-icons">more_vert</i>
 					</button>
-						
-					<!-- Menu Button Options -->
 
-					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="card-menu" href="#">		
-						<li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': c.id}) }}">
+        <!-- Menu Button Options -->
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="card-menu" href="#">
+          <li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': c.id}) }}">
 						  Add Event
 						</a></li>
-						<li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': c.id}) }}">
+          <li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': c.id}) }}">
 							Edit Conference
 						</a></li>
-						<li class="mdl-menu__item"><a href="{{ path('transportation') }}">
+          <li class="mdl-menu__item"><a href="{{ path('transportation') }}">
 							Manage Transportation
 						</a></li>
-						<li class="mdl-menu__item"><a id="delete_modal" data-toggle="modal" data-target="#deleteModal">
+          <li class="mdl-menu__item"><a id="delete_modal" data-toggle="modal" data-target="#deleteModal">
 							Delete Conference
 						</a></li>
-					</ul>
-				</div>
-			  
-			  <div class="mdl-card__supporting-text">
-				<div class = "description__text">
-					{{ c.shortDescription }}
-				</div>
-				<br>
-				{{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
-			
-				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#conf_event" ~ c.id}}>
+        </ul>
+      </div>
+
+      <div class="mdl-card__supporting-text">
+        <div class="description__text">
+          {{ c.shortDescription }}
+        </div>
+        <br> {{ c.startDatetime | date("m/d/Y")}} - {{ c.endDatetime | date("m/d/Y")}} · {{ c.location }}
+
+        <button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{ "#conf_event" ~ c.id}}>
 					<i id="expand_button" class="material-icons">expand_more</i>
 				</button>
-			  </div>
-			  
-			   <div id="{{ "conf_event" ~ c.id}}" class="mdl-card__actions event-collapse mdl-card--border collapse">
-					{% if events[c.id] is empty %}
-					<div class="mdl-card-empty empty-conference-card mdl-cell mdl-cell--12-col">
-						<div class="mdl-card__title mdl-color-text--grey">
-							<h2 class="mdl-card__title-text">This conference has no events</h2>
-						</div>
-					</div>
-				    {% else %}
-					<div class="list-group event-list">
-						<!-- EVENTS -->
-						{% for event in events[c.id] %}
-						<a href="{{ path('event_show', {'conf_id': c.id, 'event_id': event.id}) }}" class="list-group-item">
-						  <h4 class="list-group-item-heading">{{ event.name }}</h4>
-						    <p class="list-group-item-text">
-								<div id="event-description">
-									{{ event.shortDescription }}
-								</div>
-								{{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
-						    </p>
-						</a>
-						{% endfor %}
-					</div>
-					{% endif %}
-			   </div>
-			  			  
-			  {# TODO: Remove "Join Conference" button once you joined conference #}
-			  
-			  {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
+      </div>
 
-			  <div class="mdl-card__actions mdl-card--border">
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_create', {'conf_id': c.id}) }}">
+      <div id="{{ " conf_event " ~ c.id}}" class="mdl-card__actions event-collapse mdl-card--border collapse">
+        {% if events[c.id] is empty %}
+        <div class="mdl-card-empty empty-conference-card mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__title mdl-color-text--grey">
+            <h2 class="mdl-card__title-text">This conference has no events</h2>
+          </div>
+        </div>
+        {% else %}
+        <div class="list-group event-list">
+          <!-- EVENTS -->
+          {% for event in events[c.id] %}
+          <a href="{{ path('event_show', {'conf_id': c.id, 'event_id': event.id}) }}" class="list-group-item">
+            <h4 class="list-group-item-heading">{{ event.name }}</h4>
+            <p class="list-group-item-text">
+              <div id="event-description">
+                {{ event.shortDescription }}
+              </div>
+              {{ event.startDatetime | date("m/d/Y")}} - {{ event.endDatetime | date("m/d/Y")}} · {{ event.location }}
+            </p>
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      {# TODO: Remove "Join Conference" button once you joined conference #} {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
+
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_create', {'conf_id': c.id}) }}">
 				  Join Conference
 				</a>
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': c.id}) }}">
 				  View Details
 				</a>
-			  </div>
-			</div>
-			
-			<!-- Modal -->
-			<div id="deleteModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+      </div>
+    </div>
 
-				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Confirm Delete</h4>
-				  </div>
-				  <div class="modal-body">
-					<p>Are you sure you want to delete this conference and its events?</p>
-				  </div>
-				  <div class="modal-footer">
-					<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_delete', {'conf_id': c.id}) }}">Delete</a>
-				  </div>
-				</div>
-			  </div>
-			</div>
-			{% endfor %}
-			{% endif %}
-		</div>
-	 </main>
+    <!-- Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirm Delete</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this conference and its events?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_delete', {'conf_id': c.id}) }}">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</main>
 {% endblock %}
