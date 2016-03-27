@@ -37,7 +37,26 @@
               <td id="table-cell">{{ user_info.username }}</td>
               <td id="table-cell">{{ user_info.firstName }}</td>
               <td id="table-cell">{{ user_info.lastName }}</td>
-              <td id="table-cell">Convert Array to String</td>
+              <td id="table-cell">List current roles
+			  {% if user_info.approved == 1 %}
+			  <div class="btn-group">
+                  <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Add Role <span class="caret"></span>
+						  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">
+								Admin
+							</a></li>
+					<li><a href="#">
+								Conference Manager
+							</a></li>
+					<li><a href="#">
+								Bookings Manager
+							</a></li>
+                  </ul>
+                </div>
+				{% endif %}
+				</td>
               <td id="table-cell">
                 {% if user_info.approved == 1 %}
                 <i class="material-icons mdl-list__item-icon">check</i> {% elseif user_info.approved == 0 %}
@@ -53,11 +72,8 @@
                     <li><a href="{{ path('admin_user_approve', {'user_id': user_info.id}) }}">
 								Approve
 							</a></li>
-                    <li><a href="{{ path('admin_user_disapprove', {'user_id': user_info.id}) }}">
+                    <li><a href="" id="delete_modal" data-toggle="modal" data-target="#deleteModal">
 								Deny
-							</a></li>
-                    <li><a href="{{ path('admin_user_delete', {'user_id': user_info.id}) }}">
-								Delete User
 							</a></li>
                   </ul>
                 </div>
@@ -70,7 +86,7 @@
                     <li><a href="{{ path('admin_user_disapprove', {'user_id': user_info.id}) }}">
 								Revoke Approval
 							</a></li>
-                    <li><a href="{{ path('admin_user_delete', {'user_id': user_info.id}) }}">
+                    <li><a href="" id="delete_modal" data-toggle="modal" data-target="#deleteModal">
 								Delete User
 							</a></li>
                   </ul>
@@ -78,10 +94,30 @@
                 {% endif %}
               </td>
             </tr>
+			
+			<!-- Modal -->
+			<div id="deleteModal" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Delete</h4>
+				  </div>
+				  <div class="modal-body">
+					<p>Are you sure you want to delete this user?</p>
+				  </div>
+				  <div class="modal-footer">
+					<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('admin_user_delete', {'user_id': user_info.id}) }}">Delete</a>
+				  </div>
+				</div>
+			  </div>
+			</div>
             {% endfor %}
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
