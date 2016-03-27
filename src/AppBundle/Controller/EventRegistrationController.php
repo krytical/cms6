@@ -52,7 +52,7 @@ class EventRegistrationController extends Controller
         $registration = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
         if (!is_object($registration) && !$registration instanceof ConferenceRegistration){
             $this->addFlash(
-                'Error',
+                'danger',
                 'You are not registered for the conference of this event and so you cannot register for this event. Please register for the conference and then try again'
             );
 
@@ -66,7 +66,7 @@ class EventRegistrationController extends Controller
         $check = $helper->getUsersEventRegistration($user->getId(), $event->getId());
         if (is_object($check) && $check instanceof EventRegistration){
             $this->addFlash(
-                'Error',
+                'danger',
                 'You are already registered for this Event. If you would like to edit your registration, go to your profile.'
             );
 

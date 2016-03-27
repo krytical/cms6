@@ -68,7 +68,7 @@ class ConferenceRegistrationController extends Controller
         $conference = $helper->getConference($conf_id);
         if (!is_object($conference) || !$conference instanceof Conference) {
              $this->addFlash(
-                'Error',
+                'danger',
                 "The conference  with ID {$conf_id} that you are trying to register for does not exist"
             );
 
@@ -87,7 +87,7 @@ class ConferenceRegistrationController extends Controller
         $registration = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
         if (is_object($registration) && $registration instanceof ConferenceRegistration){
             $this->addFlash(
-                'Error',
+                'danger',
                 'You are already registered to this conference, please check your profile!'
             );
 
