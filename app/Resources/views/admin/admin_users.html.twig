@@ -55,6 +55,22 @@
 							</a></li>
                   </ul>
                 </div>
+				<div class="btn-group">
+                  <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Revoke Role <span class="caret"></span>
+						  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">
+								Admin
+							</a></li>
+					<li><a href="#">
+								Conference Manager
+							</a></li>
+					<li><a href="#">
+								Bookings Manager
+							</a></li>
+                  </ul>
+                </div>
 				{% endif %}
 				</td>
               <td id="table-cell">
@@ -72,7 +88,7 @@
                     <li><a href="{{ path('admin_user_approve', {'user_id': user_info.id}) }}">
 								Approve
 							</a></li>
-                    <li><a href="" id="delete_modal" data-toggle="modal" data-target="#deleteModal">
+                    <li><a href="{{ path('admin_user_delete', {'user_id': user_info.id}) }}">
 								Deny
 							</a></li>
                   </ul>
