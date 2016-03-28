@@ -61,7 +61,9 @@ security:
         - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_HOTEL_MANAGER }
         - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_HOTEL_MANAGER }
 
+        # TRANSPORTATION MANAGEMENT
+        - { path: ^/transportation, role: ROLE_ADMIN }
 
-        #TODO: try replacing this by annotations in each controller
-        # or figure out a way to user route names instead of full path
+
+
         #TODO: make custom page for unauthorized page - better user experience
