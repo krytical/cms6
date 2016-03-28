@@ -1,7 +1,7 @@
 {# app/Resources/views/admin/admin_requests.html.twig #} 
 {% extends 'base.html.twig' %} 
 
-{% block title %}User Request{% endblock%} 
+{% block title %}Manage User Requests{% endblock%} 
 
 {% block body %}
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="mdl-card__supporting-text">
-          You can manage user requests for the conference here. The user will be notified after you approve or deny it.
+          You can manage user requests for all conferences here. The user will be notified after you approve or deny it. You may also revoke the approval at any time, the user will be notified if you revoke the approval.
         </div>
 
         <table class="table table-hover admin-user-details">
@@ -27,7 +27,7 @@
               <th id="table-cell">Last Name</th>
               <th id="table-cell">Conference</th>
               <th id="table-cell">Request</th>
-              <th id="table-cell">Status</th>
+              <th id="table-cell">Approved</th>
 			  <th id="table-cell">Manage</th>
             </tr>
           </thead>
@@ -39,7 +39,7 @@
               <td id="table-cell">{{ conf_requests.user.username }}</td>
               <td id="table-cell">{{ conf_requests.user.firstName }}</td>
               <td id="table-cell">{{ conf_requests.user.lastName }}</td>
-              <td id="table-cell">{{ conf_requests.conference.name }}</td>
+              <td id="table-cell"><a href="{{ path('conference_show', {'conf_id': conf_requests.conference.id}) }}">{{ conf_requests.conference.name }}</td></a>
               <td id="table-cell">{{ conf_requests.additionalInfo }}</td>
               <td id="table-cell">
                 {% if conf_requests.approved == 1 %}
