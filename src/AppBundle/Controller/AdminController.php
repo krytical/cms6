@@ -106,7 +106,7 @@ class AdminController extends Controller
     }
 	
 	/**
-     * @Route("/admin/users", name="admin_request_list")
+     * @Route("/admin/requests", name="admin_request_list")
      */
     public function adminRequestsAction()
     {	
@@ -121,9 +121,13 @@ class AdminController extends Controller
 
         // get all the users
         $users = $helper->getAllUsers();
+		
+		// get all the conference registrations
+        $conferenceRegistrations = $helper->getAllConferenceRegistrations();
 
         return $this->render('admin/admin_requests.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'conf_regs' => $conferenceRegistrations,
         ));
     }
 
