@@ -37,39 +37,38 @@
               <td id="table-cell">{{ user_info.username }}</td>
               <td id="table-cell">{{ user_info.firstName }}</td>
               <td id="table-cell">{{ user_info.lastName }}</td>
-              <td id="table-cell">List current roles
+              <td id="table-cell">
+                  {% for user_role in user_info.roles %}
+                      {{ user_role }}
+                  {% endfor %}
 			  {% if user_info.approved == 1 %}
 			  <div class="btn-group">
+
+                  {# ADD ROLE #}
                   <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Add Role <span class="caret"></span>
 						  </button>
                   <ul class="dropdown-menu">
-                    <li><a href="#">
-								Admin
-							</a></li>
-					<li><a href="#">
-								Conference Manager
-							</a></li>
-					<li><a href="#">
-								Bookings Manager
-							</a></li>
+                      {% for role in roles %}
+                          <li><a href="{{ path('security_roles_add_role_user', {'userID': user_info.id, 'role': role[0]}) }}">
+                                  {{ role[0] }}
+                              </a></li>
+                      {% endfor %}
                   </ul>
                 </div>
+
+                  {# REMOVE ROLE #}
 				<div class="btn-group">
                   <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Revoke Role <span class="caret"></span>
+							Remove Role <span class="caret"></span>
 						  </button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">
-								Admin
-							</a></li>
-					<li><a href="#">
-								Conference Manager
-							</a></li>
-					<li><a href="#">
-								Bookings Manager
-							</a></li>
-                  </ul>
+                    <ul class="dropdown-menu">
+                        {% for role in roles %}
+                            <li><a href="{{ path('security_roles_remove_role_user', {'userID': user_info.id, 'role': role[0]}) }}">
+                                    {{ role[0] }}
+                                </a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
 				{% endif %}
 				</td>

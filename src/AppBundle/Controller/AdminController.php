@@ -94,11 +94,14 @@ class AdminController extends Controller
         $helper = $this->get('app.services.helper');
         $helper->setEM($this->getDoctrine()->getEntityManager());
 
+        $systemRoles = $this->container->getParameter('security.role_hierarchy.roles');
+
         // get all the users
         $users = $helper->getAllUsers();
 
         return $this->render('admin/admin_users.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'roles' => $systemRoles
         ));
     }
 	
