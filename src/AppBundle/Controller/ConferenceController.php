@@ -8,11 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Conference;
 use AppBundle\Form\ConferenceType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ConferenceController extends Controller
 {
     /**
      * @Route("/conference/create", name="conference")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
      *
      * @param Request $request
      *  The submitted ConferenceType form
@@ -81,6 +83,7 @@ class ConferenceController extends Controller
 
     /**
      * @Route("/conference/{conf_id}/edit", name="conference_edit")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
      *
      * @param Request $request
      *  The submitted ConferenceType form
@@ -125,6 +128,7 @@ class ConferenceController extends Controller
 
     /**
      * @Route("/conference/{conf_id}/delete", name="conference_delete")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
      *
      * @param string $conf_id
      *  The id of the conference to be deleted

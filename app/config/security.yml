@@ -39,12 +39,6 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
-        # CONFERENCE MANAGEMENT
-        - { path: ^/conference/create, role: ROLE_CONFERENCE_MANAGER } #create new conference
-        - { path: ^/conference/.*/edit, role: ROLE_CONFERENCE_MANAGER } # edit conference
-        - { path: ^/conference/.*/delete, role: ROLE_CONFERENCE_MANAGER } # delete conference
-        - { path: /conference_registration$, role: ROLE_CONFERENCE_MANAGER }
-
         # USER MANAGEMENT
         - { path: ^/profile/delete, role: ROLE_ADMIN }
 

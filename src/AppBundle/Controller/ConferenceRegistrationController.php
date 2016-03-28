@@ -13,11 +13,13 @@ use AppBundle\Entity\ConferenceRegistration;
 use AppBundle\Entity\User;
 
 use AppBundle\Form\ConferenceRegistrationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ConferenceRegistrationController extends Controller
 {
     /**
      * @Route("/conference_registration", name="conf_reg_show_all")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
