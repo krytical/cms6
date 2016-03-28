@@ -63,9 +63,9 @@
 							Remove Role <span class="caret"></span>
 						  </button>
                     <ul class="dropdown-menu">
-                        {% for role in roles %}
-                            <li><a href="{{ path('security_roles_remove_role_user', {'userID': user_info.id, 'role': role[0]}) }}">
-                                    {{ role[0] }}
+                        {% for role in user_info.roles %}
+                            <li><a href="{{ path('security_roles_remove_role_user', {'userID': user_info.id, 'role': role}) }}">
+                                    {{ role }}
                                 </a></li>
                         {% endfor %}
                     </ul>
