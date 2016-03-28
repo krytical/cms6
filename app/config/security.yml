@@ -39,20 +39,27 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
 
+        # CONFERENCE MANAGEMENT (secured by @Security(has_role()) in controller classes)
+
+        # EVENT MANAGEMENT
+        - { path: ^/conference/.*/event/create, role: ROLE_CONFERENCE_MANAGER }
+        - { path: ^/conference/.*/event/edit, role: ROLE_CONFERENCE_MANAGER }
+        - { path: ^/conference/.*/event/delete, role: ROLE_CONFERENCE_MANAGER }
+
         # USER MANAGEMENT
         - { path: ^/profile/delete, role: ROLE_ADMIN }
 
         # HOTEL MANAGEMENT
-        - { path: ^/hotel, role: ROLE_ADMIN }
-        - { path: ^/hotel/create, role: ROLE_ADMIN }
-        - { path: ^/hotel/.*/edit, role: ROLE_ADMIN }
-        - { path: ^/hotel/.*/delete, role: ROLE_ADMIN }
+        - { path: ^/hotel, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/hotel/create, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/hotel/.*/edit, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/hotel/.*/delete, role: ROLE_HOTEL_MANAGER }
 
         # HOTEL REGISTRATIONS - TO BE DONE BY ADMIN OR HOTEL MANAGER
-        - { path: ^/conference_registration/.*/hotel_registration/create, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/.*/hotel_registration, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_ADMIN }
-        - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_ADMIN }
+        - { path: ^/conference_registration/.*/hotel_registration/create, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/conference_registration/.*/hotel_registration, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_HOTEL_MANAGER }
 
 
         #TODO: try replacing this by annotations in each controller
