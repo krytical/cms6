@@ -107,13 +107,13 @@
 			  </div>
 			  
 			  <div class="mdl-card__menu">
-					<button id="card-menu" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+					<button id={{"card-menu" ~conference_reg.conference.id}} class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
 						<i class="material-icons">more_vert</i>
 					</button>
 						
 					<!-- Menu Button Options -->
 
-					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="card-menu" href="#">		
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for={{"card-menu" ~conference_reg.conference.id}} href="#">		
 						<li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': conference_reg.conference.id}) }}">
 						  Add Event
 						</a></li>
