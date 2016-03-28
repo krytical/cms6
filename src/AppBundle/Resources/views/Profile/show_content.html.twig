@@ -135,9 +135,9 @@
 				</div>
 				<br>
 				{{ conference_reg.conference.startDatetime | date("m/d/Y")}} - {{ conference_reg.conference.endDatetime | date("m/d/Y")}} · {{ conference_reg.conference.location }}
-						
-				<button id="conf_expand" class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#conf_event" ~ conference_reg.conference.id}}>
-					<i id="expand_button" class="material-icons">expand_more</i>
+				
+				<button id="conf_expand" name={{conference_reg.conference.id}} class="conference-expand mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp" data-toggle="collapse" data-target={{"#conf_event" ~ conference_reg.conference.id}} onclick="get_id(this)">
+					<i id={{"expand_button" ~conference_reg.conference.id}} class="material-icons">expand_more</i>
 				</button>
 			  </div>
 			  
@@ -173,6 +173,9 @@
 			  <div class="mdl-card__actions mdl-card--border">
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete',{'conf_id': conference_reg.conference.id, 'conf_reg_id': conference_reg.id}) }}">
 				  Leave Conference
+				</a>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_edit',{'conf_reg_id': conference_reg.id}) }}">
+				  Edit Registration
 				</a>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': conference_reg.conference.id }) }}">
 				  View Details
