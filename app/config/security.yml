@@ -64,6 +64,9 @@ security:
         # TRANSPORTATION MANAGEMENT
         - { path: ^/transportation, role: ROLE_ADMIN }
 
+        # SECURITY ROLES MANAGEMENT
+        - { path: ^/security_roles/, role: ROLE_ADMIN }
+
 
 
         #TODO: make custom page for unauthorized page - better user experience
