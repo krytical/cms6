@@ -4,8 +4,79 @@
 {% block title %}Conference Registrations{% endblock%}
 
 {% block body %}
-    {# TODO: display the conference title #}
-    {# TODO: display all the conference registrations #}
-    {# TODO: for each conference display each event title  #}
-    {# TODO: display all the event registrations #}
-{% endblock body %}
+
+    <main class="mdl-layout__content-admin-show">
+        <div class="page-content mdl-grid">
+            <div class="mdl-card admin-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+                <h2>Admin Panel</h2>
+
+                <div class="mdl-card admin-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                        <h2 class="mdl-card__title-text">Manage User Requests</h2>
+                    </div>
+
+                    <div class="mdl-card__supporting-text">
+                        You can manage user requests for all conferences here. The user will be notified after you approve or deny it. You may also revoke the approval at any time, the user will be notified if you revoke the approval.
+                    </div>
+
+                    <table class="table table-hover admin-user-details">
+                        <thead>
+                        <tr>
+                            <th id="table-cell">User Name</th>
+                            <th id="table-cell">First Name</th>
+                            <th id="table-cell">Last Name</th>
+                            <th id="table-cell">Conference</th>
+                            <th id="table-cell">Request</th>
+                            <th id="table-cell">Approved</th>
+                            <th id="table-cell">Manage</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for conf_requests in conf_regs %}
+                            {% if conf_requests.additionalInfo is not null %}
+                                <tr>
+                                    <td id="table-cell">{{ conf_requests.user.username }}</td>
+                                    <td id="table-cell">{{ conf_requests.user.firstName }}</td>
+                                    <td id="table-cell">{{ conf_requests.user.lastName }}</td>
+                                    <td id="table-cell"><a href="{{ path('conference_show', {'conf_id': conf_requests.conference.id}) }}">{{ conf_requests.conference.name }}</td>
+                                    <td id="table-cell">{{ conf_requests.additionalInfo }}</td>
+                                    <td id="table-cell">
+                                        {% if conf_requests.approved == 1 %}
+                                            <i class="material-icons mdl-list__item-icon">check</i> {% elseif conf_requests.approved == 0 %}
+                                            <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
+                                    </td>
+                                    <td id="table-cell">
+                                        {% if conf_requests.approved == 0 %}
+                                            <div class="btn-group">
+                                                <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Select Option <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">
+                                                            Approve
+                                                        </a></li>
+                                                    <li><a href="#">
+                                                            Delete Registration
+                                                        </a></li>
+                                                </ul>
+                                            </div>
+                                        {% else %}
+                                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                                <a href="#">
+                                                    Revoke Approval
+                                                </a>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

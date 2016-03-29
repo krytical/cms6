@@ -29,6 +29,7 @@ class EventType extends AbstractType
             'empty_data'  => 'TBA',
             'label' => 'Speaker/Host (optional)'
         ))
+        # TODO: make these fields a calendar
         ->add('startDatetime', Type\DateTimeType::class, array(
             'label' => 'Event Start Time'
         ))
@@ -38,10 +39,6 @@ class EventType extends AbstractType
         ->add('capacity', Type\IntegerType::class, array(
             'required' => false,
             'label' => 'Event Capacity (optional)'
-        ))
-        ->add('spotsRemaining', Type\IntegerType::class, array(
-            'required' => false,
-            'label' => 'Event Seats Remaining (optional)'
         ))
         ->add('imageFile', Type\FileType::class, array(
             'required' => false,

@@ -3,6 +3,8 @@
 // src/AppBundle/Controller/ConferenceController.php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ConferenceRegistration;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,11 +73,28 @@ class ConferenceController extends Controller
         // get the conference events
 		$conf_events = $helper->getConferenceEvents($conference->getId());
 
+        // get the user
+        $user = $this->getUser();
+        $conf_reg = null;
+        $event_regs = array();
+        if (is_object($user) && $user instanceof UserInterface) {
+
+            // check if the user is registered for the conference
+            $conf_reg = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
+            if (is_object($conf_reg) && $conf_reg instanceof ConferenceRegistration){
+
+                // get all the event registrations for that conference registration
+                $event_regs = $helper->getEventRegistrationByConfReg($conf_reg->getId());
+            }
+        }
+
         // render the conference page
         return $this->render(
             'conference/conference_show.html.twig', array(
             'conf_id' => $conference,
-			'conf_events' => $conf_events
+			'conf_events' => $conf_events,
+            'conf_reg' => $conf_reg,
+            'event_regs' => $event_regs
         ));
     }
 

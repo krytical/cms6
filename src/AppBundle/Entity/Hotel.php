@@ -16,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Hotel
 {
+    #TODO: add phone number field
+
     /**
      * @var int
      *
@@ -66,18 +68,6 @@ class Hotel
      *      groups={"Hotel"})
      */
     private $capacity;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="vacancy", type="integer", nullable=true)
-     *
-     * @Assert\Range(
-     *      min = 0,
-     *      minMessage = "Please enter a value of at least zero.",
-     *      groups={"Hotel"})
-     */
-    private $vacancy;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -184,29 +174,6 @@ class Hotel
     public function getCapacity()
     {
         return $this->capacity;
-    }
-
-    /**
-     * Set vacancy
-     *
-     * @param integer $vacancy
-     * @return Hotel
-     */
-    public function setVacancy($vacancy)
-    {
-        $this->vacancy = $vacancy;
-
-        return $this;
-    }
-
-    /**
-     * Get vacancy
-     *
-     * @return integer 
-     */
-    public function getVacancy()
-    {
-        return $this->vacancy;
     }
 
     /**

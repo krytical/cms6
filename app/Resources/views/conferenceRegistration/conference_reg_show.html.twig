@@ -4,5 +4,108 @@
 {% block title %}Conference Registration{% endblock%}
 
 {% block body %}
-    {# TODO: display the conference registration #}
+
+    <main class="mdl-layout__content-conference-registration-show">
+        <div class="page-content mdl-grid">
+            <div class="mdl-card profile-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+
+                <div class="mdl-card profile-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                        <h2 class="mdl-card__title-text">Conference Registration</h2>
+                        <div class="menu-wrapper">
+                            <button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+
+                            <!-- Menu Button Options -->
+
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right" href="#">
+                                <li class="mdl-menu__item"><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_reg.id}) }}">Update Registration</a></li>
+                                <li id="delete_modal" class="mdl-menu__item" data-toggle="modal" data-target="#deleteConfRegModal">Delete Registration</li>
+                            </ul>
+
+                            <div id="deleteConfRegModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Confirm Delete</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete the conference registration?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Cancel</button>
+                                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete', {'conf_reg_id': conf_reg.id}) }}">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="profile-detail-list mdl-list">
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">person</i>
+                                  User: {{ conf_reg.user.username }} - {{ conf_reg.user.firstName }} {{ conf_reg.user.lastName }}
+                                </span>
+                        </li>
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">event seat</i>
+                                  Conference: {{ conf_reg.conference.name }}
+                                </span>
+                        </li>
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">face</i>
+                                  People In Your Group: {{ conf_reg.guests }}
+                                </span>
+                        </li>
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">info</i>
+                                  Do You Need Accommodation: {{ conf_reg.needsAccommodation == false ? 'No' : 'Yes' }}
+                                </span>
+                        </li>
+                        {% if conf_reg.hotelRegistration is not null %}
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">home</i>
+                                  Assigned Hotel Registration: {{ conf_reg.hotelRegistration.id }}
+                                </span>
+                        </li>
+                        {% endif %}
+                        {% if conf_reg.flightNumber is not null %}
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">flight</i>
+                                  Flight Number: {{ conf_reg.flightNumber }}
+                                </span>
+                        </li>
+                        {% endif %}
+                        {% if conf_reg.arrivalDatetime is not null %}
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">schedule</i>
+                                  Arrival Flight Departure Time: {{ conf_reg.arrivalDatetime }}
+                                </span>
+                        </li>
+                        {% endif %}
+                        {% if conf_reg.departureDatetime is not null %}
+                        <li class="mdl-list__item">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">schedule</i>
+                                  Return Flight Departure Time: {{ conf_reg.departureDatetime }}
+                                </span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
 {% endblock body %}

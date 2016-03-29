@@ -102,6 +102,13 @@ class Helper
             ->findOneBy(array('conference' => $conf_id,'id' => $event_id));
     }
 
+    public function getAllEvents()
+    {
+        return $this->em
+            ->getRepository('AppBundle:Event')
+            ->findAll();
+    }
+
     public function getConferenceEvents($conf_id)
     {
         return $this->em
@@ -136,6 +143,12 @@ class Helper
     # CONFERENCE REGISTRATIONS
     # ----------------
 
+    /**
+     * @param string $conf_reg_id
+     *  The ID of the conference registration to get
+     *
+     * @return null|ConferenceRegistration
+     */
     public function getConferenceRegistration($conf_reg_id)
     {
         return $this->em
@@ -187,6 +200,13 @@ class Helper
         return $this->em
             ->getRepository('AppBundle:EventRegistration')
             ->findOneBy(array('user' => $user_id, 'event' => $event_id));
+    }
+
+    public function getEventRegistrationByConfReg($conf_reg_id)
+    {
+        return $this->em
+            ->getRepository('AppBundle:EventRegistration')
+            ->findBy(array('conferenceRegistration' => $conf_reg_id));
     }
 
     /**

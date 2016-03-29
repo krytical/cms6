@@ -41,6 +41,7 @@ class EventRegistrationController extends Controller
         if (!is_object($conference) || !$conference instanceof Conference) {
             throw $this->createNotFoundException('The conference of the event you are trying to register for does not exist.');
         }
+
         // get the user
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof User) {
@@ -83,7 +84,7 @@ class EventRegistrationController extends Controller
         $event_reg-> setConferenceRegistration($registration);
         # TODO: look into setting this field manually
         $event_reg-> setGuests($registration->getGuests());
-        $event_reg-> setApproved("y");
+        $event_reg-> setApproved(false);
 
         
         //put it in the database
@@ -101,13 +102,14 @@ class EventRegistrationController extends Controller
         );
     }
 
-    /**
-     * @Route("/profile/event_registration/{event_reg_id}/edit", name="event_reg_edit")
-     */
-    public function editAction(Request $request, $event_reg_id)
-    {
-        # NOT CURRENTLY USED
+    # NOT CURRENTLY USED
 
+//    /**
+//     * @Route("/profile/event_registration/{event_reg_id}/edit", name="event_reg_edit")
+//     */
+//    public function editAction(Request $request, $event_reg_id)
+//    {
+//
 //        // get the helper service and the EntityManager
 //        $helper = $this->get('app.services.helper');
 //        $helper->setEM($this->getDoctrine()->getEntityManager());
@@ -141,8 +143,7 @@ class EventRegistrationController extends Controller
 //            'Profile/event_registration_edit.html.twig', array(
 //            'form' => $form->createView()
 //        ));
-    }
-
+//    }
 
     /**
      * @Route("/profile/conference_registration/{event_reg_id}/delete", name="event_reg_delete")

@@ -1,10 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-    {# TODO: add proper fields #}
-    {# TODO: formatting #}
-
-{# Added a check in the controller instead. User will always be defined now. #}
-{# if user is defined #}
 <div class="profile-ribbon">
 	{% if user.imageName is null %}
 	<img class="user-image" src="{{ asset('images/user/Default.png') }}"/>
@@ -93,8 +88,7 @@
 			<h4 class="upcoming-conference">Your Conferences and Events</h4>
 	
 			{% for conference_reg in conference_registrations %}
-			
-			{# TODO: Show joined conferences here #}
+
 			{# TODO: Add edit and delete buttons on each registration #}
 			<div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			  <div class="mdl-card__title">
@@ -165,10 +159,6 @@
 					</div>
 					{% endif %}
 			   </div>
-			  
-			  {# TODO: Remove "Join Conference" button once you joined conference #}
-			  
-			  {# TODO: Add "Leave Conference" button after you joined the conference https://www.getmdl.io/components/index.html#buttons-section #}
 
 			  <div class="mdl-card__actions mdl-card--border">
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete',{'conf_id': conference_reg.conference.id, 'conf_reg_id': conference_reg.id}) }}">

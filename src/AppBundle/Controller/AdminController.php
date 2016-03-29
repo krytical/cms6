@@ -105,31 +105,30 @@ class AdminController extends Controller
         ));
     }
 	
-	/**
-     * @Route("/admin/requests", name="admin_request_list")
-     */
-    public function adminRequestsAction()
-    {	
-
-        # TODO: do we need this??
-        // THIS PAGE WILL SHOW ONLY USERS WITH REQUESTS AND THE CONFERENCE
-		// THEY ARE REQUESTING IN
-		
-        // get the helper service and the EntityManager
-        $helper = $this->get('app.services.helper');
-        $helper->setEM($this->getDoctrine()->getEntityManager());
-
-        // get all the users
-        $users = $helper->getAllUsers();
-		
-		// get all the conference registrations
-        $conferenceRegistrations = $helper->getAllConferenceRegistrations();
-
-        return $this->render('admin/admin_requests.html.twig', array(
-            'users' => $users,
-            'conf_regs' => $conferenceRegistrations,
-        ));
-    }
+//	/**
+//     * @Route("/admin/requests", name="admin_request_list")
+//     */
+//    public function adminRequestsAction()
+//    {
+//
+//        // THIS PAGE WILL SHOW ONLY USERS WITH REQUESTS AND THE CONFERENCE
+//		// THEY ARE REQUESTING IN
+//
+//        // get the helper service and the EntityManager
+//        $helper = $this->get('app.services.helper');
+//        $helper->setEM($this->getDoctrine()->getEntityManager());
+//
+//        // get all the users
+//        $users = $helper->getAllUsers();
+//
+//		// get all the conference registrations
+//        $conferenceRegistrations = $helper->getAllConferenceRegistrations();
+//
+//        return $this->render('admin/admin_requests.html.twig', array(
+//            'users' => $users,
+//            'conf_regs' => $conferenceRegistrations,
+//        ));
+//    }
 
     /**
      * @Route("/transportation", name="transportation")

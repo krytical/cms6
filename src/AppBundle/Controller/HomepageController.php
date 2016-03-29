@@ -26,23 +26,21 @@ class HomepageController extends Controller
 
         // get the user
         $user = $this->getUser();
+        $conferenceRegs = array();
+        //$eventRegMap = array();
         if (is_object($user) && $user instanceof UserInterface) {
             // get all of the conference registrations for the user
             $conferenceRegs = $helper->getAllUsersConferenceRegistrations($user->getID());
 
             // get all the conference_registration_id to event registration mappings for the user
-            $eventRegMap = $helper->conferenceRegEventRegMap($conferenceRegs);
-        }
-        else {
-            $conferenceRegs = array();
-            $eventRegMap = array();
+            //$eventRegMap = $helper->conferenceRegEventRegMap($conferenceRegs);
         }
 
         return $this->render('homepage/homepage.html.twig', array(
             'conferences' => $conferences,
             'events' => $eventsMap,
             'conference_regs' => $conferenceRegs,
-            'event_regs' => $eventRegMap
+            //'event_regs' => $eventRegMap
         ));
     }
 }

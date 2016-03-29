@@ -20,10 +20,12 @@ class ConferenceType extends AbstractType
         ->add('fullDescription', Type\TextareaType::class, array(
             'label' => 'A full description of the conference to be displayed on the conference page'
         ))
+        # TODO: make this field a google maps thing
         ->add('location', Type\TextType::class, array(
             'empty_data'  => 'TBA',
             'label' => 'Conference Location (optional)'
         ))
+        # TODO: make these fields a calendar
         ->add('startDatetime', Type\DateType::class, array(
             'label' => 'Conference Start Date'
         ))

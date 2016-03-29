@@ -20,9 +20,6 @@
 		<div class="mdl-card conference-show-card mdl-cell mdl-cell--12-col mdl-shadow--4dp">		
 			<h2>{{ event.name }}</h2>
 
-			{# TODO: add map for location of event #}
-			{# Probably won't have time for this #}
-
 			<!-- Event details here -->
 			<div class="mdl-card conference-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 			    <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
@@ -84,25 +81,18 @@
 					  Capacity: {{ event.capacity }}
 					</span>
 				  </li>
-				  <li class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">
-					<i class="material-icons mdl-list__item-icon">group</i>
-					  Remaining: {{ event.spotsRemaining }}
-					</span>
-				  </li>
 				</ul>
 				
-				{# TODO: Remove "Join Event" button once you joined #}
-			  
-				{# TODO: Add "Leave Event" button after you joined #}
-				
 				<div class="mdl-card__actions mdl-card--border">
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg_create', {'conf_id': conf_id, 'event_id': event.id}) }}">
-						Join Event
-					</a>
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">
-						Leave Event
-					</a>
+					{% if event_reg is not null %}
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg_delete', {'event_reg_id': event_reg.id}) }}">
+							Leave Event
+						</a>
+                    {% else %}
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg_create', {'conf_id': conf_id, 'event_id': event.id}) }}">
+							Join Event
+						</a>
+					{% endif %}
 					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': conf_id}) }}">
 						View Conference
 					</a>
