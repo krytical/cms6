@@ -92,7 +92,7 @@ class HotelController extends Controller
         $hotel_registrations = $helper->getHotelRegistrationsByHotel($hotel_id);
 
         # TODO: count the columns of hotel registration for this hotel to get total number of registrations
-        
+
         # render the show page for the hotel
         return $this->render(
             'hotel/hotel_show.html.twig', array(

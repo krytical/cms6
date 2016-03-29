@@ -86,7 +86,6 @@
 
                     <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}#user-conferences">Your Conferences</a>
 
-                    {# TODO: check user privileges before displaying these #}
                     {% if is_granted('ROLE_CONFERENCE_MANAGER') %}
                         <a class="mdl-navigation__link" href="">Manage Conferences</a>
                     {% endif %}
@@ -94,8 +93,9 @@
                     {% if is_granted('ROLE_HOTEL_MANAGER') %}
                         <a class="mdl-navigation__link" href="">Manage Hotels</a>
                     {% endif %}
-                    <a class="mdl-navigation__link" href="">Manage Registrations</a> {#TODO: what type of registrations?#}
-
+                    {% if is_granted('ROLE_BOOKINGS_MANAGER') %}
+                    <a class="mdl-navigation__link" href="">Manage Conference Registrations</a>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="mdl-navigation__link" href="">Manage User privileges</a>
                     {% endif %}
