@@ -45,7 +45,10 @@
                         <!-- Add spacer, to align navigation to the right -->
                         <div class="mdl-layout-spacer"></div>
                         <nav class="mdl-navigation mdl-layout--large-screen-only">
-							<a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+							    <a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
+                            {% endif %}
+
                             <a class="mdl-navigation__link" href="/">Home</a>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
