@@ -22,19 +22,21 @@
     <!-- ONLY SHOW THE CREATE CONFERENCE CARD WHEN LOGGED IN AS ADMIN -->
     <!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->
 
-    <div class="mdl-card create-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-      <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-        <h2 class="mdl-card__title-text">Create New Conference</h2>
+    {% if is_granted('ROLE_CONFERENCE_MANAGER') %}
+      <div class="mdl-card create-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+          <h2 class="mdl-card__title-text">Create New Conference</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          You can create a new conference here. Click below to get started.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_create') }}">
+                        New Conference
+                      </a>
+        </div>
       </div>
-      <div class="mdl-card__supporting-text">
-        You can create a new conference here. Click below to get started.
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_create') }}">
-					  New Conference
-					</a>
-      </div>
-    </div>
+    {% endif %}
 
     <!-- SHOW CONFERENCES HERE -->
 
@@ -58,28 +60,33 @@
         <img class="conference-image" src="{{ asset('images/conference/' ~ c.imageName) }}" /> {% endif %}
       </div>
 
-      <div class="mdl-card__menu">
-        <button id="{{"card-menu" ~c.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-		  <i class="material-icons">more_vert</i>
-		</button>
 
-        <!-- Menu Button Options -->
+      {% if is_granted('ROLE_CONFERENCE_MANAGER') %}
+        <div class="mdl-card__menu">
+          <button id="{{"card-menu" ~c.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">more_vert</i>
+          </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for={{"card-menu" ~c.id}} href="#">
-          <li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': c.id}) }}">
-						  Add Event
-						</a></li>
-          <li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': c.id}) }}">
-							Edit Conference
-						</a></li>
-          <li class="mdl-menu__item"><a href="{{ path('transportation') }}">
-							Manage Transportation
-						</a></li>
-          <li class="mdl-menu__item"><a id="delete_modal" data-toggle="modal" data-target="#deleteModal">
-							Delete Conference
-						</a></li>
-        </ul>
-      </div>
+          <!-- Menu Button Options -->
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for={{"card-menu" ~c.id}} href="#">
+              <li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': c.id}) }}">
+                              Add Event
+                            </a></li>
+              <li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': c.id}) }}">
+                                Edit Conference
+                            </a></li>
+              <li class="mdl-menu__item"><a href="{{ path('transportation') }}">
+                                Manage Transportation
+                            </a></li>
+              <li class="mdl-menu__item"><a id="delete_modal" data-toggle="modal" data-target="#deleteModal">
+                                Delete Conference
+                            </a></li>
+            </ul>
+
+        </div>
+      {% endif %}
+
 
       <div class="mdl-card__supporting-text">
         <div class="description__text">
