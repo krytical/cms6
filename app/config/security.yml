@@ -57,7 +57,7 @@ security:
 
         # HOTEL REGISTRATIONS - TO BE DONE BY ADMIN OR HOTEL MANAGER
         - { path: ^/conference_registration/.*/hotel_registration/create, role: ROLE_HOTEL_MANAGER }
-        - { path: ^/conference_registration/.*/hotel_registration, role: ROLE_HOTEL_MANAGER }
+        - { path: ^/conference_registration/.*/hotel_registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/conference_registration/.*/hotel_registration/edit, role: ROLE_HOTEL_MANAGER }
         - { path: ^/conference_registration/.*/hotel_registration/delete, role: ROLE_HOTEL_MANAGER }
 

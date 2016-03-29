@@ -167,8 +167,13 @@
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_edit',{'conf_reg_id': conference_reg.id}) }}">
 				  Edit Registration
 				</a>
+                {% if hotel_registrations[conference_reg.id] is not empty %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('hotel_reg_show',{'conf_reg_id': conference_reg.id}) }}">
+                  View Hotel Registration
+                </a>
+                {% endif %}
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': conference_reg.conference.id }) }}">
-				  View Details
+				  View Conference Details
 				</a>
 			  </div>
 			</div>
