@@ -146,6 +146,7 @@ Go to https://github.com/dustin10/VichUploaderBundle/blob/master/Resources/doc/i
 
 
 **CREATE DEFAULT ADMIN USER**
+
 Download the fixtures bundle
 (write this into your terminal or command prompt window)
 composer require --dev doctrine/doctrine-fixtures-bundle
