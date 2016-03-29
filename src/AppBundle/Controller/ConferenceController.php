@@ -90,6 +90,8 @@ class ConferenceController extends Controller
             }
         }
 
+        # TODO: sum the guests field to get total number of attendees
+
         // render the conference page
         return $this->render(
             'conference/conference_show.html.twig', array(

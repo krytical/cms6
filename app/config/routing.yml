@@ -233,7 +233,6 @@ event_reg_delete:
 
 # SECURITY ROLES
 
-# TODO: are these all merging with the admin pages????
 security_roles_users:
     path:      /security_roles/users
     defaults:  { _controller: AppBundle:SecurityRoles:show }

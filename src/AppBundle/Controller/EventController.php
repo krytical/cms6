@@ -69,6 +69,8 @@ class EventController extends Controller
             throw $this->createNotFoundException('This event does not exist.');
         }
 
+        # TODO: sum the guests field if event registration to get total number of attendees
+
         // get the user
         $user = $this->getUser();
         $event_reg = null;
