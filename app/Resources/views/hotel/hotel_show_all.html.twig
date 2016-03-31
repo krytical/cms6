@@ -30,11 +30,11 @@
             <h3 class="upcoming-conference">All Hotels</h3>
 
             {% for h in hotels %}
-                <div class="mdl-card hotel-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+                <div class="mdl-card conference-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
                     <div class="mdl-card__title">
                         <h2 class="mdl-card__title-text">{{ h.name }}</h2> {% if h.imageName is null %}
-                            <img class="hotel-image" src="{{ asset('images/hotel/Default.png') }}" /> {% else %}
-                            <img class="hotel-image" src="{{ asset('images/hotel/' ~ h.imageName) }}" /> {% endif %}
+                            <img class="conference-image" src="{{ asset('images/hotel/Default.png') }}" /> {% else %}
+                            <img class="conference-image" src="{{ asset('images/hotel/' ~ h.imageName) }}" /> {% endif %}
                     </div>
 
                     <div class="mdl-card__menu">
@@ -55,17 +55,17 @@
                     </div>
 
                     <div class="mdl-card__supporting-text">
-                        <div class="location__text">
+                        <div class="description__text">
                             Location: {{ h.location }}
                         </div>
                         <br> Capacity: {{ h.capacity }}
-
-                        <div class="mdl-card__actions mdl-card--border">
+                    </div>
+					
+					<div class="mdl-card__actions mdl-card--border">
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('hotel_show', {'hotel_id': h.id}) }}">
                                 View Hotel Registrations
                             </a>
                         </div>
-                    </div>
                 </div>
 
                 <!-- Modal -->
