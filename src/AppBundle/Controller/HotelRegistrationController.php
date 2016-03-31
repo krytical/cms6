@@ -35,15 +35,26 @@ class HotelRegistrationController extends Controller
         // get the conference registration
         $conferenceRegistration = $helper->getConferenceRegistration($conf_reg_id);
         if (!is_object($conferenceRegistration) || !$conferenceRegistration instanceof ConferenceRegistration) {
-            throw $this->createNotFoundException('The conference registration you are trying to assign a hotel to does not exist.');
+           $this->addFlash(
+                'danger',
+                'The conference registration you are trying to assign a hotel to does not exist.');
+
+           // go back
+            return $this->redirectToRoute('hotel_reg_create');
+
         }
 
         // Check if the conference registration already has a hotel registration
         $hotelRegistration = $helper->getHotelRegistration($conf_reg_id);
         if (is_object($hotelRegistration) && $hotelRegistration instanceof HotelRegistration){
-            throw new AccessDeniedException(
+            $this->addFlash(
+                'danger',
                 "The conference registration (ID: {$conf_reg_id}) already has a hotel registration (ID: {$hotelRegistration->getId()}). Try editing the registration or delete it and create a new one."
             );
+
+            // go back
+            return $this->redirectToRoute('hotel_reg_create');
+
         }
 
         $hotelRegistration = new HotelRegistration();
