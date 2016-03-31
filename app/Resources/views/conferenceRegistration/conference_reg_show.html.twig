@@ -90,7 +90,7 @@
                         <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">schedule</i>
-                                  Arrival Flight Departure Time: {{ conf_reg.arrivalDatetime }}
+                                  Arrival Flight Departure Time: {{ conf_reg.arrivalDatetime |date('Y-m-d H:i:s')}}
                                 </span>
                         </li>
                         {% endif %}
@@ -98,7 +98,7 @@
                         <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">schedule</i>
-                                  Return Flight Departure Time: {{ conf_reg.departureDatetime }}
+                                  Return Flight Departure Time: {{ conf_reg.departureDatetime |date('Y-m-d H:i:s')}}
                                 </span>
                         </li>
                         {% endif %}

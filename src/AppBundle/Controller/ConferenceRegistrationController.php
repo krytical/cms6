@@ -169,7 +169,9 @@ class ConferenceRegistrationController extends Controller
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (ID: {$conf_reg_id}) does not exist.");
         }
-        elseif ($confReg->getUser() != $this->getUser()) {
+
+        // check user privileges
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_BOOKINGS_MANAGER') && $confReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot view the registration of another user.');
         }
 
@@ -200,8 +202,8 @@ class ConferenceRegistrationController extends Controller
 
         $helper->setEntity($conf_reg);
 
-        // render the show all view
-        return $this->redirectToRoute('conf_reg_show_all');
+        // render the conference attendance page
+        return $this->redirectToRoute('conference_attendance', array('conf_id' => $conf_reg->getConference()->getID()));
     }
 
     /**
@@ -223,8 +225,8 @@ class ConferenceRegistrationController extends Controller
 
         $helper->setEntity($conf_reg);
 
-        // render the show all view
-        return $this->redirectToRoute('conf_reg_show_all');
+        // render the conference attendance page
+        return $this->redirectToRoute('conference_attendance', array('conf_id' => $conf_reg->getConference()->getID()));
     }
 
     /**
@@ -248,7 +250,9 @@ class ConferenceRegistrationController extends Controller
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (with ID {$conf_reg_id}) you are trying to edit does not exist.");
         }
-        elseif ($confReg->getUser() != $this->getUser()) {
+
+        // check user privileges
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_BOOKINGS_MANAGER') && $confReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot edit the Registration of another user.');
         }
 
@@ -293,7 +297,9 @@ class ConferenceRegistrationController extends Controller
         if (!is_object($confReg) || !$confReg instanceof ConferenceRegistration) {
             throw $this->createNotFoundException("The conference registration (with ID: {$conf_reg_id}) you are trying to delete does not exist.");
         }
-        elseif ($confReg->getUser() != $this->getUser()) {
+
+        // check user privileges
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_BOOKINGS_MANAGER') && $confReg->getUser() != $this->getUser()) {
             throw new AccessDeniedException('You cannot delete the Registration of another user.');
         }
 
@@ -304,7 +310,13 @@ class ConferenceRegistrationController extends Controller
             'Conference registration deleted successfully!'
         );
 
-        // renders the profile
-        return $this->redirectToRoute('fos_user_profile_show');
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_BOOKINGS_MANAGER')){
+            // render the conference attendance page
+            return $this->redirectToRoute('conference_attendance', array('conf_id' => $confReg->getConference()->getID()));
+        }
+        else{
+            // renders the profile
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
     }
 }

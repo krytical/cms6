@@ -1,4 +1,4 @@
-{# app/Resources/views/conference/conference_attendance.html.twig #} 
+{# app/Resources/views/conference/conference_attendance.html.twig #}
 {% extends 'base.html.twig' %} 
 
 {% block title %}{{ conference.name }} {% endblock%} 
@@ -63,27 +63,40 @@
                 <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
               </td>
 			  <td id="table-cell">
-                {% if regs.approved == 0 %}
                 <div class="btn-group">
                   <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Select Option <span class="caret"></span>
 						  </button>
                   <ul class="dropdown-menu">
-                    <li><a href="#">
-								Approve
-							</a></li>
-                    <li><a href="#">
-								Delete Registration
-							</a></li>
+                      {% if regs.approved == 0 %}
+                          <li><a href="{{ path('conf_reg_approve', {'conf_reg_id': regs.id}) }}">
+                                  Approve
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_show', {'conf_reg_id': regs.id}) }}">
+                                  View Registration
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': regs.id}) }}">
+                                  Edit Registration
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': regs.id}) }}">
+                                  Delete Registration
+                              </a></li>
+                      {% else %}
+                          <li><a href="{{ path('conf_reg_disapprove', {'conf_reg_id': regs.id}) }}">
+                                  Revoke Approval
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_show', {'conf_reg_id': regs.id}) }}">
+                                  View Registration
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': regs.id}) }}">
+                                  Edit Registration
+                              </a></li>
+                          <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': regs.id}) }}">
+                                  Delete Registration
+                              </a></li>
+                      {% endif %}
                   </ul>
                 </div>
-                {% else %}
-				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-					  <a href="#">
-									Revoke Approval
-								</a>
-					</button>
-                {% endif %}
               </td>
             </tr>
 			{% endif %}
