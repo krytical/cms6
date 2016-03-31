@@ -11,7 +11,7 @@
             <!-- ONLY SHOW THE CREATE HOTEL CARD WHEN LOGGED IN AS ADMIN -->
             <!-- THIS WILL BE STATIC ON TOP OF THE PAGE FOR ADMINS -->
 
-            <div class="mdl-card create-hotel-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+            <div class="mdl-card create-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
                     <h2 class="mdl-card__title-text">Create New Hotel</h2>
                 </div>
@@ -27,7 +27,7 @@
 
             <!-- SHOW HOTELS HERE -->
 
-            <h3 class="all-hotels">All Hotels</h3>
+            <h3 class="upcoming-conference">All Hotels</h3>
 
             {% for h in hotels %}
                 <div class="mdl-card hotel-card-wide mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -90,9 +90,9 @@
                 </div>
 
             {% else %}
-                <div class="mdl-card empty-hotel-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-                    <div class="no-hotel-icon">
-                        <i class="material-icons mdl-list__item-icon">event_busy</i>
+                <div class="mdl-card empty-conference-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+                    <div class="no-conference-icon">
+                        <i class="material-icons mdl-list__item-icon">hotel</i>
                     </div>
                     <div class="mdl-card__title mdl-color-text--grey">
                         <h2 class="mdl-card__title-text">There are no hotels to display right now</h2>
