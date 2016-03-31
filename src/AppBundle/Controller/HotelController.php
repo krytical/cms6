@@ -58,7 +58,7 @@ class HotelController extends Controller
                 'Hotel created successfully!'
             );
 
-            return $this->redirectToRoute('_welcome');
+            return $this->redirectToRoute('hotel_show_all');
         }
 
         // renders the hotel creation page
