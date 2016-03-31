@@ -48,7 +48,7 @@ security:
         - { path: ^/conference/.*/event/delete, role: ROLE_CONFERENCE_MANAGER }
 
         # USER MANAGEMENT
-        - { path: ^/profile/delete, role: ROLE_ADMIN }
+        - { path: ^/profile/delete, role: ROLE_USER }
 
         # HOTEL MANAGEMENT
         - { path: ^/hotel, role: ROLE_HOTEL_MANAGER }

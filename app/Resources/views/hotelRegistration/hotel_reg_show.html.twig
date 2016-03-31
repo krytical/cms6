@@ -75,7 +75,7 @@
                             <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">schedule</i>
-                                  Check In Time: {{ hotel_reg.checkInDatetime }}
+                                  Check In Time: {{ hotel_reg.checkInDatetime |date('Y-m-d H:i')}}
                                 </span>
                             </li>
                         {% endif %}
@@ -83,7 +83,7 @@
                             <li class="mdl-list__item">
                                 <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">schedule</i>
-                                  Check Out Time: {{ hotel_reg.checkOutDatetime }}
+                                  Check Out Time: {{ hotel_reg.checkOutDatetime |date('Y-m-d H:i')}}
                                 </span>
                             </li>
                         {% endif %}

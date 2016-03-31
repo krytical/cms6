@@ -34,7 +34,7 @@
                       </a>
           <button id="printButton" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                         Print List
-                      </a>
+                      </button>
         </div>
 
         <table class="table table-hover admin-user-details" id="printTable">
@@ -47,7 +47,6 @@
               <th id="table-cell">First Name</th>
               <th id="table-cell">Last Name</th>
 			  <th id="table-cell">Guests</th>
-              <th id="table-cell">Approved</th>
 			  <th id="table-cell">Manage</th>
             </tr>
           </thead>
@@ -55,41 +54,18 @@
           <tbody>
 			{% for regs in event_regs %}
 			{% if regs.event.id == event.id %}
-            <tr>
-              <td id="table-cell">{{ regs.user.username }}</td>
-              <td id="table-cell">{{ regs.user.firstName }}</td>
-              <td id="table-cell">{{ regs.user.lastName }}</td>
-			  <td id="table-cell">{{ regs.guests }}</td>
-              <td id="table-cell">
-                {% if regs.approved == 1 %}
-                <i class="material-icons mdl-list__item-icon">check</i> {% elseif regs.approved == 0 %}
-                <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
-              </td>
-			  <td id="table-cell">
-                {% if regs.approved == 0 %}
-                <div class="btn-group">
-                  <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Select Option <span class="caret"></span>
-						  </button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">
-								Approve
-							</a></li>
-                    <li><a href="#">
-								Delete Registration
-							</a></li>
-                  </ul>
-                </div>
-                {% else %}
-				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-					  <a href="#">
-									Revoke Approval
-								</a>
-					</button>
+                <tr>
+                    <td id="table-cell">{{ regs.user.username }}</td>
+                    <td id="table-cell">{{ regs.user.firstName }}</td>
+                    <td id="table-cell">{{ regs.user.lastName }}</td>
+                    <td id="table-cell">{{ regs.guests }}</td>
+                    <td id="table-cell">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('event_reg_delete', {'event_reg_id': regs.id}) }}">
+                            Delete Registration
+                        </a>
+                    </td>
+                </tr>
                 {% endif %}
-              </td>
-            </tr>
-			{% endif %}
             {% endfor %}
           </tbody>
         </table>

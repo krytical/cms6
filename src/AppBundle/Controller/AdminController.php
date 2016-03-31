@@ -33,6 +33,33 @@ class AdminController extends Controller
 
         $helper->setEntity($user);
 
+        // send the approval email
+        if (!empty($user->getEmail())) {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('CMS Account Approved!')
+                ->setFrom($this->getParameter('contact_email'))
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/registration_approval.html.twig', array(
+                            'name' => $user->getFirstName())
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+
+            $this->addFlash(
+                'success',
+                'Account approved! An email has been sent to the user!'
+            );
+        }
+        else {
+            $this->addFlash(
+                'success',
+                'Account approved! No notification sent (User is not registered with an e-mail).'
+            );
+        }
+
         // render the users view
         return $this->redirectToRoute('admin_user_list');
     }

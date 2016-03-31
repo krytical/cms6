@@ -82,8 +82,8 @@
                     <tr>
                         <td id="table-cell">{{ r.conferenceRegistration.user.username }}</td>
                         <td id="table-cell">{{ r.conferenceRegistration.conference.id }}</td>
-                        <td id="table-cell">{{ r.checkInDatetime }}</td>
-                        <td id="table-cell">{{ r.checkOutDatetime }}</td>
+                        <td id="table-cell">{{ r.checkInDatetime |date('Y-m-d H:i')}}</td>
+                        <td id="table-cell">{{ r.checkOutDatetime |date('Y-m-d H:i')}}</td>
                         <td id="table-cell">{{ r.room }}</td>
                         <td id="table-cell">
                             <div class="btn-group">

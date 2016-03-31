@@ -22,6 +22,7 @@
                             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right" href="#">
                                 <li class="mdl-menu__item"><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_reg.id}) }}">Update Registration</a></li>
                                 <li id="delete_modal" class="mdl-menu__item" data-toggle="modal" data-target="#deleteConfRegModal">Delete Registration</li>
+                                <li class="mdl-menu__item"><a href="{{ path('hotel_reg_create', {'conf_reg_id': conf_reg.id}) }}">Assign Hotel</a></li>
                             </ul>
 
                             <div id="deleteConfRegModal" class="modal fade" role="dialog">

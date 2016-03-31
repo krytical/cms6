@@ -109,6 +109,17 @@ class ConferenceRegistrationController extends Controller
                 'Please log in to register for a conference.');
         }
 
+        // Check if the user is approved
+        if (!$user->getApproved()) {
+            $this->addFlash(
+                'danger',
+                'Your account has not been approved. You cannot register for conferences.'
+            );
+
+            // go to profile page
+            return $this->redirectToRoute('fos_user_profile_show');
+        }
+
         // Check if the user already registered for the conference
         $registration = $helper->getUsersConferenceRegistration($user->getId(), $conference->getId());
         if (is_object($registration) && $registration instanceof ConferenceRegistration){
