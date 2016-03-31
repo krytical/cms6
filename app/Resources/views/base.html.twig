@@ -45,7 +45,10 @@
                         <!-- Add spacer, to align navigation to the right -->
                         <div class="mdl-layout-spacer"></div>
                         <nav class="mdl-navigation mdl-layout--large-screen-only">
-							<a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+							    <a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
+                            {% endif %}
+
                             <a class="mdl-navigation__link" href="/">Home</a>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}">
@@ -75,15 +78,28 @@
 				{% endif %}
 				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
                 <nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
 					<a class="mdl-navigation__link" href="/">Home</a>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="mdl-navigation__link" href="{{path('admin') }}">Admin</a>
+                    {% endif  %}
+
                     <a class="mdl-navigation__link" href="{{path('fos_user_profile_show') }}#user-conferences">Your Conferences</a>
 
-                    {# TODO: check user privileges before displaying these #}
-                    <a class="mdl-navigation__link" href="">Manage Conferences</a>
-                    <a class="mdl-navigation__link" href="">Manage Hotels</a>
-                    <a class="mdl-navigation__link" href="">Manage Registrations</a>
-                    <a class="mdl-navigation__link" href="">Manage User privileges</a>
+                    {% if is_granted('ROLE_CONFERENCE_MANAGER') %}
+                        <a class="mdl-navigation__link" href="/">Manage Conferences</a>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_HOTEL_MANAGER') %}
+                        <a class="mdl-navigation__link" href="{{ path('hotel_show_all') }}">Manage Hotels</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_BOOKINGS_MANAGER') %}
+                    <a class="mdl-navigation__link" href="{{ path('conf_reg_show_all') }}">Manage Conference Registrations</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="mdl-navigation__link" href="{{ path('admin_user_list') }}">Manage User privileges</a>
+                    {% endif %}
+
 
                 </nav>
 				{% else %}

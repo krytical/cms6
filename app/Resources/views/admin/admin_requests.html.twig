@@ -1,7 +1,7 @@
 {# app/Resources/views/admin/admin_requests.html.twig #} 
 {% extends 'base.html.twig' %} 
 
-{% block title %}User Request{% endblock%} 
+{% block title %}Manage User Requests{% endblock%} 
 
 {% block body %}
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="mdl-card__supporting-text">
-          You can manage user requests for the conference here. The user will be notified after you approve or deny it.
+          You can manage user requests for all conferences here. The user will be notified after you approve or deny it. You may also revoke the approval at any time, the user will be notified if you revoke the approval.
         </div>
 
         <table class="table table-hover admin-user-details">
@@ -27,22 +27,50 @@
               <th id="table-cell">Last Name</th>
               <th id="table-cell">Conference</th>
               <th id="table-cell">Request</th>
-              <th id="table-cell">Status</th>
+              <th id="table-cell">Approved</th>
 			  <th id="table-cell">Manage</th>
             </tr>
           </thead>
-
+		  
           <tbody>
-            {% for user_info in users %}
+			{% for conf_requests in conf_regs %}
+			{% if conf_requests.additionalInfo is not null %}
             <tr>
-              <td id="table-cell">{{ user_info.username }}</td>
-              <td id="table-cell">{{ user_info.firstName }}</td>
-              <td id="table-cell">{{ user_info.lastName }}</td>
-              <td id="table-cell">Conference</td>
-              <td id="table-cell">Request</td>
-              <td id="table-cell">Status</td>
-			  <td id="table-cell">Manage</td>
+              <td id="table-cell">{{ conf_requests.user.username }}</td>
+              <td id="table-cell">{{ conf_requests.user.firstName }}</td>
+              <td id="table-cell">{{ conf_requests.user.lastName }}</td>
+              <td id="table-cell"><a href="{{ path('conference_show', {'conf_id': conf_requests.conference.id}) }}">{{ conf_requests.conference.name }}</td></a>
+              <td id="table-cell">{{ conf_requests.additionalInfo }}</td>
+              <td id="table-cell">
+                {% if conf_requests.approved == 1 %}
+                <i class="material-icons mdl-list__item-icon">check</i> {% elseif conf_requests.approved == 0 %}
+                <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
+              </td>
+			  <td id="table-cell">
+                {% if conf_requests.approved == 0 %}
+                <div class="btn-group">
+                  <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Select Option <span class="caret"></span>
+						  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">
+								Approve
+							</a></li>
+                    <li><a href="#">
+								Delete Registration
+							</a></li>
+                  </ul>
+                </div>
+                {% else %}
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+					  <a href="#">
+									Revoke Approval
+								</a>
+					</button>
+                {% endif %}
+              </td>
             </tr>
+			{% endif %}
             {% endfor %}
           </tbody>
         </table>

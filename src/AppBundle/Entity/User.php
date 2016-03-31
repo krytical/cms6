@@ -21,12 +21,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      ),
  *     @ORM\AttributeOverride(name="email",
  *          column=@ORM\Column(name="email", type="string", length=50, unique=true, nullable=true)
- *      )
+ *      ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(name="emailCanonical", type="string", length=50, unique=true, nullable=true)
+ *     )
  * })
  */
 class User extends BaseUser
 {
-    # TODO: maybe add columns:  birthday, country, gender
 
     /**
      * @ORM\Id

@@ -133,19 +133,6 @@ class Event
      */
     private $capacity;
 
-    #TODO: Kill this field!
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="spots_remaining", type="integer", nullable=true)
-     *
-     *  @Assert\Range(
-     *      min = 0,
-     *      minMessage = "Please enter a value of at least zero.",
-     *      groups={"Event"})
-     */
-    private $spotsRemaining;
-
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
@@ -320,29 +307,6 @@ class Event
     public function getCapacity()
     {
         return $this->capacity;
-    }
-
-    /**
-     * Set spotsRemaining
-     *
-     * @param integer $spotsRemaining
-     * @return Event
-     */
-    public function setSpotsRemaining($spotsRemaining)
-    {
-        $this->spotsRemaining = $spotsRemaining;
-
-        return $this;
-    }
-
-    /**
-     * Get spotsRemaining
-     *
-     * @return integer 
-     */
-    public function getSpotsRemaining()
-    {
-        return $this->spotsRemaining;
     }
 
     /**

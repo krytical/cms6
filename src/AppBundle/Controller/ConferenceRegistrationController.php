@@ -13,11 +13,13 @@ use AppBundle\Entity\ConferenceRegistration;
 use AppBundle\Entity\User;
 
 use AppBundle\Form\ConferenceRegistrationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ConferenceRegistrationController extends Controller
 {
     /**
      * @Route("/conference_registration", name="conf_reg_show_all")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -147,10 +149,58 @@ class ConferenceRegistrationController extends Controller
             throw new AccessDeniedException('You cannot view the registration of another user.');
         }
 
+        // TODO: get the hotel registration
+
         // render the conference registration page
         return $this->render('conferenceRegistration/conference_reg_show.html.twig', array(
             'conf_reg'=>$confReg,
         ));
+    }
+
+    /**
+     * @Route("/conference_registration/{conf_reg_id}/approve", name="conf_reg_approve")
+     *
+     * @param $conf_reg_id
+     *  The ID of the conference registration to be approved
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function approveAction($conf_reg_id)
+    {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        $conf_reg = $helper->getConferenceRegistration($conf_reg_id);
+        $conf_reg->setApproved(true);
+
+        $helper->setEntity($conf_reg);
+
+        // render the show all view
+        return $this->redirectToRoute('conf_reg_show_all');
+    }
+
+    /**
+     * @Route("/conference_registration/{conf_reg_id}/disapprove", name="conf_reg_disapprove")
+     *
+     * @param $conf_reg_id
+     *  The ID of the conference registration to be disapproved
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function disapproveAction($conf_reg_id)
+    {
+        // get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        $conf_reg = $helper->getConferenceRegistration($conf_reg_id);
+        $conf_reg->setApproved(false);
+
+        $helper->setEntity($conf_reg);
+
+        // render the show all view
+        return $this->redirectToRoute('conf_reg_show_all');
     }
 
     /**

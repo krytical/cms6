@@ -58,7 +58,7 @@ class HotelController extends Controller
                 'Hotel created successfully!'
             );
 
-            return $this->redirectToRoute('_welcome');
+            return $this->redirectToRoute('hotel_show_all');
         }
 
         // renders the hotel creation page
@@ -90,6 +90,8 @@ class HotelController extends Controller
 
         // get the hotel registrations for the hotel
         $hotel_registrations = $helper->getHotelRegistrationsByHotel($hotel_id);
+
+        # TODO: count the columns of hotel registration for this hotel to get total number of registrations
 
         # render the show page for the hotel
         return $this->render(

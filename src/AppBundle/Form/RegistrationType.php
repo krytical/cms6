@@ -16,7 +16,10 @@ class RegistrationType extends AbstractType
         ))
         ->add('lastName', Type\TextType::class, array(
             'label' => 'Last Name'
-        ))
+        ))->add('email', Type\EmailType::class, array(
+                'required' => false,
+                'label' => 'Email (optional)'
+            ))
         ->add('phone', Type\TextType::class, array(
             'required' => false,
             'label' => 'Phone Number (optional)'

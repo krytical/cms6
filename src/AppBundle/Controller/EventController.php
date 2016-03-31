@@ -3,6 +3,7 @@
 // src/AppBundle/Controller/EventController.php
 namespace AppBundle\Controller;
 
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,11 +69,23 @@ class EventController extends Controller
             throw $this->createNotFoundException('This event does not exist.');
         }
 
+        # TODO: sum the guests field if event registration to get total number of attendees
+
+        // get the user
+        $user = $this->getUser();
+        $event_reg = null;
+        if (is_object($user) && $user instanceof UserInterface) {
+
+            // get the event registration for the user if it exists
+            $event_reg = $helper->getUsersEventRegistration($user->getID(), $event_id);
+        }
+
         # render the show page for the event
         return $this->render(
             'event/event_show.html.twig', array(
             'conf_id' => $conf_id,
             'event' => $event,
+            'event_reg' => $event_reg
         ));
     }
 

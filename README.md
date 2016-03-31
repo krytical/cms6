@@ -143,3 +143,20 @@ Password: passtest
 **VichUploader Setup**
 
 Go to https://github.com/dustin10/VichUploaderBundle/blob/master/Resources/doc/installation.md
+
+
+**CREATE DEFAULT ADMIN USER**
+
+Download the fixtures bundle
+(write this into your terminal or command prompt window)
+composer require --dev doctrine/doctrine-fixtures-bundle
+
+Load the admin user fixture
+(write this into your terminal or command prompt window)
+php app/console doctrine:fixtures:load
+
+* this will delete all existing user records. If there are any records you'd like to keep enter this instead
+php app/console —append doctrine:fixtures:load
+
+
+

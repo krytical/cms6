@@ -22,10 +22,6 @@ class HotelType extends AbstractType
             'required' => false,
             'label' => 'Hotel Capacity (optional)'
         ))
-        ->add('vacancy', Type\IntegerType::class, array(
-            'required' => false,
-            'label' => 'Hotel Vacancy (optional)'
-        ))
         ->add('imageFile', Type\FileType::class, array(
             'required' => false,
             'label' => 'Hotel Photo (optional)'
