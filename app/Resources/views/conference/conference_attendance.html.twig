@@ -1,7 +1,7 @@
-{# app/Resources/views/admin/admin_requests.html.twig #} 
+{# app/Resources/views/conference/conference_attendance.html.twig #} 
 {% extends 'base.html.twig' %} 
 
-{% block title %}Manage User Registrations{% endblock%} 
+{% block title %}{{ conference.name }} {% endblock%} 
 
 {% block body %}
 
@@ -12,41 +12,58 @@
 
       <div class="mdl-card admin-details-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-          <h2 class="mdl-card__title-text">Manage User Registrations</h2>
+          <h2 class="mdl-card__title-text">{{ conference.name }} Attendance List </h2>
         </div>
 
         <div class="mdl-card__supporting-text">
-          You can manage user conference registrations for all conferences here. The user will be notified after you approve or deny it. You may also revoke the approval at any time, the user will be notified if you revoke the approval.
+          This is the attendance list for <a href="{{ path('conference_show', {'conf_id': conference.id}) }}">{{ conference.name }}</a>.
+		  <br>
+		  <br>
+		  You can check over the list to make sure everything is good before you print it out.
+		  <br>
+		  <br>
+		  Number of attendees:
+        </div>
+		
+		<div class="mdl-card__actions mdl-card--border">
+		  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conference_show', {'conf_id': conference.id}) }}">
+                        View Conference
+                      </a>
+          <button id="printButton" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Print List
+                      </a>
         </div>
 
-        <table class="table table-hover admin-user-details">
+        <table class="table table-hover admin-user-details" id="printTable">
           <thead>
+		    <tr>
+			<th id="table-cell" colspan="6">{{ conference.name }} Attendance List</th>
+			</tr>
             <tr>
               <th id="table-cell">User Name</th>
               <th id="table-cell">First Name</th>
               <th id="table-cell">Last Name</th>
-              <th id="table-cell">Conference</th>
-              <th id="table-cell">Request</th>
+			  <th id="table-cell">Guests</th>
               <th id="table-cell">Approved</th>
 			  <th id="table-cell">Manage</th>
             </tr>
           </thead>
 		  
           <tbody>
-			{% for conf_requests in conf_regs %}
+			{% for regs in conf_regs %}
+			{% if regs.conference.id == conference.id %}
             <tr>
-              <td id="table-cell">{{ conf_requests.user.username }}</td>
-              <td id="table-cell">{{ conf_requests.user.firstName }}</td>
-              <td id="table-cell">{{ conf_requests.user.lastName }}</td>
-              <td id="table-cell"><a href="{{ path('conference_show', {'conf_id': conf_requests.conference.id}) }}">{{ conf_requests.conference.name }}</td></a>
-              <td id="table-cell">{{ conf_requests.additionalInfo }}</td>
+              <td id="table-cell">{{ regs.user.username }}</td>
+              <td id="table-cell">{{ regs.user.firstName }}</td>
+              <td id="table-cell">{{ regs.user.lastName }}</td>
+			  <td id="table-cell">{{ regs.guests }}</td>
               <td id="table-cell">
-                {% if conf_requests.approved == 1 %}
-                <i class="material-icons mdl-list__item-icon">check</i> {% elseif conf_requests.approved == 0 %}
+                {% if regs.approved == 1 %}
+                <i class="material-icons mdl-list__item-icon">check</i> {% elseif regs.approved == 0 %}
                 <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
               </td>
 			  <td id="table-cell">
-                {% if conf_requests.approved == 0 %}
+                {% if regs.approved == 0 %}
                 <div class="btn-group">
                   <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Select Option <span class="caret"></span>
@@ -69,6 +86,7 @@
                 {% endif %}
               </td>
             </tr>
+			{% endif %}
             {% endfor %}
           </tbody>
         </table>
@@ -77,5 +95,4 @@
   </div>
 </main>
 </div>
-
 {% endblock %}

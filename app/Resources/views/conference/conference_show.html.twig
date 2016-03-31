@@ -34,7 +34,7 @@
 							<li class="mdl-menu__item"><a href="{{ path('event_create', {'conf_id': conf_id.id}) }}">
 								Add Event
 							</a></li>
-							<li class="mdl-menu__item"><a href="#">
+							<li class="mdl-menu__item"><a href="{{ path('conference_attendance', {'conf_id': conf_id.id}) }}">
 								Attendance List
 							</a></li>
 							<li class="mdl-menu__item"><a href="{{ path('conference_edit', {'conf_id': conf_id.id}) }}">
@@ -129,7 +129,7 @@
 					<!-- Menu Button Options -->
 
 					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="event-card-menu" href="#">
-						<li class="mdl-menu__item"><a href="#">
+						<li class="mdl-menu__item"><a href="{{ path('event_attendance', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">
 							Attendance List
 						</a></li>
 						<li class="mdl-menu__item"><a href="{{ path('event_edit', {'conf_id': conf_id.id, 'event_id': conference_events.id}) }}">

@@ -4,6 +4,14 @@ function get_id(click){
 	id = click.getAttribute("name");
 }
 
+function printData(){
+   newWin= window.open("");
+   var divToPrint=document.getElementById("printTable");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
 $(document).ready(function(){
 
 	$(document).on('click', '#delete_modal', (function(){
@@ -19,6 +27,10 @@ $(document).ready(function(){
 			x.innerText='expand_more';
 		}
 		
+	}));
+	
+	$(document).on('click', '#printButton', (function (){
+		printData();
 	}));
 
 });

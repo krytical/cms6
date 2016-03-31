@@ -49,6 +49,11 @@ transportation:
 
 # CONFERENCES
 
+# shows the attendance list for a conference
+conference_attendance:
+    path:      /conference/{conf_id}/registration
+    defaults:  { _controller: AppBundle:ConferenceRegistration:showAttendanceList }
+
 # shows all the conferences (just links to homepage)
 conference_show_all:
     path:      /conference
@@ -178,6 +183,10 @@ hotel_reg_delete:
     defaults:  { _controller: AppBundle:HotelRegistration:delete }
 
 # EVENTS
+# show the event attendance list
+event_attendance:
+    path:      /conference/{conf_id}/event/{event_id}/registration
+    defaults:  { _controller: AppBundle:EventRegistration:showAttendanceList }
 
 # show the conference (render conference page)
 event_show_all:

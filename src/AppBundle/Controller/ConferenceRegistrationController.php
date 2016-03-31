@@ -49,6 +49,30 @@ class ConferenceRegistrationController extends Controller
             'event_regs' => $eventRegistrations
         ));
     }
+	
+	/**
+     * @Route("/conference/{conf_id}/registration", name="conference_attendance")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+	public function showAttendanceListAction($conf_id)
+	{
+		// get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+
+        // get the conference
+        $conference = $helper->getConference($conf_id);
+		
+		// get all the conference registrations for that conference
+        $conferenceRegistrations = $helper->getAllConferenceRegistrations($conference->getID());
+		
+		return $this->render('conference/conference_attendance.html.twig', array(
+            'conference' => $conference,
+            'conf_regs' => $conferenceRegistrations,
+        ));
+	}
 
     /**
      * @Route("/conference/{conf_id}/register", name="conf_reg_create")

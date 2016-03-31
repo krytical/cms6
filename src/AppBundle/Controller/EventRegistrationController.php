@@ -15,10 +15,35 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Event;
 
 //use AppBundle\Form\EventRegistrationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class EventRegistrationController extends Controller
 {
+	/**
+     * @Route("/conference/{conf_id}/event/{event_id}/registration", name="event_attendance")
+     * @Security("has_role('ROLE_CONFERENCE_MANAGER')")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+	public function showAttendanceListAction($conf_id, $event_id)
+	{
+		// get the helper service and the EntityManager
+        $helper = $this->get('app.services.helper');
+        $helper->setEM($this->getDoctrine()->getEntityManager());
+		
+		// get the event
+        $event = $helper->getEvent($conf_id, $event_id);
+		
+		// get all the event registrations for that event
+		$eventRegistrations = $helper->getAllEventRegistrations($event->getID());
+		
+		return $this->render('event/event_attendance.html.twig', array(
+            'event' => $event,
+            'event_regs' => $eventRegistrations,
+        ));
+	}
+	
     /**
      * @Route("/event/{conf_id}/event/{event_id}/register", name="event_reg_create")
      */

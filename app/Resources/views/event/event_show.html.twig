@@ -35,7 +35,7 @@
 							<!-- Menu Button Options -->
 
 							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="card-menu" href="#">
-								<li class="mdl-menu__item"><a href="#">
+								<li class="mdl-menu__item"><a href="{{ path('event_attendance', {'conf_id': conf_id, 'event_id': event.id}) }}">
 									Attendance List
 								</a></li>
 								<li class="mdl-menu__item"><a href="{{ path('event_edit', {'conf_id': conf_id, 'event_id': event.id}) }}">
