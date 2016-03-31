@@ -41,7 +41,7 @@
             <header class="cms-header mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                        <span class="mdl-layout-title">Conference Management System</span>
+                        <span class="mdl-layout-title">Gobind Sarvar Conferences and Events</span>
                         <!-- Add spacer, to align navigation to the right -->
                         <div class="mdl-layout-spacer"></div>
                         <nav class="mdl-navigation mdl-layout--large-screen-only">
@@ -71,12 +71,13 @@
             <div class="cms-drawer mdl-layout__drawer">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <span class="mdl-layout-title">
+				<a id="drawerprofile" href="{{path('fos_user_profile_show') }}">
 				{% if app.user.imageName is null %}
 				<img class="drawer-image" src="{{ asset('images/user/Default.png') }}"/>
 				{% else %}
 				<img class="drawer-image" src="{{ asset('images/user/' ~ app.user.imageName) }}"/>
 				{% endif %}
-				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</span>
+				{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')}}</a></span>
                 <nav class="mdl-navigation">
 					<a class="mdl-navigation__link" href="/">Home</a>
 
@@ -97,7 +98,7 @@
                     <a class="mdl-navigation__link" href="{{ path('conf_reg_show_all') }}">Manage Conference Registrations</a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a class="mdl-navigation__link" href="{{ path('admin_user_list') }}">Manage User privileges</a>
+                        <a class="mdl-navigation__link" href="{{ path('admin_user_list') }}">Manage User Privileges</a>
                     {% endif %}
 
 

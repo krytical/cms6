@@ -39,6 +39,11 @@ General
   height: 50px;
 }
 
+#drawerprofile {
+  text-decoration: none;
+  color: #757575;
+}
+
 .alert {
   margin-bottom: 0px;
 }
@@ -355,6 +360,15 @@ Admin
 
 #table-cell {
   text-align: center;
+}
+
+/*
+Conference Show
+*/
+.profile-show-card{
+  margin-top: 36px;
+  padding: 20px 45px;
+  overflow: visible;
 }
 
 
