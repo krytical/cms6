@@ -132,8 +132,8 @@
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_delete', {'conf_reg_id': conference_reg.id}) }}">
                 Leave Conference
             </a>
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_edit', {'conf_reg_id': conference_reg.id}) }}">
-                Edit Registration
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_show', {'conf_reg_id': conference_reg.id}) }}">
+                View Registration
             </a>
         {% else %}
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ path('conf_reg_create', {'conf_id': c.id}) }}">
