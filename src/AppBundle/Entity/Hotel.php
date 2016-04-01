@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="hotel")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\HotelRepository")
+ * @Vich\Uploadable
  */
 class Hotel
 {
