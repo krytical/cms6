@@ -95,7 +95,10 @@
                         <a class="mdl-navigation__link" href="{{ path('hotel_show_all') }}">Manage Hotels</a>
                     {% endif %}
                     {% if is_granted('ROLE_BOOKINGS_MANAGER') %}
-                    <a class="mdl-navigation__link" href="{{ path('conf_reg_show_all') }}">Manage Conference Registrations</a>
+                        <a class="mdl-navigation__link" href="{{ path('conf_reg_show_all') }}">Manage Conference Registrations</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_BOOKINGS_MANAGER') %}
+                        <a class="mdl-navigation__link" href="{{ path('transportation') }}">Manage Transportation</a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="mdl-navigation__link" href="{{ path('admin_user_list') }}">Manage User Privileges</a>

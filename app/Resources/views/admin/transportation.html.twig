@@ -21,9 +21,9 @@
         <table class="mdl-data-table admin-transportation-details mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
           <thead>
             <tr>
-              <th class="mdl-data-table__cell--non-numeric">First Name</th>
-              <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+              <th class="mdl-data-table__cell--non-numeric">Name</th>
               <th class="mdl-data-table__cell--non-numeric">Conference</th>
+              <th class="mdl-data-table__cell--non-numeric">Number of Guests</th>
               <th class="mdl-data-table__cell--non-numeric">Flight Number</th>
               <th class="mdl-data-table__cell--non-numeric">Arrival Time</th>
               <th class="mdl-data-table__cell--non-numeric">Departure Time</th>
@@ -32,9 +32,9 @@
           <tbody>
             {% for cr in conference_regs if cr.arrivalDatetime is not null or cr.departureDatetime is not null %}
               <tr>
-                <td class="mdl-data-table__cell--non-numeric">{{ cr.user.firstName }}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{ cr.user.lastName }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ cr.user.firstName }} {{ cr.user.lastName }}</td>
                 <td class="mdl-data-table__cell--non-numeric"><a href="{{ path('conference_show', {'conf_id': cr.conference.id}) }}">{{ cr.conference.name }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ cr.guests }}</td>
                 <td class="mdl-data-table__cell--non-numeric">{% if cr.flightNumber is not null %} {{ cr.flightNumber }} {% else %} unknown {% endif %}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{ cr.arrivalDatetime | date("m/d/Y H:i") }}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{ cr.departureDatetime | date("m/d/Y H:i") }}</td>
