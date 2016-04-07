@@ -42,8 +42,9 @@
             <tr>
               <th id="table-cell">User Name</th>
               <th id="table-cell">First Name</th>
-              <th id="table-cell">Last Name</th>
-			  <th id="table-cell">Guests</th>
+              <th id="table-cell">Last Name
+              <th id="table-cell">Guests</th>
+			  <th id="table-cell">Needs Accommodation?</th>
               <th id="table-cell">Approved</th>
 			  <th id="table-cell">Manage</th>
             </tr>
@@ -57,6 +58,7 @@
               <td id="table-cell">{{ regs.user.firstName }}</td>
               <td id="table-cell">{{ regs.user.lastName }}</td>
 			  <td id="table-cell">{{ regs.guests }}</td>
+              <td id="table-cell">{% if regs.needsAccommodation %} yes {% else %} no {% endif %}</td>
               <td id="table-cell">
                 {% if regs.approved == 1 %}
                 <i class="material-icons mdl-list__item-icon">check</i> {% elseif regs.approved == 0 %}

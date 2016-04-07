@@ -26,6 +26,7 @@
                             <th id="table-cell">First Name</th>
                             <th id="table-cell">Last Name</th>
                             <th id="table-cell">Conference</th>
+                            <th id="table-cell">Needs Accommodation?</th>
                             <th id="table-cell">Request</th>
                             <th id="table-cell">Approved</th>
                             <th id="table-cell">Manage</th>
@@ -39,6 +40,7 @@
                                     <td id="table-cell">{{ conf_requests.user.firstName }}</td>
                                     <td id="table-cell">{{ conf_requests.user.lastName }}</td>
                                     <td id="table-cell"><a href="{{ path('conference_show', {'conf_id': conf_requests.conference.id}) }}">{{ conf_requests.conference.name }}</td>
+                                    <td id="table-cell">{% if conf_requests.needsAccommodation %} yes {% else %} no {% endif %}</td>
                                     <td id="table-cell">{{ conf_requests.additionalInfo }}</td>
                                     <td id="table-cell">
                                         {% if conf_requests.approved == 1 %}
@@ -46,33 +48,40 @@
                                             <i class="material-icons mdl-list__item-icon">close</i> {% endif %}
                                     </td>
                                     <td id="table-cell">
-                                        {% if conf_requests.approved == 0 %}
-                                                <li><a href="{{ path('conf_reg_approve', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Approve
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_show', {'conf_reg_id': conf_requests.id}) }}">
-                                                        View Registration
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Edit Registration
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Delete Registration
-                                                    </a></li>
-                                            {% else %}
-                                                <li><a href="{{ path('conf_reg_disapprove', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Revoke Approval
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_show', {'conf_reg_id': conf_requests.id}) }}">
-                                                        View Registration
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Edit Registration
-                                                    </a></li>
-                                                <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': conf_requests.id}) }}">
-                                                        Delete Registration
-                                                    </a></li>
-                                        {% endif %}
+                                        <div class="btn-group">
+                                            <button type="button" id="dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Option <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {% if conf_requests.approved == 0 %}
+                                                    <li><a href="{{ path('conf_reg_approve', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Approve
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_show', {'conf_reg_id': conf_requests.id}) }}">
+                                                            View Registration
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Edit Registration
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Delete Registration
+                                                        </a></li>
+                                                {% else %}
+                                                    <li><a href="{{ path('conf_reg_disapprove', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Revoke Approval
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_show', {'conf_reg_id': conf_requests.id}) }}">
+                                                            View Registration
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_edit', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Edit Registration
+                                                        </a></li>
+                                                    <li><a href="{{ path('conf_reg_delete', {'conf_reg_id': conf_requests.id}) }}">
+                                                            Delete Registration
+                                                        </a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                         {% endfor %}
